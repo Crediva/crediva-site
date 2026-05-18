@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="CREDIVA — Autonomous AI Factory. Building sales intelligence tools for complex B2B markets. Production-grade tools, pure Python, audit-ready, GDPR-compliant, AES-256 encrypted.">
+<meta name="keywords" content="sales intelligence, B2B lead scoring, autonomous AI, Python tools, enterprise software, government procurement, SAM.gov, FPDS">
+<meta name="author" content="CREDIVA">
+<title>CREDIVA — Autonomous AI Factory</title>
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "kern" 1, "liga" 1;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #fbfbfd;
+  color: #1d1d1f;
+  font-size: 19px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a {
+  color: #1e5a8f;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: #0d3b66;
+}
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+section {
+  min-height: 90vh;
+  padding: 140px 0 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+h1 {
+  font-size: 96px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-bottom: 32px;
+}
+h2 {
+  font-size: 64px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  margin-bottom: 32px;
+}
+h3 {
+  font-size: 48px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+p {
+  font-size: 21px;
+  color: #6e6e73;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  max-width: 65ch;
+}
+small {
+  font-size: 17px;
+  color: #8e8e93;
+  display: block;
+  line-height: 1.5;
+}
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(251, 251, 253, 0.8);
+  backdrop-filter: blur(20px);
+  padding: 16px 0;
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo img {
+  height: 40px;
+}
+.nav-links {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+}
+.nav-links a {
+  font-size: 15px;
+  color: #6e6e73;
+}
+.nav-links a:hover {
+  color: #1d1d1f;
+}
+.nav-cta a {
+  font-size: 14px;
+  color: #1e5a8f;
+}
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.grid {
+  display: grid;
+  gap: 56px;
+}
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+.principle {
+  margin-bottom: 56px;
+}
+.principle-num {
+  font-size: 17px;
+  color: #6e6e73;
+  margin-bottom: 12px;
+}
+.principle-title {
+  font-size: 28px;
+  color: #1d1d1f;
+  margin-bottom: 12px;
+}
+.principle-desc {
+  font-size: 19px;
+  color: #6e6e73;
+  max-width: 50ch;
+  line-height: 1.6;
+}
+.code-block {
+  background: #f5f5f7;
+  border-radius: 14px;
+  padding: 32px;
+  font-family: ui-monospace, "SF Mono", "Monaco", "Menlo", monospace;
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+.score-display {
+  font-size: 200px;
+  font-weight: 600;
+  color: #1d1d1f;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.score-label {
+  font-size: 64px;
+  color: #6e6e73;
+}
+.status-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #f5c518;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+footer {
+  padding: 80px 0 60px;
+  border-top: 1px solid #e5e5e5;
+}
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer-logo img {
+  height: 24px;
+}
+footer-copy {
+  font-size: 14px;
+  color: #8e8e93;
+}
+@media (max-width: 768px) {
+  h1 {
+    font-size: 48px;
+  }
+  h2 {
+    font-size: 36px;
+  }
+  h3 {
+    font-size: 28px;
+  }
+  .container {
+    padding: 0 24px;
+  }
+  section {
+    padding: 100px 0 80px;
+  }
+}
+@media (max-width: 480px) {
+  h1 {
+    font-size: 36px;
+  }
+  h2 {
+    font-size: 28px;
+  }
+  p {
+    font-size: 17px;
+  }
+}
+</style>
+</head>
+<body>
+<header>
+<nav>
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo"><img src="assets/CREDIVA.jpg" alt="CREDIVA"></a>
+    <div class="nav-links">
+      <a href="#platform">Platform</a>
+      <a href="#why">Why CREDIVA</a>
+      <a href="#contact">Contact</a>
+      <span class="nav-cta"><a href="mailto:hello@crediva.dev">Get early access</a></span>
+    </div>
+  </div>
+</nav>
+</header>
+
+<main>
+<section id="hero">
+  <div class="container fade-in">
+    <h1>Autonomous AI Factory.</h1>
+    <p>Building sales intelligence tools for complex B2B markets.</p>
+    <small style="margin-top:32px">Roadmap into government-fed and public procurement intelligence.</small>
+    <div style="margin-top:56px">
+      <a href="mailto:hello@crediva.dev">Get early access →</a>
+    </div>
+    <div style="margin-top:32px">
+      <span class="status-dot"></span>
+      <small>System online</small>
+    </div>
+  </div>
+</section>
+
+<section id="what-we-build">
+  <div class="container fade-in">
+    <h2>Tools that ship themselves.</h2>
+    <p style="max-width:55ch">Autonomous production delivers practical sales intelligence — no consultants, no dashboards that nobody opens. Every tool is pure Python, fully audited, and ready for production at enterprise scale.</p>
+    <div class="grid grid-3" style="margin-top:72px">
+      <div>
+        <h3 style="font-size:21px;margin-bottom:12px">LEAD INTELLIGENCE</h3>
+        <p style="font-size:17px;margin-bottom:0">Score, rank, and match B2B prospects automatically. Clean code, full provenance, immediate actionability for sales teams operating in complex environments.</p>
+      </div>
+      <div>
+        <h3 style="font-size:21px;margin-bottom:12px">WORKFLOW AUTOMATION</h3>
+        <p style="font-size:17px;margin-bottom:0">Generate custom dashboards and integrations on demand. Headless-first, API-native, zero-config deployment patterns for operational efficiency.</p>
+      </div>
+      <div>
+        <h3 style="font-size:21px;margin-bottom:12px">SALES ANALYTICS</h3>
+        <p style="font-size:17px;margin-bottom:0">Track pipeline signals across regulated B2B markets. Compliance-ready from day one with full audit trails for enterprise governance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="featured-tool">
+  <div class="container fade-in">
+    <small style="display:block;margin-bottom:24px">FEATURED TOOL</small>
+    <h2 style="font-size:48px">b2b_lead_scorer</h2>
+    <p style="font-size:21px;margin-bottom:32px">Production-grade lead intelligence for complex B2B markets.</p>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:48px">
+      <span class="score-display">105</span>
+      <span class="score-label">/100</span>
+    </div>
+    <p style="font-size:19px;color:#6e6e73;margin-bottom:56px">Quality score: 105 · Status: Audit-ready · Language: Pure Python · Security: AES-256 encrypted output</p>
+    <div class="code-block">
+<span style="color:#8e8e93"># Quick start in Python</span><br><br>
+from crediva import LeadScorer<br><br>
+scorer = LeadScorer()<br>
+result = scorer.evaluate(company_data)<br><br>
+<span style="color:#8e8e93"># Returns: {&quot;score&quot;: 0-105, &quot;provenance&quot;: {...}, &quot;audit_trail&quot;: [...]}</span>
+    </div>
+    <div style="margin-top:40px"><a href="#">View all tools →</a></div>
+  </div>
+</section>
+
+<section id="how-it-works">
+  <div class="container fade-in">
+    <h2>The factory runs itself.</h2>
+    <p style="font-size:28px;color:#6e6e73">Autonomous production. 24/7. No human intervention required.</p>
+    <div style="margin-top:80px">
+      <div class="principle">
+        <div class="principle-num">01 GENERATES TOOLS CONTINUOUSLY</div>
+        <div class="principle-title">Autonomous production cycle.</div>
+        <div class="principle-desc">Hermes agent produces, scores, and ships new tools every cycle. No human handoffs, no waiting for sprint approvals. Code flows from agent to production automatically.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">02 SELF-TESTS AND UPGRADES</div>
+        <div class="principle-title">Quality gates enforce standards.</div>
+        <div class="principle-desc">Each build passes through dual evaluation, automatic patching, and confidence scoring. Broken code never reaches production. Failed builds trigger immediate rollback.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-num">03 AUDIT-READY BY DESIGN</div>
+        <div class="principle-title">Compliance built into every tool.</div>
+        <div class="principle-desc">Full provenance tracking, AES-256 encryption, GDPR-compliant architecture from day one. Designed for regulated environments where data governance matters.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="trust-security">
+  <div class="container fade-in">
+    <h2>Enterprise-grade by default.</h2>
+    <p style="font-size:21px;color:#6e6e73;max-width:50ch;margin-bottom:48px">Built for organizations that need compliance, security, and reliability without compromise.</p>
+    <div class="grid grid-2" style="margin-top:48px">
+      <div>
+        <p>GDPR compliant</p>
+        <p>Full data provenance</p>
+        <p>Complete audit trail</p>
+        <p>AES-256 encryption at rest</p>
+      </div>
+      <div>
+        <p>Cloudflare-hosted</p>
+        <p>Zero third-party data sharing</p>
+        <p>Pure Python implementation</p>
+        <p>API-first architecture</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="roadmap-contact">
+  <div class="container fade-in">
+    <small style="display:block;margin-bottom:24px">WHAT'S NEXT</small>
+    <h2>From micro to macro.</h2>
+    <p style="max-width:58ch">The factory ships sales intelligence tools today. In 2026 we expand into government-fed and public procurement intelligence: SAM.gov, FPDS, EU TED, and Baza Konkurencyjności. One platform, two layers, same compliance foundation.</p>
+    <div style="margin-top:80px;margin-bottom:32px">
+      <h3 style="font-size:48px">Ready to start?</h3>
+    </div>
+    <div><a href="mailto:hello@crediva.dev" style="font-size:48px">hello@crediva.dev</a></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <a href="#" class="footer-logo"><img src="assets/CREDIVA.jpg" alt="CREDIVA"></a>
+    <div class="footer-copy">
+      © 2026 CREDIVA · Autonomous AI Factory
+    </div>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {threshold: 0.1});
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

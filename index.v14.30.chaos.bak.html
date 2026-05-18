@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="CREDIVA — Autonomous AI Factory. Building sales intelligence tools for complex B2B markets. Production-grade Python tools, audit-ready, GDPR-compliant.">
+<meta name="keywords" content="AI sales tools, B2B lead scoring, autonomous AI, Python tools, sales intelligence, autonomous factory">
+<meta name="author" content="CREDIVA">
+<meta property="og:title" content="CREDIVA — Autonomous AI Factory">
+<meta property="og:description" content="Building sales intelligence tools for complex B2B markets.">
+<meta property="og:url" content="https://crediva.dev">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://crediva.dev">
+<link rel="icon" type="image/jpeg" href="assets/CREDIVA.jpg">
+<title>CREDIVA — Autonomous AI Factory</title>
+<style>
+:root {
+  --bg-base: #fafbff;
+  --bg-soft: #f0f4ff;
+  --bg-card: #ffffff;
+  --bg-dark: #0a0e1a;
+  --text-primary: #0a0e1a;
+  --text-secondary: #5a6478;
+  --text-tertiary: #8a93a6;
+  --accent: #1e5a8f;
+  --accent-hover: #144469;
+  --accent-light: #4a8cc7;
+  --teal: #7dd3c0;
+  --gradient-primary: linear-gradient(135deg, #1e5a8f 0%, #4a8cc7 100%);
+  --gradient-soft: linear-gradient(135deg, #a8c8ff 0%, #7dd3c0 100%);
+  --gradient-bg: linear-gradient(180deg, #fafbff 0%, #eef2ff 50%, #e8edff 100%);
+  --status-yellow: #f5c518;
+  --border: rgba(30, 90, 143, 0.08);
+  --shadow-sm: 0 1px 3px rgba(10, 14, 26, 0.04);
+  --shadow-md: 0 10px 40px rgba(30, 90, 143, 0.08), 0 2px 8px rgba(30, 90, 143, 0.04);
+  --shadow-lg: 0 20px 60px rgba(30, 90, 143, 0.12), 0 4px 16px rgba(30, 90, 143, 0.06);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --max-w: 1200px;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-size: 17px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+section {
+  padding: 120px 0;
+  position: relative;
+}
+
+h1, h2, h3, h4 {
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: clamp(48px, 6vw, 76px);
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-size: clamp(36px, 4.5vw, 52px);
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+p {
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(30, 90, 143, 0.08);
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─────────── NAV ─────────── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(250, 251, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+nav.scrolled {
+  background: rgba(250, 251, 255, 0.92);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-brand img {
+  height: 32px;
+  width: auto;
+}
+
+.nav-brand-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.nav-links a {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.nav-links a:hover {
+  color: var(--text-primary);
+}
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  background: var(--gradient-primary);
+  color: white !important;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.nav-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(30, 90, 143, 0.25);
+  color: white !important;
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+}
+
+/* ─────────── HERO ─────────── */
+#hero {
+  padding: 180px 0 100px;
+  background: var(--gradient-bg);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+#hero::before {
+  content: "";
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(125, 211, 192, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+#hero::after {
+  content: "";
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(74, 140, 199, 0.12) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  backdrop-filter: blur(10px);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--status-yellow);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.15);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.15); }
+  50% { box-shadow: 0 0 0 8px rgba(245, 197, 24, 0.05); }
+}
+
+.hero-title {
+  font-size: clamp(48px, 6.5vw, 80px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 24px;
+}
+
+.hero-title .gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(18px, 1.6vw, 22px);
+  color: var(--text-secondary);
+  max-width: 620px;
+  margin: 0 auto 16px;
+  line-height: 1.5;
+}
+
+.hero-tertiary {
+  font-size: 15px;
+  color: var(--text-tertiary);
+  margin-bottom: 40px;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 30px;
+  background: var(--gradient-primary);
+  color: white !important;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(30, 90, 143, 0.3);
+  color: white !important;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 30px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.hero-trust {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.04em;
+}
+
+/* ─────────── HERO MOCKUP ─────────── */
+.hero-mockup-wrap {
+  position: relative;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hero-mockup {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding: 32px;
+  border: 1px solid var(--border);
+  position: relative;
+  z-index: 2;
+}
+
+.mockup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.mockup-title {
+  font-family: "SF Mono", Monaco, Consolas, monospace;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.mockup-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--teal);
+  background: rgba(125, 211, 192, 0.12);
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+
+.mockup-live::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--teal);
+  border-radius: 50%;
+}
+
+.mockup-meta {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin-bottom: 20px;
+}
+
+.mockup-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(30, 90, 143, 0.04);
+}
+
+.mockup-row:last-child {
+  border-bottom: none;
+}
+
+.mockup-row-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  width: 140px;
+  text-align: left;
+}
+
+.mockup-row-bar {
+  flex: 1;
+  height: 8px;
+  background: #eef2ff;
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.mockup-row-fill {
+  height: 100%;
+  background: var(--gradient-primary);
+  border-radius: 100px;
+}
+
+.mockup-row-score {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  width: 60px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.float-card {
+  position: absolute;
+  background: white;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+  font-size: 13px;
+  z-index: 3;
+}
+
+.float-card-1 {
+  top: -20px;
+  left: -40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.float-card-2 {
+  bottom: -20px;
+  right: -30px;
+}
+
+.float-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--gradient-soft);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .float-card-1, .float-card-2 { display: none; }
+}
+
+/* ─────────── METRICS ─────────── */
+#metrics {
+  padding: 80px 0;
+  background: var(--bg-card);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.metric-card {
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  text-align: left;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.metric-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--gradient-primary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+}
+
+.metric-value {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* ─────────── PLATFORM ─────────── */
+#platform {
+  background: var(--bg-base);
+  text-align: center;
+}
+
+.section-header {
+  max-width: 720px;
+  margin: 0 auto 64px;
+}
+
+.section-header p {
+  font-size: 19px;
+  color: var(--text-secondary);
+}
+
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.platform-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  text-align: left;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.platform-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.platform-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+
+.platform-card:hover::before {
+  opacity: 1;
+}
+
+.platform-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--gradient-primary);
+  margin-bottom: 24px;
+}
+
+.platform-card:nth-child(2) .platform-icon {
+  background: linear-gradient(135deg, #4a8cc7 0%, #7dd3c0 100%);
+}
+
+.platform-card:nth-child(3) .platform-icon {
+  background: linear-gradient(135deg, #7dd3c0 0%, #a8c8ff 100%);
+}
+
+.platform-card h3 {
+  margin-bottom: 12px;
+}
+
+.platform-card p {
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.platform-card-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.platform-card-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  width: 100%;
+}
+
+/* ─────────── HOW IT WORKS ─────────── */
+#how {
+  background: linear-gradient(180deg, var(--bg-base) 0%, #eef2ff 100%);
+  text-align: center;
+}
+
+.principles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.principle {
+  position: relative;
+}
+
+.principle-num {
+  font-size: 64px;
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 16px;
+  letter-spacing: -0.04em;
+}
+
+.principle h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.principle p {
+  font-size: 16px;
+}
+
+/* ─────────── TRUST ─────────── */
+#trust {
+  background: var(--bg-card);
+  text-align: center;
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.trust-card {
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+}
+
+.trust-card h4 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.trust-list {
+  list-style: none;
+}
+
+.trust-list li {
+  font-size: 15px;
+  color: var(--text-primary);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.trust-list li:last-child {
+  border-bottom: none;
+}
+
+.trust-list li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ─────────── ROADMAP ─────────── */
+#roadmap {
+  background: linear-gradient(180deg, var(--bg-card) 0%, #eef2ff 100%);
+  text-align: center;
+}
+
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 920px;
+  margin: 0 auto 64px;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .roadmap-grid { grid-template-columns: 1fr; }
+}
+
+.roadmap-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  position: relative;
+}
+
+.roadmap-stage {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.roadmap-card h3 {
+  margin-bottom: 16px;
+}
+
+.roadmap-card p {
+  font-size: 15px;
+}
+
+.roadmap-timeline {
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.roadmap-timeline-bar {
+  height: 4px;
+  background: var(--gradient-primary);
+  border-radius: 100px;
+  position: relative;
+  margin: 20px 0;
+}
+
+.roadmap-timeline-bar::before,
+.roadmap-timeline-bar::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background: white;
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+}
+
+.roadmap-timeline-bar::before { left: 0; }
+.roadmap-timeline-bar::after { right: 0; background: var(--teal); border-color: var(--teal); }
+
+.roadmap-timeline-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* ─────────── CONTACT ─────────── */
+#contact {
+  background: var(--gradient-bg);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+#contact::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(125, 211, 192, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.contact-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.contact-inner h2 {
+  font-size: clamp(40px, 5vw, 64px);
+  margin-bottom: 20px;
+}
+
+.contact-inner p {
+  font-size: 19px;
+  margin-bottom: 48px;
+}
+
+.contact-email {
+  display: inline-block;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.contact-note {
+  font-size: 14px;
+  color: var(--text-tertiary);
+}
+
+/* ─────────── FOOTER ─────────── */
+footer {
+  background: var(--bg-dark);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 80px 0 40px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 56px;
+  margin-bottom: 56px;
+}
+
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.footer-brand img {
+  height: 28px;
+  background: white;
+  border-radius: 6px;
+  padding: 3px;
+}
+
+.footer-brand-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+}
+
+.footer-tagline {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  max-width: 260px;
+}
+
+.footer-location {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-col-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col li {
+  margin-bottom: 12px;
+}
+
+.footer-col a {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.2s;
+}
+
+.footer-col a:hover {
+  color: white;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ─────────── RESPONSIVE ─────────── */
+@media (max-width: 768px) {
+  section { padding: 80px 0; }
+  #hero { padding: 140px 0 80px; }
+  .container { padding: 0 24px; }
+  .hero-ctas { flex-direction: column; align-items: stretch; }
+  .btn-primary, .btn-secondary { justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 38px; }
+  h2 { font-size: 30px; }
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="nav-brand">
+      <img src="assets/CREDIVA.jpg" alt="CREDIVA">
+      <span class="nav-brand-name">CREDIVA</span>
+    </a>
+    <div class="nav-links">
+      <a href="#platform">Platform</a>
+      <a href="#how">Why CREDIVA</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="mailto:hello@crediva.dev" class="nav-cta">Get early access</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ════════ HERO ════════ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-content fade-in">
+      <div class="hero-badge">
+        <span class="status-dot"></span>
+        <span>System online · Updated daily · Quality 105/100</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="gradient">Autonomous AI Factory</span><br>
+        for sales intelligence.
+      </h1>
+      <p class="hero-sub">
+        Production-grade Python tools, built and shipped by an autonomous agent. 
+        Zero human bottlenecks. Full provenance. GDPR-native from day one.
+      </p>
+      <p class="hero-tertiary">
+        Roadmap into government-fed and public procurement intelligence — 2026.
+      </p>
+      <div class="hero-ctas">
+        <a href="mailto:hello@crediva.dev" class="btn-primary">
+          Get early access →
+        </a>
+        <a href="#platform" class="btn-secondary">
+          View platform
+        </a>
+      </div>
+      <div class="hero-trust">
+        GDPR · AES-256 · Audit-ready · Pure Python
+      </div>
+    </div>
+
+    <div class="hero-mockup-wrap fade-in" style="margin-top: 80px;">
+      <div class="float-card float-card-1">
+        <div class="float-icon">⚡</div>
+        <div>
+          <div style="font-weight: 600; color: var(--text-primary);">Tool shipped</div>
+          <div style="font-size: 11px; color: var(--text-tertiary);">2 hours ago</div>
+        </div>
+      </div>
+      <div class="float-card float-card-2">
+        <div style="font-weight: 600; color: var(--text-primary);">+12 leads scored</div>
+        <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 2px;">Avg score: 78/100</div>
+      </div>
+      <div class="hero-mockup">
+        <div class="mockup-header">
+          <span class="mockup-title">b2b_lead_scorer.py</span>
+          <span class="mockup-live">LIVE</span>
+        </div>
+        <div class="mockup-meta">
+          Quality 105/100 · Audit-ready · Last run: 2 hours ago
+        </div>
+        <div class="mockup-row">
+          <span class="mockup-row-name">Acme Corp</span>
+          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 92%;"></div></div>
+          <span class="mockup-row-score">92/100</span>
+        </div>
+        <div class="mockup-row">
+          <span class="mockup-row-name">Beta Industries</span>
+          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 78%;"></div></div>
+          <span class="mockup-row-score">78/100</span>
+        </div>
+        <div class="mockup-row">
+          <span class="mockup-row-name">Gamma LLC</span>
+          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 65%;"></div></div>
+          <span class="mockup-row-score">65/100</span>
+        </div>
+        <div class="mockup-row">
+          <span class="mockup-row-name">Delta Systems</span>
+          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 51%;"></div></div>
+          <span class="mockup-row-score">51/100</span>
+        </div>
+        <div class="mockup-row">
+          <span class="mockup-row-name">Epsilon Co.</span>
+          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 44%;"></div></div>
+          <span class="mockup-row-score">44/100</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ METRICS ════════ -->
+<section id="metrics">
+  <div class="container">
+    <div class="metrics-grid fade-in">
+      <div class="metric-card">
+        <div class="metric-icon">⚡</div>
+        <div class="metric-value">50+</div>
+        <div class="metric-label">Tools generated autonomously</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">★</div>
+        <div class="metric-value">105/100</div>
+        <div class="metric-label">Average quality score</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">∞</div>
+        <div class="metric-value">24/7</div>
+        <div class="metric-label">Production cycles, no downtime</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">✓</div>
+        <div class="metric-value">100%</div>
+        <div class="metric-label">Audit-ready outputs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ PLATFORM ════════ -->
+<section id="platform">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="label">Platform</span>
+      <h2>Tools that ship themselves.</h2>
+      <p>
+        Production-grade Python tools, built and tested by an autonomous agent. 
+        Deploy in minutes. Trust from day one.
+      </p>
+    </div>
+    <div class="platform-grid fade-in">
+      <div class="platform-card">
+        <div class="platform-icon"></div>
+        <h3>Lead Intelligence</h3>
+        <p>
+          Score, rank, and prioritize B2B prospects with explainable AI. 
+          Clean CSV input, structured output, full provenance for every decision.
+        </p>
+        <a href="mailto:hello@crediva.dev" class="platform-card-link">
+          See b2b_lead_scorer →
+        </a>
+        <div class="platform-card-tag">Available now · $149/mo</div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon"></div>
+        <h3>Workflow Automation</h3>
+        <p>
+          Generate custom dashboards and integrations on demand. 
+          API-first architecture, zero-config deployment, output to your stack.
+        </p>
+        <a href="mailto:hello@crediva.dev" class="platform-card-link">
+          See workflowdashboard →
+        </a>
+        <div class="platform-card-tag">Early access · 2026</div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon"></div>
+        <h3>Sales Analytics</h3>
+        <p>
+          Track pipeline signals and conversion patterns in real time. 
+          Built for regulated markets with full audit trail capability.
+        </p>
+        <a href="mailto:hello@crediva.dev" class="platform-card-link">
+          See lead_analyzer →
+        </a>
+        <div class="platform-card-tag">Included in early access</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ HOW IT WORKS ════════ -->
+<section id="how">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="label">Autonomous</span>
+      <h2>The factory runs itself.</h2>
+      <p>
+        24/7 production. Zero manual overhead. No human handoffs between agent and shipped tool.
+      </p>
+    </div>
+    <div class="principles-grid fade-in">
+      <div class="principle">
+        <div class="principle-num">01</div>
+        <h3>Generates continuously</h3>
+        <p>
+          Hermes agent produces new tools every cycle. Code flows from agent 
+          to production automatically, validated at each step.
+        </p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">02</div>
+        <h3>Self-tests, self-upgrades</h3>
+        <p>
+          Quality gates and confidence scoring built in. Failed builds trigger 
+          immediate rollback with detailed diagnostics for the next cycle.
+        </p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">03</div>
+        <h3>Audit-ready by design</h3>
+        <p>
+          Full provenance tracking, AES-256 encryption, GDPR-native architecture 
+          from day one. Compliance without compromise.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ TRUST ════════ -->
+<section id="trust">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="label">Enterprise-ready</span>
+      <h2>Compliance built in.</h2>
+      <p>
+        Every layer of CREDIVA is designed for regulated environments. 
+        No retrofitting required.
+      </p>
+    </div>
+    <div class="trust-grid fade-in">
+      <div class="trust-card">
+        <h4>Data Security</h4>
+        <ul class="trust-list">
+          <li>GDPR compliant by architecture</li>
+          <li>Full data provenance tracking</li>
+          <li>AES-256 encryption at rest</li>
+          <li>Complete audit trail per operation</li>
+          <li>Role-based access control ready</li>
+        </ul>
+      </div>
+      <div class="trust-card">
+        <h4>Infrastructure</h4>
+        <ul class="trust-list">
+          <li>Cloudflare-hosted globally</li>
+          <li>Zero third-party data sharing</li>
+          <li>Per-client data isolation</li>
+          <li>SOC 2 Type II roadmap 2026</li>
+          <li>Pure Python — zero dependencies</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ROADMAP ════════ -->
+<section id="roadmap">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="label">What's next</span>
+      <h2>From micro to macro.</h2>
+      <p>
+        Sales intelligence today. Government-fed and public procurement intelligence tomorrow.
+      </p>
+    </div>
+    <div class="roadmap-grid fade-in">
+      <div class="roadmap-card">
+        <div class="roadmap-stage">Today — Sales Intelligence</div>
+        <h3>B2B markets, shipping now.</h3>
+        <p>
+          CREDIVA ships sales intelligence tools for B2B markets. The autonomous 
+          factory produces new tools every cycle. Each tool is production-grade, 
+          fully tested, and audit-ready.
+        </p>
+      </div>
+      <div class="roadmap-card">
+        <div class="roadmap-stage">2026 — Government-Fed</div>
+        <h3>Public procurement intelligence.</h3>
+        <p>
+          Expanding into government-fed and public procurement data: 
+          SAM.gov, FPDS-NG, EU TED, and Baza Konkurencyjności. 
+          One platform, two layers, same compliance foundation.
+        </p>
+      </div>
+    </div>
+    <div class="roadmap-timeline fade-in">
+      <div class="roadmap-timeline-bar"></div>
+      <div class="roadmap-timeline-labels">
+        <span>NOW</span>
+        <span>2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CONTACT ════════ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner fade-in">
+      <span class="label">Get in touch</span>
+      <h2>Ready to start?</h2>
+      <p>
+        Early access for the first 50 organizations. Priority for B2B teams 
+        in regulated industries.
+      </p>
+      <a href="mailto:hello@crediva.dev" class="contact-email">
+        hello@crediva.dev
+      </a>
+      <div class="contact-note">
+        We reply within 24 hours.
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="assets/CREDIVA.jpg" alt="CREDIVA">
+          <span class="footer-brand-name">CREDIVA</span>
+        </div>
+        <p class="footer-tagline">
+          Autonomous AI Factory building sales intelligence tools differently.
+        </p>
+        <p class="footer-location">Built in Warsaw, Poland</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Platform</div>
+        <ul>
+          <li><a href="mailto:hello@crediva.dev">b2b_lead_scorer</a></li>
+          <li><a href="mailto:hello@crediva.dev">workflowdashboard</a></li>
+          <li><a href="mailto:hello@crediva.dev">lead_analyzer</a></li>
+          <li><a href="mailto:hello@crediva.dev">Pricing (soon)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <ul>
+          <li><a href="#how">Why CREDIVA</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+          <li><a href="mailto:hello@crediva.dev">Contact</a></li>
+          <li><a href="mailto:hello@crediva.dev">Blog (soon)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Legal</div>
+        <ul>
+          <li><a href="mailto:hello@crediva.dev?subject=Privacy">Privacy</a></li>
+          <li><a href="mailto:hello@crediva.dev?subject=Terms">Terms</a></li>
+          <li><a href="mailto:hello@crediva.dev?subject=GDPR">GDPR</a></li>
+          <li><a href="mailto:hello@crediva.dev?subject=Security">Security</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 CREDIVA · Autonomous AI Factory</div>
+      <div>crediva.dev · hello@crediva.dev</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 30);
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+setTimeout(() => {
+  document.querySelectorAll('#hero .fade-in').forEach(el => el.classList.add('visible'));
+}, 100);
+</script>
+
+</body>
+</html>

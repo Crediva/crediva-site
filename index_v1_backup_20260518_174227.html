@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2B Lead Scorer — CREDIVA</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0f1a;
+            color: #e6e6e6;
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 60px 0 40px; }
+        h1 { font-size: 2.8rem; color: #00d4ff; margin-bottom: 20px; }
+        .cta { display: inline-block; background: #00d4ff; color: #0a0f1a; padding: 15px 40px; border-radius: 30px; text-decoration: none; font-weight: bold; margin-top: 20px; }
+        section { padding: 50px 0; border-top: 1px solid #1a2332; }
+        h2 { font-size: 2rem; color: #fff; margin-bottom: 30px; text-align: center; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: #131a26; padding: 25px; border-radius: 10px; border-left: 3px solid #00d4ff; }
+        .card h3 { color: #00d4ff; margin-bottom: 10px; }
+        .steps { display: flex; justify-content: space-between; flex-wrap: wrap; margin-top: 30px; }
+        .step { flex: 1; min-width: 200px; text-align: center; padding: 20px; }
+        .step-num { width: 40px; height: 40px; background: #00d4ff; color: #0a0f1a; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 15px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #1a2332; }
+        th { background: #131a26; color: #00d4ff; }
+        tr:hover { background: #131a26; }
+        .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .price-card { background: #131a26; padding: 30px; border-radius: 10px; text-align: center; }
+        .price { font-size: 2.5rem; color: #00d4ff; margin: 20px 0; }
+        .price-card ul { list-style: none; padding: 20px 0; }
+        .price-card li { padding: 8px 0; }
+        footer { text-align: center; padding: 40px 0; color: #666; border-top: 1px solid #1a2332; margin-top: 50px; }
+        .highlight { color: #00d4ff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Score Your B2B Leads in 30 Seconds</h1>
+            <p style="font-size: 1.2rem; color: #888;">AI-powered lead validation for B2B SaaS companies</p>
+            <a href="mailto:hello@crediva.dev" class="cta">Get Started — Contact Us</a>
+        </header>
+
+        <section>
+            <h2>The Problem</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>Wasting Time on Bad Leads</h3>
+                    <p>Your sales team spends hours chasing prospects who will never buy. No clear signal on which leads are worth pursuing.</p>
+                </div>
+                <div class="card">
+                    <h3>No B2B Fit Validation</h3>
+                    <p>You're targeting everyone, but only specific company profiles convert. Without proper ICP scoring, you're flying blind.</p>
+                </div>
+                <div class="card">
+                    <h3>Missed Revenue Opportunities</h3>
+                    <p>High-intent prospects slip through because you can't identify buying signals early in the funnel.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Our Solution</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <h4>Upload Your Leads</h4>
+                    <p>CSV or API — we accept your lead lists</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <h4>Get Instant Scores</h4>
+                    <p>1-10 score per lead with B2B fit reasoning</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <h4>Close More Deals</h4>
+                    <p>Focus on high-scoring leads, improve conversion by 3x</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Demo Results</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Score</th>
+                        <th>Reasons</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SaaSCo Inc</td>
+                        <td><span class="highlight">9/10</span></td>
+                        <td>B2B, 150 employees, $2M ARR, clear ICP match</td>
+                    </tr>
+                    <tr>
+                        <td>StartupXYZ</td>
+                        <td><span class="highlight">6/10</span></td>
+                        <td>B2B potential but early stage, 15 employees</td>
+                    </tr>
+                    <tr>
+                        <td>Consulting LLC</td>
+                        <td><span class="highlight">3/10</span></td>
+                        <td>Wrong industry, small team, no budget signals</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Pricing</h2>
+            <div class="pricing">
+                <div class="price-card">
+                    <h3>Starter</h3>
+                    <div class="price">$49/mo</div>
+                    <ul>
+                        <li>500 lead scores/month</li>
+                        <li>API access</li>
+                        <li>Email support</li>
+                    </ul>
+                </div>
+                <div class="price-card">
+                    <h3>Professional</h3>
+                    <div class="price">$149/mo</div>
+                    <ul>
+                        <li>2,500 lead scores/month</li>
+                        <li>Priority API</li>
+                        <li>Slack support</li>
+                    </ul>
+                </div>
+                <div class="price-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">$399/mo</div>
+                    <ul>
+                        <li>Unlimited scores</li>
+                        <li>Dedicated infrastructure</li>
+                        <li>24/7 phone support</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Security & Compliance</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>AES-256 Encryption</h3>
+                    <p>All data encrypted at rest and in transit using military-grade encryption.</p>
+                </div>
+                <div class="card">
+                    <h3>GDPR Compliant</h3>
+                    <p>Full GDPR compliance with data processing agreements available.</p>
+                </div>
+                <div class="card">
+                    <h3>No Tracking</h3>
+                    <p>We don't track your usage or sell your data. Your leads stay yours.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>CREDIVA B2B Lead Scorer</p>
+            <p><a href="mailto:hello@crediva.dev" style="color: #00d4ff;">hello@crediva.dev</a></p>
+        </footer>
+    </div>
+</body>
+</html>
