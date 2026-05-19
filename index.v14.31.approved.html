@@ -3,13 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
-  <meta name="description" content="CREDIVA — Autonomous AI Factory 
-for B2B sales intelligence. Production-grade Python tools built and 
-shipped by AI agents. Audit-ready, GDPR-native, no vendor lock-in.">
-  <meta name="keywords" content="AI sales tools, B2B lead scoring, autonomous AI agents, Python tools, sales intelligence platform, GDPR compliant SaaS, audit-ready tools, sales automation, B2B intelligence">
+<meta name="description" content="CREDIVA — Autonomous AI Factory. Building sales intelligence tools for complex B2B markets. Production-grade Python tools, audit-ready, GDPR-compliant.">
+<meta name="keywords" content="AI sales tools, B2B lead scoring, autonomous AI, Python tools, sales intelligence, autonomous factory">
 <meta name="author" content="CREDIVA">
 <meta property="og:title" content="CREDIVA — Autonomous AI Factory">
 <meta property="og:description" content="Building sales intelligence tools for complex B2B markets.">
@@ -65,7 +60,7 @@ html {
 }
 
 body {
-  font-family: "Geist", -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   background: var(--bg-base);
   color: var(--text-primary);
   font-size: 17px;
@@ -194,28 +189,11 @@ nav.scrolled {
   width: auto;
 }
 
-@keyframes gradientFlux {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes shine {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
-}
-
 .nav-brand-name {
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.02em;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  background-size: 200% 200%;
-  animation: gradientFlux 6s ease infinite;
 }
 
 .nav-links {
@@ -245,8 +223,6 @@ nav.scrolled {
   font-size: 14px;
   font-weight: 600;
   transition: transform 0.2s, box-shadow 0.2s;
-  background-size: 200% 200%;
-  animation: gradientFlux 5s ease infinite, shine 3.2s linear infinite;
 }
 
 .nav-cta:hover {
@@ -437,7 +413,7 @@ nav.scrolled {
 }
 
 .mockup-title {
-  font-family: "JetBrains Mono", "SF Mono", Monaco, Consolas, monospace;
+  font-family: "SF Mono", Monaco, Consolas, monospace;
   font-size: 15px;
   font-weight: 600;
   color: var(--text-primary);
@@ -1040,84 +1016,14 @@ footer {
 @media (max-width: 768px) {
   section { padding: 80px 0; }
   #hero { padding: 140px 0 80px; }
-  .container { padding: 0 20px; }
-  
-  .nav-inner {
-    padding: 14px 0;
-  }
-  .nav-cta {
-    padding: 9px 18px;
-    font-size: 13px;
-    min-height: 36px;
-    display: inline-flex;
-    align-items: center;
-  }
-  .nav-brand-name {
-    font-size: 18px;
-  }
-  
+  .container { padding: 0 24px; }
   .hero-ctas { flex-direction: column; align-items: stretch; }
   .btn-primary, .btn-secondary { justify-content: center; }
-}
-
-@keyframes shine {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
-}
-
-@keyframes shine-reverse {
-  0% { transform: translateX(200%); }
-  100% { transform: translateX(-100%); }
-}
-
-.shine-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  transform: translateX(-100%);
-  animation: shine 2.5s infinite;
-  pointer-events: none;
-}
-
-.contact-email.shine-trigger {
-  position: relative;
-  overflow: hidden;
-}
-
-.contact-email.shine-trigger:hover .shine-overlay {
-  animation: shine-reverse 1.5s ease-in-out;
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-  nav {
-    padding-left: 32px;
-    padding-right: 32px;
-    padding-top: 20px;
-  }
-  #hero {
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 80px;
-  }
-  .nav-brand-name {
-    padding-left: 8px;
-  }
 }
 
 @media (max-width: 480px) {
   h1 { font-size: 38px; }
   h2 { font-size: 30px; }
-  .container { padding: 0 16px; }
-  .nav-cta {
-    padding: 7px 14px;
-    font-size: 12px;
-  }
-  .nav-brand-name {
-    font-size: 17px;
-  }
 }
 </style>
 </head>
@@ -1126,6 +1032,7 @@ footer {
 <nav id="navbar" role="navigation" aria-label="Main navigation">
   <div class="container nav-inner">
     <a href="#" class="nav-brand">
+      <img src="assets/CREDIVA.jpg" alt="CREDIVA">
       <span class="nav-brand-name">CREDIVA</span>
     </a>
     <div class="nav-links">
@@ -1146,7 +1053,7 @@ footer {
     <div class="hero-content fade-in">
       <div class="hero-badge">
         <span class="status-dot"></span>
-        <span>Early access — waitlist open · Launching Q1 2026</span>
+        <span>System online · Updated daily · Quality 105/100</span>
       </div>
       <h1 class="hero-title">
         <span class="gradient">Autonomous AI Factory</span><br>
@@ -1157,7 +1064,7 @@ footer {
         Zero human bottlenecks. Full provenance. GDPR-native from day one.
       </p>
       <p class="hero-tertiary">
-        Roadmap into modular B2B intelligence platform — 2026.
+        Roadmap into government-fed and public procurement intelligence — 2026.
       </p>
       <div class="hero-ctas">
         <a href="mailto:hello@crediva.dev" class="btn-primary">
@@ -1272,7 +1179,7 @@ footer {
         <a href="mailto:hello@crediva.dev" class="platform-card-link">
           See b2b_lead_scorer →
         </a>
-        <div class="platform-card-tag">Join waitlist · Q1 2026</div>
+        <div class="platform-card-tag">Available now · $149/mo</div>
       </div>
       <div class="platform-card">
         <div class="platform-icon"></div>
@@ -1284,7 +1191,7 @@ footer {
         <a href="mailto:hello@crediva.dev" class="platform-card-link">
           See workflowdashboard →
         </a>
-        <div class="platform-card-tag">Join waitlist · Q1 2026</div>
+        <div class="platform-card-tag">Early access · 2026</div>
       </div>
       <div class="platform-card">
         <div class="platform-icon"></div>
@@ -1296,7 +1203,7 @@ footer {
         <a href="mailto:hello@crediva.dev" class="platform-card-link">
           See lead_analyzer →
         </a>
-        <div class="platform-card-tag">Join waitlist · Q1 2026</div>
+        <div class="platform-card-tag">Included in early access</div>
       </div>
     </div>
   </div>
@@ -1307,17 +1214,17 @@ footer {
   <div class="container">
     <div class="section-header fade-in">
       <span class="label">Autonomous</span>
-      <h2>The system operates independently.</h2>
+      <h2>The factory runs itself.</h2>
       <p>
-        24/7 production. Zero manual overhead. Automated quality gates ensure reliability.
+        24/7 production. Zero manual overhead. No human handoffs between agent and shipped tool.
       </p>
     </div>
     <div class="principles-grid fade-in">
       <div class="principle">
         <div class="principle-num">01</div>
-        <h3>Continuous generation</h3>
+        <h3>Generates continuously</h3>
         <p>
-          New AI tools ship continuously — tested, documented, ready to deploy. 
+          Hermes agent produces new tools every cycle. Code flows from agent 
           to production automatically, validated at each step.
         </p>
       </div>
@@ -1380,38 +1287,39 @@ footer {
 <!-- ════════ ROADMAP ════════ -->
 <section id="roadmap">
   <div class="container">
+    <div class="section-header fade-in">
+      <span class="label">What's next</span>
+      <h2>From micro to macro.</h2>
+      <p>
+        Sales intelligence today. Government-fed and public procurement intelligence tomorrow.
+      </p>
+    </div>
     <div class="roadmap-grid fade-in">
       <div class="roadmap-card">
         <div class="roadmap-stage">Today — Sales Intelligence</div>
         <h3>B2B markets, shipping now.</h3>
         <p>
           CREDIVA ships sales intelligence tools for B2B markets. The autonomous 
-          system produces new tools continuously. Each tool is production-grade, 
+          factory produces new tools every cycle. Each tool is production-grade, 
           fully tested, and audit-ready.
         </p>
       </div>
       <div class="roadmap-card">
-        <div class="roadmap-stage">2026 — Modular Platform</div>
-        <h3>From tools to intelligence platform.</h3>
+        <div class="roadmap-stage">2026 — Government-Fed</div>
+        <h3>Public procurement intelligence.</h3>
         <p>
-          Expanding from individual tools to a modular intelligence platform: 
-          mix-and-match modules, cross-CRM integration, white-label deployment 
-          for agencies, and enterprise-ready security. One platform, 
-          many use cases — for solo founders, growing teams, and enterprises.
+          Expanding into government-fed and public procurement data: 
+          SAM.gov, FPDS-NG, EU TED, and Baza Konkurencyjności. 
+          One platform, two layers, same compliance foundation.
         </p>
       </div>
     </div>
     <div class="roadmap-timeline fade-in">
       <div class="roadmap-timeline-bar"></div>
       <div class="roadmap-timeline-labels">
-        <span>TOOLS</span>
-        <span>PLATFORM</span>
+        <span>NOW</span>
+        <span>2026</span>
       </div>
-    </div>
-    <div class="section-header fade-in">
-      <p>
-        Sales intelligence today. A modular B2B platform coming 2026.
-      </p>
     </div>
   </div>
 </section>
@@ -1421,14 +1329,13 @@ footer {
   <div class="container">
     <div class="contact-inner fade-in">
       <span class="label">Get in touch</span>
-      <h2>Join the waitlist.</h2>
+      <h2>Ready to start?</h2>
       <p>
-        Be among the first 50 organizations to get access when we launch. Priority for B2B teams 
+        Early access for the first 50 organizations. Priority for B2B teams 
         in regulated industries.
       </p>
-      <a href="mailto:hello@crediva.dev" class="contact-email shine-trigger">
+      <a href="mailto:hello@crediva.dev" class="contact-email">
         hello@crediva.dev
-        <span class="shine-overlay"></span>
       </a>
       <div class="contact-note">
         We reply within 24 hours.
@@ -1444,7 +1351,7 @@ footer {
     <div class="footer-grid">
       <div>
         <div class="footer-brand">
-          <img src="assets/CREDIVA_logo_v2.png" alt="CREDIVA">
+          <img src="assets/CREDIVA.jpg" alt="CREDIVA">
           <span class="footer-brand-name">CREDIVA</span>
         </div>
         <p class="footer-tagline">

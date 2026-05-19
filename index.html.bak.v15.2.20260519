@@ -194,19 +194,8 @@ nav.scrolled {
   width: auto;
 }
 
-@keyframes gradientFlux {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes shine {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
-}
-
 .nav-brand-name {
-  font-size: 19px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.02em;
@@ -214,8 +203,6 @@ nav.scrolled {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  background-size: 200% 200%;
-  animation: gradientFlux 6s ease infinite;
 }
 
 .nav-links {
@@ -245,8 +232,6 @@ nav.scrolled {
   font-size: 14px;
   font-weight: 600;
   transition: transform 0.2s, box-shadow 0.2s;
-  background-size: 200% 200%;
-  animation: gradientFlux 5s ease infinite, shine 3.2s linear infinite;
 }
 
 .nav-cta:hover {
@@ -1317,7 +1302,7 @@ footer {
         <div class="principle-num">01</div>
         <h3>Continuous generation</h3>
         <p>
-          New AI tools ship continuously — tested, documented, ready to deploy. 
+          Hermes agent produces new tools every cycle. Code flows from agent 
           to production automatically, validated at each step.
         </p>
       </div>
@@ -1444,7 +1429,7 @@ footer {
     <div class="footer-grid">
       <div>
         <div class="footer-brand">
-          <img src="assets/CREDIVA_logo_v2.png" alt="CREDIVA">
+          <img src="assets/CREDIVA.jpg" alt="CREDIVA">
           <span class="footer-brand-name">CREDIVA</span>
         </div>
         <p class="footer-tagline">
