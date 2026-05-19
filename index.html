@@ -198,9 +198,9 @@ nav.scrolled {
 
 .nav-brand-name {
   font-family: 'SpaceAge', 'Orbitron', 'Geist', sans-serif;
-  font-size: 20px;
+  font-size: 2.75rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.1em;
   background: var(--gradient-primary);
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -1195,6 +1195,183 @@ footer {
   animation: gradient-shimmer 4s linear infinite;
 }
 
+/* ─────────── ANIMATED BAR FILL ─────────── */
+.mockup-row-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #4f46e5 0%,
+    #06b6d4 25%,
+    #4f46e5 50%,
+    #06b6d4 75%,
+    #4f46e5 100%
+  ) !important;
+  background-size: 200% 100% !important;
+  animation: bar-fill-shimmer 3s linear infinite;
+  border-radius: 100px;
+}
+
+@keyframes bar-fill-shimmer {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* ─────────── BADGE ALIGNMENT ─────────── */
+.coming-badge {
+  margin-top: auto !important;
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  background: rgba(79, 70, 229, 0.08);
+  color: #4f46e5;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  border: 1px solid rgba(79, 70, 229, 0.2);
+}
+
+/* ─────────── STAT CARD ANIMATION ─────────── */
+.stat-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: stat-card-breathe 4s ease-in-out infinite;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0s; }
+.stat-card:nth-child(2) { animation-delay: 1s; }
+.stat-card:nth-child(3) { animation-delay: 2s; }
+.stat-card:nth-child(4) { animation-delay: 3s; }
+
+@keyframes stat-card-breathe {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-2px); }
+}
+
+.stat-number {
+  background: linear-gradient(135deg, #4f46e5, #06b6d4);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shimmer 4s ease-in-out infinite;
+}
+
+/* ─────────── JOURNEY BAR ANIMATION ─────────── */
+.journey-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 800px;
+  margin: 3rem auto;
+  position: relative;
+}
+
+.journey-label-left,
+.journey-label-right {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #4f46e5;
+  flex-shrink: 0;
+}
+
+.journey-track {
+  flex: 1;
+  height: 12px;
+  background: rgba(79, 70, 229, 0.1);
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+
+.journey-fill {
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #4f46e5 0%,
+    #06b6d4 50%,
+    #4f46e5 100%
+  );
+  background-size: 200% 100%;
+  border-radius: 999px;
+  position: relative;
+  animation: journey-fill-progress 4s ease-in-out infinite,
+             bar-fill-shimmer 3s linear infinite;
+}
+
+@keyframes journey-fill-progress {
+  0%, 100% { width: 30%; }
+  50%      { width: 35%; }
+}
+
+.journey-spark {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #ffffff 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: journey-spark-move 4s ease-in-out infinite;
+}
+
+@keyframes journey-spark-move {
+  0%, 100% { left: 30%; opacity: 1; }
+  50%      { left: 35%; opacity: 0.6; }
+}
+
+.journey-caption {
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-top: 1rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+/* ─────────── PLATFORM CARD FLEX LAYOUT ─────────── */
+.platform-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+
+.platform-cards,
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* ─────────── ICON CENTERING IN SQUARE ─────────── */
+.platform-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--gradient-primary);
+  margin: 0 auto 24px auto;
+}
+
+.testimonial-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--gradient-primary);
+}
+
 </style>
 </head>
 <body>
@@ -1210,7 +1387,7 @@ footer {
       <a href="#roadmap">Roadmap</a>
       <a href="#contact">Contact</a>
     </div>
-    <a href="mailto:hello@crediva.dev" class="nav-cta" aria-label="Get early access">Get early access</a>
+    <a href="mailto:hello@crediva.dev" class="nav-cta" aria-label="Join Free Beta">Join Free Beta</a>
   </div>
 </nav>
 
@@ -1237,14 +1414,14 @@ footer {
       </p>
       <div class="hero-ctas">
         <a href="mailto:hello@crediva.dev" class="btn-primary">
-          Get early access →
+          Join Free Beta →
         </a>
         <a href="#platform" class="btn-secondary">
           View platform
         </a>
       </div>
       <div class="hero-trust">
-        GDPR · AES-256 · Audit-ready · Pure Python
+        GDPR · AES-256 · Production-grade · Pure Python
       </div>
     </div>
 
@@ -1266,34 +1443,37 @@ footer {
           <span class="mockup-live">LIVE</span>
         </div>
         <div class="mockup-meta">
-          Quality 105/100 · Audit-ready · Last run: 2 hours ago
+          Quality 9.2/10 · Production-grade · Last run: 2 hours ago
         </div>
         <div class="mockup-row">
-          <span class="mockup-row-name">Acme Corp</span>
+          <span class="mockup-row-name">Vercel</span>
           <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 92%;"></div></div>
           <span class="mockup-row-score">92/100</span>
         </div>
         <div class="mockup-row">
-          <span class="mockup-row-name">Beta Industries</span>
+          <span class="mockup-row-name">Linear</span>
           <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 78%;"></div></div>
           <span class="mockup-row-score">78/100</span>
         </div>
         <div class="mockup-row">
-          <span class="mockup-row-name">Gamma LLC</span>
+          <span class="mockup-row-name">Notion</span>
           <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 65%;"></div></div>
           <span class="mockup-row-score">65/100</span>
         </div>
         <div class="mockup-row">
-          <span class="mockup-row-name">Delta Systems</span>
+          <span class="mockup-row-name">Figma</span>
           <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 51%;"></div></div>
           <span class="mockup-row-score">51/100</span>
         </div>
         <div class="mockup-row">
-          <span class="mockup-row-name">Epsilon Co.</span>
+          <span class="mockup-row-name">Stripe</span>
           <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 44%;"></div></div>
           <span class="mockup-row-score">44/100</span>
         </div>
       </div>
+      <p class="demo-disclaimer" style="margin-top: 0.75rem; font-size: 0.7rem; opacity: 0.5; text-align: center; font-style: italic;">
+        * Illustrative demo — your results will reflect your prospects.
+      </p>
     </div>
   </div>
 </section>
@@ -1302,24 +1482,24 @@ footer {
 <section id="metrics">
   <div class="container">
     <div class="metrics-grid fade-in">
-      <div class="metric-card">
+      <div class="metric-card stat-card">
         <div class="metric-icon">⚡</div>
-        <div class="metric-value">50+</div>
+        <div class="metric-value stat-number">50+</div>
         <div class="metric-label">Tools generated autonomously</div>
       </div>
-      <div class="metric-card">
+      <div class="metric-card stat-card">
         <div class="metric-icon">★</div>
-        <div class="metric-value">105/100</div>
+        <div class="metric-value stat-number">9.2/10</div>
         <div class="metric-label">Average quality score</div>
       </div>
-      <div class="metric-card">
+      <div class="metric-card stat-card">
         <div class="metric-icon">∞</div>
-        <div class="metric-value">24/7</div>
+        <div class="metric-value stat-number">24/7</div>
         <div class="metric-label">Production cycles, no downtime</div>
       </div>
-      <div class="metric-card">
+      <div class="metric-card stat-card">
         <div class="metric-icon">✓</div>
-        <div class="metric-value">100%</div>
+        <div class="metric-value stat-number">100%</div>
         <div class="metric-label">Audit-ready outputs</div>
       </div>
     </div>
@@ -1469,16 +1649,18 @@ footer {
       </div>
     </div>
     <div class="roadmap-timeline fade-in">
-      <div class="roadmap-timeline-bar"></div>
-      <div class="roadmap-timeline-labels">
-        <span>TOOLS</span>
-        <span>PLATFORM</span>
+      <div class="journey-bar">
+        <div class="journey-label-left">TOOLS</div>
+        <div class="journey-track">
+          <div class="journey-fill">
+            <div class="journey-spark"></div>
+          </div>
+        </div>
+        <div class="journey-label-right">PLATFORM</div>
+        <p class="journey-caption">
+          Sales intelligence today. A modular B2B platform coming 2026.
+        </p>
       </div>
-    </div>
-    <div class="section-header fade-in">
-      <p>
-        Sales intelligence today. A modular B2B platform coming 2026.
-      </p>
     </div>
   </div>
 </section>
