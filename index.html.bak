@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
   <meta name="description" content="CREDIVA — Autonomous AI Factory 
 for B2B sales intelligence. Production-grade Python tools built and 
 shipped by AI agents. Audit-ready, GDPR-native, no vendor lock-in.">
@@ -16,8 +16,8 @@ shipped by AI agents. Audit-ready, GDPR-native, no vendor lock-in.">
 <meta property="og:url" content="https://crediva.dev">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://crediva.dev">
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
   <meta property="og:image" content="https://crediva.dev/assets/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -188,30 +188,44 @@ nav.scrolled {
   align-items: center;
   gap: 10px;
 }
-@font-face {
-  font-family: 'SpaceAge';
-  src: url('fonts/space-age.ttf') format('truetype');
-  font-display: swap;
-  font-weight: normal;
+
+.nav-brand img {
+  height: 32px;
+  width: auto;
 }
 
+@keyframes gradientFlux {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
+@keyframes shine {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+@keyframes floatUpDown {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes gradientFlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* Brand name - static gradient, no animation */
 .nav-brand-name {
-  font-family: 'SpaceAge', 'Orbitron', 'Geist', sans-serif;
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 700;
+  color: var(--text-primary);
   letter-spacing: -0.02em;
   background: var(--gradient-primary);
-  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-shimmer 4s linear infinite;
-}
-
-@keyframes gradient-shimmer {
-  0% { background-position: 200% center; }
-  100% { background-position: -200% center; }
 }
 
 .nav-links {
@@ -241,6 +255,8 @@ nav.scrolled {
   font-size: 14px;
   font-weight: 600;
   transition: transform 0.2s, box-shadow 0.2s;
+  background-size: 200% 200%;
+  animation: gradientFlow 5s ease infinite;
 }
 
 .nav-cta:hover {
@@ -308,6 +324,16 @@ nav.scrolled {
   backdrop-filter: blur(10px);
 }
 
+.hero-badge::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f5c518'%3E%3Cpath d='M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 .status-dot {
   width: 8px;
   height: 8px;
@@ -331,25 +357,10 @@ nav.scrolled {
 }
 
 .hero-title .gradient {
-  background: linear-gradient(
-    135deg,
-    #4f46e5 0%,
-    #06b6d4 25%,
-    #4f46e5 50%,
-    #06b6d4 75%,
-    #4f46e5 100%
-  );
-  background-size: 200% 200%;
+  background: var(--gradient-primary);
   -webkit-background-clip: text;
-  background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: transparent;
-  animation: hero-shimmer 6s ease-in-out infinite;
-}
-
-@keyframes hero-shimmer {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  background-clip: text;
 }
 
 .hero-sub {
@@ -370,8 +381,13 @@ nav.scrolled {
   display: flex;
   gap: 14px;
   justify-content: center;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   margin-bottom: 56px;
+}
+
+.cta-float-wrapper {
+  display: inline-block;
+  animation: floatUpDown 4s ease-in-out infinite;
 }
 
 .btn-primary {
@@ -379,33 +395,140 @@ nav.scrolled {
   align-items: center;
   gap: 8px;
   padding: 14px 30px;
-  background: linear-gradient(
-    135deg,
-    #4f46e5 0%,
-    #06b6d4 25%,
-    #4f46e5 50%,
-    #06b6d4 75%,
-    #4f46e5 100%
-  );
-  background-size: 200% 200%;
+  background: var(--gradient-primary);
   color: white !important;
   border-radius: 100px;
   font-size: 15px;
   font-weight: 600;
   transition: transform 0.2s, box-shadow 0.2s;
-  animation: button-shimmer 4s ease-in-out infinite;
+  background-size: 200% 200%;
+  animation: gradientFlow 5s ease infinite;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(30, 90, 143, 0.3);
-  animation-duration: 2s;
   color: white !important;
 }
 
-@keyframes button-shimmer {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 30px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.hero-trust {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.04em;
+}
+
+/* ─────────── HERO MOCKUP ─────────── */
+.hero-mockup-wrap {
+  position: relative;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hero-mockup {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding: 32px;
+  border: 1px solid var(--border);
+  position: relative;
+  z-index: 2;
+}
+
+.mockup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.mockup-title {
+  font-family: "JetBrains Mono", "SF Mono", Monaco, Consolas, monospace;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.mockup-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--teal);
+  background: rgba(125, 211, 192, 0.12);
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+
+.mockup-live::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--teal);
+  border-radius: 50%;
+}
+
+.mockup-meta {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin-bottom: 20px;
+}
+
+.mockup-row {
+  display: flex;
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+
+.cta-float-wrapper {
+  display: inline-block;
+  animation: floatUpDown 4s ease-in-out infinite;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 30px;
+  background: var(--gradient-primary);
+  color: white !important;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s;
+  background-size: 200% 200%;
+  animation: gradientFlow 5s ease infinite;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(30, 90, 143, 0.3);
+  color: white !important;
 }
 
 .btn-secondary {
@@ -662,7 +785,7 @@ nav.scrolled {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 40px 32px;
-  text-align: center;
+  text-align: left;
   transition: transform 0.3s, box-shadow 0.3s;
   position: relative;
   overflow: hidden;
@@ -694,10 +817,7 @@ nav.scrolled {
   height: 48px;
   border-radius: 12px;
   background: var(--gradient-primary);
-  margin: 0 auto 24px auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-bottom: 24px;
 }
 
 .platform-card:nth-child(2) .platform-icon {
@@ -710,27 +830,11 @@ nav.scrolled {
 
 .platform-card h3 {
   margin-bottom: 12px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .platform-card p {
   font-size: 15px;
   margin-bottom: 20px;
-}
-.coming-badge {
-  display: inline-block;
-  padding: 0.35rem 0.85rem;
-  background: rgba(79, 70, 229, 0.08);
-  color: #4f46e5;
-  border-radius: 999px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-  margin: 1rem auto 0 auto;
-  border: 1px solid rgba(79, 70, 229, 0.2);
 }
 
 .platform-card-link {
@@ -1162,39 +1266,6 @@ footer {
     font-size: 17px;
   }
 }
-/* Footer email animation */
-.footer-email {
-  background-image: linear-gradient(
-    90deg,
-    #4f46e5 0%,
-    #818cf8 20%,
-    #06b6d4 40%,
-    #ffffff 50%,
-    #06b6d4 60%,
-    #818cf8 80%,
-    #4f46e5 100%
-  );
-  background-size: 200% auto;
-  background-position: 0% center;
-  background-repeat: no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  animation: footer-email-shine 3s linear infinite;
-  text-decoration: none;
-}
-
-@keyframes footer-email-shine {
-  0% { background-position: 200% center; }
-  100% { background-position: -200% center; }
-}
-
-/* Reuse gradient-shimmer for footer email */
-.footer-email {
-  animation: gradient-shimmer 4s linear infinite;
-}
-
 </style>
 </head>
 <body>
@@ -1236,11 +1307,20 @@ footer {
         Roadmap into modular B2B intelligence platform — 2026.
       </p>
       <div class="hero-ctas">
-        <a href="mailto:hello@crediva.dev" class="btn-primary">
-          Get early access →
-        </a>
+        <div class="cta-float-wrapper">
+          <a href="mailto:hello@crediva.dev" class="btn-primary">
+            Get early access →
+          </a>
+        </div>
         <a href="#platform" class="btn-secondary">
           View platform
+        </a>
+        <a href="mailto:hello@crediva.dev?subject=Beta%20access" class="btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          Join Beta
         </a>
       </div>
       <div class="hero-trust">
@@ -1345,7 +1425,10 @@ footer {
           Score, rank, and prioritize B2B prospects with explainable AI. 
           Clean CSV input, structured output, full provenance for every decision.
         </p>
-        <div class="platform-card-tag coming-badge">COMING 2026</div>
+        <a href="mailto:hello@crediva.dev" class="platform-card-link">
+          See b2b_lead_scorer →
+        </a>
+        <div class="platform-card-tag">Join waitlist · Q1 2026</div>
       </div>
       <div class="platform-card">
         <div class="platform-icon"></div>
@@ -1354,7 +1437,10 @@ footer {
           Generate custom dashboards and integrations on demand. 
           API-first architecture, zero-config deployment, output to your stack.
         </p>
-        <div class="platform-card-tag coming-badge">COMING 2026</div>
+        <a href="mailto:hello@crediva.dev" class="platform-card-link">
+          See workflowdashboard →
+        </a>
+        <div class="platform-card-tag">Join waitlist · Q1 2026</div>
       </div>
       <div class="platform-card">
         <div class="platform-icon"></div>
@@ -1363,7 +1449,10 @@ footer {
           Track pipeline signals and conversion patterns in real time. 
           Built for regulated markets with full audit trail capability.
         </p>
-        <div class="platform-card-tag coming-badge">COMING 2026</div>
+        <a href="mailto:hello@crediva.dev" class="platform-card-link">
+          See lead_analyzer →
+        </a>
+        <div class="platform-card-tag">Join waitlist · Q1 2026</div>
       </div>
     </div>
   </div>
@@ -1384,7 +1473,7 @@ footer {
         <div class="principle-num">01</div>
         <h3>Continuous generation</h3>
         <p>
-          Hermes agent produces new tools every cycle. Code flows from agent 
+          New AI tools ship continuously — tested, documented, ready to deploy. 
           to production automatically, validated at each step.
         </p>
       </div>
@@ -1493,8 +1582,9 @@ footer {
         Be among the first 50 organizations to get access when we launch. Priority for B2B teams 
         in regulated industries.
       </p>
-      <a href="mailto:hello@crediva.dev" class="contact-email">
+      <a href="mailto:hello@crediva.dev" class="contact-email shine-trigger">
         hello@crediva.dev
+        <span class="shine-overlay"></span>
       </a>
       <div class="contact-note">
         We reply within 24 hours.
@@ -1510,6 +1600,7 @@ footer {
     <div class="footer-grid">
       <div>
         <div class="footer-brand">
+          <img src="assets/CREDIVA_logo_new.png" alt="CREDIVA">
           <span class="footer-brand-name">CREDIVA</span>
         </div>
         <p class="footer-tagline">
@@ -1520,10 +1611,10 @@ footer {
       <div class="footer-col">
         <div class="footer-col-title">Platform</div>
         <ul>
-          <li><a href="mailto:hello@crediva.dev">b2b_lead_scorer</a></li>
-          <li><a href="mailto:hello@crediva.dev">workflowdashboard</a></li>
-          <li><a href="mailto:hello@crediva.dev">lead_analyzer</a></li>
-          <li><a href="mailto:hello@crediva.dev">Pricing (soon)</a></li>
+          <li><a href="product_b2b_lead_scorer.html">b2b_lead_scorer</a></li>
+          <li><a href="product_workflowdashboard.html">workflowdashboard</a></li>
+          <li><a href="product_lead_analyzer.html">lead_analyzer</a></li>
+          <li><a href="mailto:hello@crediva.dev">Pricing (custom)</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1547,7 +1638,7 @@ footer {
     </div>
     <div class="footer-bottom">
       <div>© 2026 CREDIVA · Autonomous AI Factory</div>
-      <div>crediva.dev · <a href="mailto:hello@crediva.dev" class="footer-email">hello@crediva.dev</a></div>
+      <div>crediva.dev · hello@crediva.dev</div>
     </div>
   </div>
 </footer>
