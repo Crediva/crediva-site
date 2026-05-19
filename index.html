@@ -16,8 +16,8 @@ shipped by AI agents. Audit-ready, GDPR-native, no vendor lock-in.">
 <meta property="og:url" content="https://crediva.dev">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://crediva.dev">
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
   <meta property="og:image" content="https://crediva.dev/assets/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -205,6 +205,18 @@ nav.scrolled {
   100% { transform: translateX(200%); }
 }
 
+@keyframes floatUpDown {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes gradientFlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .nav-brand-name {
   font-size: 19px;
   font-weight: 700;
@@ -246,7 +258,7 @@ nav.scrolled {
   font-weight: 600;
   transition: transform 0.2s, box-shadow 0.2s;
   background-size: 200% 200%;
-  animation: gradientFlux 5s ease infinite, shine 3.2s linear infinite;
+  animation: gradientFlow 5s ease infinite;
 }
 
 .nav-cta:hover {
@@ -365,6 +377,11 @@ nav.scrolled {
   margin-bottom: 56px;
 }
 
+.cta-float-wrapper {
+  display: inline-block;
+  animation: floatUpDown 4s ease-in-out infinite;
+}
+
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -376,6 +393,8 @@ nav.scrolled {
   font-size: 15px;
   font-weight: 600;
   transition: transform 0.2s, box-shadow 0.2s;
+  background-size: 200% 200%;
+  animation: gradientFlow 5s ease infinite;
 }
 
 .btn-primary:hover {
@@ -1160,9 +1179,11 @@ footer {
         Roadmap into modular B2B intelligence platform — 2026.
       </p>
       <div class="hero-ctas">
-        <a href="mailto:hello@crediva.dev" class="btn-primary">
-          Get early access →
-        </a>
+        <div class="cta-float-wrapper">
+          <a href="mailto:hello@crediva.dev" class="btn-primary">
+            Get early access →
+          </a>
+        </div>
         <a href="#platform" class="btn-secondary">
           View platform
         </a>
@@ -1444,7 +1465,7 @@ footer {
     <div class="footer-grid">
       <div>
         <div class="footer-brand">
-          <img src="assets/CREDIVA_logo_v2.png" alt="CREDIVA">
+          <img src="assets/CREDIVA_logo_new.png" alt="CREDIVA">
           <span class="footer-brand-name">CREDIVA</span>
         </div>
         <p class="footer-tagline">
@@ -1455,10 +1476,10 @@ footer {
       <div class="footer-col">
         <div class="footer-col-title">Platform</div>
         <ul>
-          <li><a href="mailto:hello@crediva.dev">b2b_lead_scorer</a></li>
-          <li><a href="mailto:hello@crediva.dev">workflowdashboard</a></li>
-          <li><a href="mailto:hello@crediva.dev">lead_analyzer</a></li>
-          <li><a href="mailto:hello@crediva.dev">Pricing (soon)</a></li>
+          <li><a href="product_b2b_lead_scorer.html">b2b_lead_scorer</a></li>
+          <li><a href="product_workflowdashboard.html">workflowdashboard</a></li>
+          <li><a href="product_lead_analyzer.html">lead_analyzer</a></li>
+          <li><a href="mailto:hello@crediva.dev">Pricing (custom)</a></li>
         </ul>
       </div>
       <div class="footer-col">
