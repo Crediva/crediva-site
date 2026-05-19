@@ -194,8 +194,19 @@ nav.scrolled {
   width: auto;
 }
 
+@keyframes gradientFlux {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shine {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
 .nav-brand-name {
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.02em;
@@ -203,6 +214,8 @@ nav.scrolled {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  background-size: 200% 200%;
+  animation: gradientFlux 6s ease infinite;
 }
 
 .nav-links {
@@ -1045,6 +1058,53 @@ footer {
   .btn-primary, .btn-secondary { justify-content: center; }
 }
 
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+@keyframes shine-reverse {
+  0% { transform: translateX(200%); }
+  100% { transform: translateX(-100%); }
+}
+
+.shine-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transform: translateX(-100%);
+  animation: shine 2.5s infinite;
+  pointer-events: none;
+}
+
+.contact-email.shine-trigger {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-email.shine-trigger:hover .shine-overlay {
+  animation: shine-reverse 1.5s ease-in-out;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  nav {
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-top: 20px;
+  }
+  #hero {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 80px;
+  }
+  .nav-brand-name {
+    padding-left: 8px;
+  }
+}
+
 @media (max-width: 480px) {
   h1 { font-size: 38px; }
   h2 { font-size: 30px; }
@@ -1245,17 +1305,17 @@ footer {
   <div class="container">
     <div class="section-header fade-in">
       <span class="label">Autonomous</span>
-      <h2>The factory runs itself.</h2>
+      <h2>The system operates independently.</h2>
       <p>
-        24/7 production. Zero manual overhead. No human handoffs between agent and shipped tool.
+        24/7 production. Zero manual overhead. Automated quality gates ensure reliability.
       </p>
     </div>
     <div class="principles-grid fade-in">
       <div class="principle">
         <div class="principle-num">01</div>
-        <h3>Generates continuously</h3>
+        <h3>Continuous generation</h3>
         <p>
-          Hermes agent produces new tools every cycle. Code flows from agent 
+          New AI tools ship continuously — tested, documented, ready to deploy. 
           to production automatically, validated at each step.
         </p>
       </div>
@@ -1324,7 +1384,7 @@ footer {
         <h3>B2B markets, shipping now.</h3>
         <p>
           CREDIVA ships sales intelligence tools for B2B markets. The autonomous 
-          factory produces new tools every cycle. Each tool is production-grade, 
+          system produces new tools continuously. Each tool is production-grade, 
           fully tested, and audit-ready.
         </p>
       </div>
@@ -1364,8 +1424,9 @@ footer {
         Be among the first 50 organizations to get access when we launch. Priority for B2B teams 
         in regulated industries.
       </p>
-      <a href="mailto:hello@crediva.dev" class="contact-email">
+      <a href="mailto:hello@crediva.dev" class="contact-email shine-trigger">
         hello@crediva.dev
+        <span class="shine-overlay"></span>
       </a>
       <div class="contact-note">
         We reply within 24 hours.
