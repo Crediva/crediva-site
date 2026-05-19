@@ -64,13 +64,12 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  font-family: "Geist", -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
-  background: var(--bg-base);
-  color: var(--text-primary);
-  font-size: 17px;
-  line-height: 1.6;
-  overflow-x: hidden;
+/* Continuous Apple-style background */
+body,
+html {
+  background: #f5f5f7;
+  color: #1d1d1f;
+  font-weight: 400;
 }
 
 a {
@@ -262,7 +261,7 @@ nav.scrolled {
 /* ─────────── HERO ─────────── */
 #hero {
   padding: 180px 0 100px;
-  background: var(--gradient-bg);
+  background: transparent;
   position: relative;
   overflow: hidden;
   text-align: center;
@@ -448,13 +447,27 @@ nav.scrolled {
 }
 
 .hero-mockup {
-  background: var(--bg-card);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(0, 0, 0, 0.06),
+    0 12px 32px rgba(79, 70, 229, 0.04);
   padding: 32px;
-  border: 1px solid var(--border);
+  border: none;
   position: relative;
   z-index: 2;
+  transition: 
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-mockup:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 8px 20px rgba(0, 0, 0, 0.08),
+    0 20px 48px rgba(79, 70, 229, 0.08);
 }
 
 .mockup-header {
@@ -462,7 +475,6 @@ nav.scrolled {
   justify-content: space-between;
   align-items: center;
   padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
   margin-bottom: 24px;
 }
 
@@ -498,6 +510,124 @@ nav.scrolled {
   color: var(--text-tertiary);
   margin-bottom: 20px;
 }
+
+/* ═══════════════════════════════════════════ */
+/* UNIFIED CARD — Apple-style                  */
+/* Use on: feature cards, stat cards, step     */
+/* cards, mockup card, waitlist card, etc.     */
+/* ═══════════════════════════════════════════ */
+.card,
+.feature-card,
+.stat-card,
+.step-card,
+.mockup-card,
+.info-card,
+.platform-card,
+.roadmap-card,
+.trust-card {
+  background: #ffffff;
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(0, 0, 0, 0.06),
+    0 12px 32px rgba(79, 70, 229, 0.04);
+  border-radius: 20px;
+  border: none;
+  padding: 2rem;
+  transition: 
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover,
+.feature-card:hover,
+.stat-card:hover,
+.info-card:hover,
+.platform-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 8px 20px rgba(0, 0, 0, 0.08),
+    0 20px 48px rgba(79, 70, 229, 0.08);
+}
+
+/* ═══════════════════════════════════════════ */
+/* SCROLL-REVEAL ANIMATIONS                      */
+/* ═══════════════════════════════════════════ */
+.reveal-left,
+.reveal-right {
+  opacity: 0;
+  transition: 
+    opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-left {
+  transform: translateX(-30px);
+}
+
+.reveal-right {
+  transform: translateX(30px);
+}
+
+.reveal-left.revealed,
+.reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-left,
+  .reveal-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Stagger delays for grid cards */
+.features-grid .feature-card:nth-child(2) {
+  transition-delay: 0.15s;
+}
+
+.features-grid .feature-card:nth-child(3) {
+  transition-delay: 0.3s;
+}
+
+/* ═══════════════════════════════════════════ */
+/* ANIMATED BARS — bar-gentle-shift              */
+/* ═══════════════════════════════════════════ */
+.mockup-row-fill,
+.score-bar,
+.progress-bar,
+.bar-fill {
+  background: linear-gradient(
+    90deg,
+    #4f46e5 0%,
+    #06b6d4 50%,
+    #4f46e5 100%
+  );
+  background-size: 200% 100%;
+  animation: bar-gentle-shift 8s ease-in-out infinite;
+  border-radius: 999px;
+  height: 8px;
+}
+
+@keyframes bar-gentle-shift {
+  0%, 100% { 
+    background-position: 0% 50%;
+    filter: brightness(1);
+  }
+  50% { 
+    background-position: 100% 50%;
+    filter: brightness(1.1);
+  }
+}
+
+.mockup-row-fill:nth-child(1) { animation-delay: 0s; }
+.mockup-row-fill:nth-child(2) { animation-delay: 0.5s; }
+.mockup-row-fill:nth-child(3) { animation-delay: 1s; }
+.mockup-row-fill:nth-child(4) { animation-delay: 1.5s; }
+.mockup-row-fill:nth-child(5) { animation-delay: 2s; }
 
 .mockup-row {
   display: flex;
@@ -999,9 +1129,10 @@ nav.scrolled {
 }
 
 /* ─────────── FOOTER ─────────── */
+/* Apple dark footer — ONLY exception to continuous bg */
 footer {
-  background: var(--bg-dark);
-  color: rgba(255, 255, 255, 0.7);
+  background: #1d1d1f;
+  color: #f5f5f7;
   padding: 80px 0 40px;
 }
 
@@ -1404,7 +1535,6 @@ a[href*="mailto:hello@crediva.dev"]:hover {
       <a href="#roadmap">Roadmap</a>
       <a href="#contact">Contact</a>
     </div>
-    <a href="mailto:hello@crediva.dev" class="nav-cta" aria-label="Join Free Beta">Join Free Beta</a>
   </div>
 </nav>
 
@@ -1762,7 +1892,8 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 30);
 });
 
-const observer = new IntersectionObserver((entries) => {
+// Fade-in observer for existing elements
+const fadeObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
@@ -1770,11 +1901,29 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
 
 setTimeout(() => {
   document.querySelectorAll('#hero .fade-in').forEach(el => el.classList.add('visible'));
 }, 100);
+
+// Scroll-reveal observer for new cards
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+// Apply alternating reveal directions to cards
+document.querySelectorAll('.card, .feature-card, .stat-card, .step-card, .mockup-card, .info-card, .platform-card, .roadmap-card, .trust-card, section h2, section h3, .waitlist').forEach((el, index) => {
+  if (!el.classList.contains('reveal-left') && !el.classList.contains('reveal-right')) {
+    el.classList.add(index % 2 === 0 ? 'reveal-left' : 'reveal-right');
+  }
+  revealObserver.observe(el);
+});
 </script>
 
 </body>
