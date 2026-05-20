@@ -822,21 +822,7 @@ section {
 /* ═══════════════════════════════════════════ */
 /* ANIMATED BARS — bar-gentle-shift              */
 /* ═══════════════════════════════════════════ */
-.mockup-row-fill,
-.score-bar,
-.progress-bar,
-.bar-fill {
-  background: linear-gradient(
-    90deg,
-    #4f46e5 0%,
-    #06b6d4 50%,
-    #4f46e5 100%
-  );
-  background-size: 200% 100%;
-  animation: bar-gentle-shift 8s ease-in-out infinite;
-  border-radius: 999px;
-  height: 8px;
-}
+/* Removed - replaced by bar-row CSS block */
 
 @keyframes bar-gentle-shift {
   0%   { 
@@ -911,44 +897,52 @@ section {
   font-variant-numeric: tabular-nums;
 }
 
-/* ─── BAR PROGRESS STRUCTURE (v20.11) ─── */
+/* BAR ROW STRUCTURE — v20.12 locked */
 .bar-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 120px 1fr 48px;
   align-items: center;
   gap: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
 }
 
 .bar-label {
-  font-size: 14px;
   font-weight: 500;
-  color: var(--text-primary);
-  width: 100px;
-  text-align: left;
+  color: #e5e7eb;
+  font-size: 0.95rem;
 }
 
 .bar-track {
-  flex: 1;
-  height: 8px;
-  background: #eef2ff;
-  border-radius: 100px;
+  position: relative;
+  height: 10px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 999px;
   overflow: hidden;
 }
 
 .bar-fill {
   height: 100%;
-  background: var(--gradient-primary) !important;
-  border-radius: 999px !important;
-  animation: bar-gentle-shift 8s ease-in-out infinite !important;
+  width: var(--fill-width, 0%);
+  background: linear-gradient(90deg, #2dd4bf, #14b8a6);
+  border-radius: inherit;
+  transition: width 1.2s ease-out;
 }
 
 .bar-score {
-  font-size: 13px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
   font-weight: 600;
   color: #2dd4bf;
-  min-width: 36px;
-  text-align: right;
-  padding-left: 8px;
+  background: none;
+  padding: 0;
+}
+
+@media (max-width: 640px) {
+  .bar-row {
+    grid-template-columns: 90px 1fr 40px;
+    gap: 8px;
+  }
+  .bar-label { font-size: 0.85rem; }
 }
 
 .float-card {
@@ -2058,30 +2052,30 @@ section {
         <div class="mockup-meta">
           Quality 9.2/10 · Production-grade · Last run: 2 hours ago
         </div>
-        <div class="mockup-row">
+        <div class="bar-row">
           <span class="bar-label">Vercel</span>
-          <div class="bar-track"><div class="bar-fill" data-score="92" style="--fill-width:92%; width:92% !important;"></div></div>
-          <span class="bar-score" style="background:none; color:#2dd4bf; font-weight:600; min-width:36px; text-align:right; padding-left:8px;">92</span>
+          <div class="bar-track"><div class="bar-fill" data-score="92" style="--fill-width:92%"></div></div>
+          <span class="bar-score">92</span>
         </div>
-        <div class="mockup-row">
-          <span class="bar-label">Linear</span>
-          <div class="bar-track"><div class="bar-fill" data-score="78" style="--fill-width:78%; width:78% !important;"></div></div>
-          <span class="bar-score" style="background:none; color:#2dd4bf; font-weight:600; min-width:36px; text-align:right; padding-left:8px;">78</span>
-        </div>
-        <div class="mockup-row">
-          <span class="bar-label">Notion</span>
-          <div class="bar-track"><div class="bar-fill" data-score="65" style="--fill-width:65%; width:65% !important;"></div></div>
-          <span class="bar-score" style="background:none; color:#2dd4bf; font-weight:600; min-width:36px; text-align:right; padding-left:8px;">65</span>
-        </div>
-        <div class="mockup-row">
-          <span class="bar-label">Figma</span>
-          <div class="bar-track"><div class="bar-fill" data-score="51" style="--fill-width:51%; width:51% !important;"></div></div>
-          <span class="bar-score" style="background:none; color:#2dd4bf; font-weight:600; min-width:36px; text-align:right; padding-left:8px;">51</span>
-        </div>
-        <div class="mockup-row">
+        <div class="bar-row">
           <span class="bar-label">Stripe</span>
-          <div class="bar-track"><div class="bar-fill" data-score="44" style="--fill-width:44%; width:44% !important;"></div></div>
-          <span class="bar-score" style="background:none; color:#2dd4bf; font-weight:600; min-width:36px; text-align:right; padding-left:8px;">44</span>
+          <div class="bar-track"><div class="bar-fill" data-score="78" style="--fill-width:78%"></div></div>
+          <span class="bar-score">78</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Notion</span>
+          <div class="bar-track"><div class="bar-fill" data-score="65" style="--fill-width:65%"></div></div>
+          <span class="bar-score">65</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Figma</span>
+          <div class="bar-track"><div class="bar-fill" data-score="51" style="--fill-width:51%"></div></div>
+          <span class="bar-score">51</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Linear</span>
+          <div class="bar-track"><div class="bar-fill" data-score="44" style="--fill-width:44%"></div></div>
+          <span class="bar-score">44</span>
         </div>
       </div>
       <p class="demo-disclaimer" style="margin-top: 0.75rem; font-size: 0.7rem; opacity: 0.5; text-align: center; font-style: italic;">
