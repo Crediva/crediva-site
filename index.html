@@ -178,8 +178,11 @@ nav {
 @media (max-width: 768px) {
   .hero { grid-template-columns: 1fr; padding: 4rem 1.5rem; }
   nav { padding: 0 1.25rem; }
-  .nav-links { gap: 1rem; }
-  .nav-links a { font-size: 0.8rem; }
+  .nav-links { display: none; flex-direction: column; gap: 0; position: absolute; top: 64px; left: 0; right: 0; background: rgba(255,255,255,0.96); backdrop-filter: blur(20px); border-bottom: 0.5px solid rgba(129,140,248,0.18); padding: 1rem 1.25rem; }
+  .nav-links.open { display: flex; }
+  .nav-links li { padding: 0.65rem 0; border-bottom: 0.5px solid rgba(129,140,248,0.10); }
+  .nav-links a { font-size: 0.95rem; }
+  .nav-hamburger { display: flex; }
 }
 
 .hero-eyebrow {
@@ -765,6 +768,27 @@ input[type=email]:focus{
 }
 input[type=email]::placeholder{color:var(--text-muted);}
 
+
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 6px;
+  border: none;
+  background: transparent;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--indigo);
+  border-radius: 2px;
+  transition: all 0.25s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 </style>
 </head>
 <body>
@@ -772,7 +796,8 @@ input[type=email]::placeholder{color:var(--text-muted);}
 <!-- ─── NAV ─── -->
 <nav>
   <a class="nav-logo" href="#">CREDIVA</a>
-  <ul class="nav-links">
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="nav-links">
     <li><a href="#platform">Platform</a></li>
     <li><a href="#how">Why CREDIVA</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
@@ -1125,6 +1150,23 @@ setTimeout(() => {
     }, 600 + i * 130);
   });
 }, 400);
+</script>
+<script>
+/* Hamburger menu */
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('nav-links');
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
+  });
+}
 </script>
 </body>
 </html>
