@@ -25,6 +25,19 @@ shipped by AI agents. Audit-ready, GDPR-native, no vendor lock-in.">
   <title>CREDIVA — Autonomous AI Factory</title>
   <script defer data-domain="crediva.dev" src="https://plausible.io/js/script.js"></script>
 <style>
+
+body {
+  background: linear-gradient(
+    160deg,
+    #ece9f8 0%,
+    #e8e8f8 30%,
+    #e5ebf8 60%,
+    #e8f0f8 100%
+  );
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
 :root {
   --bg-base: #fafbff;
   --bg-soft: #f0f4ff;
@@ -275,6 +288,132 @@ nav.scrolled {
   box-shadow: 0 8px 20px rgba(30, 90, 143, 0.25);
   color: white !important;
 }
+
+/* FIX 1x + 4x: Hero visible in all orientations */
+#hero,
+.hero-section,
+[id*="hero"] {
+  padding-top: max(80px, env(safe-area-inset-top) + 72px);
+  box-sizing: border-box;
+}
+
+@media (max-height: 500px) {
+  #hero,
+  .hero-section {
+    min-height: auto;
+    padding-top: 80px;
+    padding-bottom: 40px;
+  }
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+  #hero,
+  .hero-section {
+    min-height: auto;
+    padding-top: 80px;
+  }
+}
+
+/* FIX 2x + 3x: Navbar safe padding on all screen sizes */
+nav,
+header,
+.navbar,
+#navbar {
+  padding-left: max(20px, env(safe-area-inset-left));
+  padding-right: max(20px, env(safe-area-inset-right));
+}
+
+nav > *,
+header > *,
+.nav-container,
+.navbar-inner {
+  padding-left: max(20px, env(safe-area-inset-left));
+  padding-right: max(20px, env(safe-area-inset-right));
+}
+
+@media (max-width: 768px) {
+  nav,
+  header,
+  .navbar {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  nav,
+  header,
+  .navbar {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* Email gradient animation */
+@keyframes email-gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.email-gradient {
+  background: linear-gradient(
+    135deg,
+    #4f46e5 0%,
+    #06b6d4 25%,
+    #7dd3c0 40%,
+    #06b6d4 55%,
+    #4f46e5 80%,
+    #06b6d4 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: email-gradient-shift 4s ease infinite;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.email-gradient:hover {
+  animation-duration: 1.5s;
+  opacity: 0.9;
+}
+
+/* Background unification */
+#metrics,
+#platform,
+#how,
+#trust,
+#roadmap,
+#contact,
+section {
+  background: transparent;
+}
+
+#metrics,
+#platform,
+#how,
+#trust,
+#roadmap {
+  border-top: 1px solid rgba(139, 92, 246, 0.08);
+}
+
+#platform > div,
+#trust > div,
+.card,
+.feature-card,
+.platform-card,
+.roadmap-card,
+.trust-card {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(139, 92, 246, 0.10);
+  border-radius: 16px;
+}
+
 
 @media (max-width: 768px) {
   .nav-links { display: none; }
@@ -1582,6 +1721,17 @@ a[href*="mailto:hello@crediva.dev"]:hover {
   background: var(--gradient-primary);
 }
 
+
+
+@media (max-width: 768px) {
+  #hero > div:first-child,
+  .hero-content,
+  .hero-inner {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1642,7 +1792,7 @@ a[href*="mailto:hello@crediva.dev"]:hover {
         Roadmap into modular B2B intelligence platform — 2026.
       </p>
       <div class="hero-ctas">
-        <a href="mailto:hello@crediva.dev" class="btn-primary">
+        <a href="mailto:hello@crediva.dev" class="email-gradient" class="btn-primary">
           Join Free Beta →
         </a>
         <a href="#platform" class="btn-secondary">
