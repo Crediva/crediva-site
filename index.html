@@ -1057,6 +1057,7 @@ section {
 .section-header {
   max-width: 720px;
   margin: 0 auto 64px;
+  padding-top: 40px;
 }
 
 .section-header p {
@@ -1717,51 +1718,19 @@ a[href*="mailto:hello@crediva.dev"]:hover {
   animation: hero-shimmer 9s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
-/* ─────────── JOURNEY BAR ANIMATION ─────────── */
-.journey-bar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
+/* ─────────── ROADMAP BAR — Slim gradient bar ─────────── */
+.roadmap-bar {
+  background: linear-gradient(90deg, #2dd4bf, #0ea5e9);
+  padding: 14px 24px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #0f172a;
+  width: 100%;
   max-width: 800px;
   margin: 3rem auto;
-  position: relative;
-}
-
-.journey-track {
-  width: 100%;
-  height: 6px;
-  background: rgba(79, 70, 229, 0.1);
-  border-radius: 999px;
-  position: relative;
-  overflow: hidden;
-}
-
-.journey-fill {
-  width: 30%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    #4f46e5 0%,
-    #06b6d4 33%,
-    #7dd3c0 50%,
-    #06b6d4 67%,
-    #4f46e5 100%
-  );
-  background-size: 100% 100%;
-  border-radius: 999px;
-}
-
-/* Keep caption clean */
-.journey-caption {
-  width: 100%;
-  text-align: center;
-  font-family: 'Inter', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: #3d3d3f;
-  letter-spacing: -0.01em;
-  margin-top: 0.5rem;
+  display: block;
 }
 
 /* ─────────── PLATFORM CARD FLEX LAYOUT ─────────── */
@@ -2287,13 +2256,8 @@ section {
       </div>
     </div>
     <div class="roadmap-timeline fade-in">
-      <div class="journey-bar">
-        <div class="journey-track">
-          <div class="journey-fill"></div>
-        </div>
-        <p class="journey-caption">
-          Sales intelligence today — a modular B2B platform coming 2026.
-        </p>
+      <div class="roadmap-bar">
+        Sales intelligence today — a modular B2B platform coming 2026.
       </div>
     </div>
   </div>
