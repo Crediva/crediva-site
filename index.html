@@ -93,7 +93,7 @@ body {
 .reveal {
   opacity: 0;
   transform: translateY(32px);
-  transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1);
+  transition: opacity 1.1s cubic-bezier(0.22,1,0.36,1), transform 1.1s cubic-bezier(0.22,1,0.36,1);
 }
 .reveal.from-left  { transform: translateX(-40px); }
 .reveal.from-right { transform: translateX(40px); }
@@ -177,7 +177,8 @@ nav {
 
 @media (max-width: 768px) {
   .hero { grid-template-columns: 1fr; padding: 4rem 1.5rem; }
-  nav { padding: 0 1.25rem; }
+  nav { padding: 0 1.25rem; justify-content: space-between; }
+  .nav-logo { flex: 1; text-align: center; }
   .nav-links { display: none; flex-direction: column; gap: 0; position: absolute; top: 64px; left: 0; right: 0; background: rgba(255,255,255,0.96); backdrop-filter: blur(20px); border-bottom: 0.5px solid rgba(129,140,248,0.18); padding: 1rem 1.25rem; }
   .nav-links.open { display: flex; }
   .nav-links li { padding: 0.65rem 0; border-bottom: 0.5px solid rgba(129,140,248,0.10); }
