@@ -911,6 +911,46 @@ section {
   font-variant-numeric: tabular-nums;
 }
 
+/* ─── BAR PROGRESS STRUCTURE (v20.11) ─── */
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.bar-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  width: 100px;
+  text-align: left;
+}
+
+.bar-track {
+  flex: 1;
+  height: 8px;
+  background: #eef2ff;
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--gradient-primary) !important;
+  border-radius: 999px !important;
+  animation: bar-gentle-shift 8s ease-in-out infinite !important;
+}
+
+.bar-score {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2dd4bf;
+  min-width: 36px;
+  text-align: right;
+  padding-left: 8px;
+}
+
 .float-card {
   position: absolute;
   background: rgba(255, 255, 255, 0.92);
@@ -2019,29 +2059,29 @@ section {
           Quality 9.2/10 · Production-grade · Last run: 2 hours ago
         </div>
         <div class="mockup-row">
-          <span class="mockup-row-name">Vercel</span>
-          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 92%; height: 85%;"></div></div>
-          <span class="mockup-row-score">92</span>
+          <span class="bar-label">Vercel</span>
+          <div class="bar-track"><div class="bar-fill" data-score="92" style="--fill-width:92%; width:92% !important;"></div></div>
+          <span class="bar-score" style="background:none; color:#2dd4bf; font-weight:600; min-width:36px; text-align:right; padding-left:8px;">92</span>
         </div>
         <div class="mockup-row">
-          <span class="mockup-row-name">Linear</span>
-          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 78%; height: 72%;"></div></div>
-          <span class="mockup-row-score">78</span>
+          <span class="bar-label">Linear</span>
+          <div class="bar-track"><div class="bar-fill" data-score="78" style="--fill-width:78%; width:78% !important;"></div></div>
+          <span class="bar-score" style="background:none; color:#2dd4bf; font-weight:600; min-width:36px; text-align:right; padding-left:8px;">78</span>
         </div>
         <div class="mockup-row">
-          <span class="mockup-row-name">Notion</span>
-          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 65%; height: 59%;"></div></div>
-          <span class="mockup-row-score">65</span>
+          <span class="bar-label">Notion</span>
+          <div class="bar-track"><div class="bar-fill" data-score="65" style="--fill-width:65%; width:65% !important;"></div></div>
+          <span class="bar-score" style="background:none; color:#2dd4bf; font-weight:600; min-width:36px; text-align:right; padding-left:8px;">65</span>
         </div>
         <div class="mockup-row">
-          <span class="mockup-row-name">Figma</span>
-          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 51%; height: 48%;"></div></div>
-          <span class="mockup-row-score">51</span>
+          <span class="bar-label">Figma</span>
+          <div class="bar-track"><div class="bar-fill" data-score="51" style="--fill-width:51%; width:51% !important;"></div></div>
+          <span class="bar-score" style="background:none; color:#2dd4bf; font-weight:600; min-width:36px; text-align:right; padding-left:8px;">51</span>
         </div>
         <div class="mockup-row">
-          <span class="mockup-row-name">Stripe</span>
-          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 44%; height: 41%;"></div></div>
-          <span class="mockup-row-score">44</span>
+          <span class="bar-label">Stripe</span>
+          <div class="bar-track"><div class="bar-fill" data-score="44" style="--fill-width:44%; width:44% !important;"></div></div>
+          <span class="bar-score" style="background:none; color:#2dd4bf; font-weight:600; min-width:36px; text-align:right; padding-left:8px;">44</span>
         </div>
       </div>
       <p class="demo-disclaimer" style="margin-top: 0.75rem; font-size: 0.7rem; opacity: 0.5; text-align: center; font-style: italic;">
