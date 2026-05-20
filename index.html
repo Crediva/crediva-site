@@ -1709,7 +1709,7 @@ a[href*="mailto:hello@crediva.dev"]:hover {
     #06b6d4 67%,
     #4f46e5 100%
   );
-  background-size: 300% 100%;
+  background-size: 100% 100%;
   border-radius: 999px;
   animation: bar-fill-shimmer 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
@@ -1882,11 +1882,11 @@ a[href*="mailto:hello@crediva.dev"]:hover {
 }
 
 /* Stats badge gradient */
-.stats-badge,
-.mockup-stats {
-  background: rgba(79, 70, 229, 0.15);
-  border: 1px solid rgba(79, 70, 229, 0.30);
-  border-radius: 12px;
+.stats-badge,.mockup-stats {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.15) 0%, rgba(6, 182, 212, 0.12) 100%);
+  border: 1px solid rgba(79, 70, 229, 0.25);
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
 }
 
 .stats-badge strong {
@@ -2023,28 +2023,28 @@ section {
         </div>
         <div class="mockup-row">
           <span class="mockup-row-name">Vercel</span>
-          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 92%;"></div></div>
-          <span class="mockup-row-score">92/100</span>
+          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 92%; height: 85%;"></div></div>
+          <span class="mockup-row-score">92</span>
         </div>
         <div class="mockup-row">
           <span class="mockup-row-name">Linear</span>
-          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 78%;"></div></div>
-          <span class="mockup-row-score">78/100</span>
+          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 78%; height: 72%;"></div></div>
+          <span class="mockup-row-score">78</span>
         </div>
         <div class="mockup-row">
           <span class="mockup-row-name">Notion</span>
-          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 65%;"></div></div>
-          <span class="mockup-row-score">65/100</span>
+          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 65%; height: 59%;"></div></div>
+          <span class="mockup-row-score">65</span>
         </div>
         <div class="mockup-row">
           <span class="mockup-row-name">Figma</span>
-          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 51%;"></div></div>
-          <span class="mockup-row-score">51/100</span>
+          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 51%; height: 48%;"></div></div>
+          <span class="mockup-row-score">51</span>
         </div>
         <div class="mockup-row">
           <span class="mockup-row-name">Stripe</span>
-          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 44%;"></div></div>
-          <span class="mockup-row-score">44/100</span>
+          <div class="mockup-row-bar"><div class="mockup-row-fill" style="width: 44%; height: 41%;"></div></div>
+          <span class="mockup-row-score">44</span>
         </div>
       </div>
       <p class="demo-disclaimer" style="margin-top: 0.75rem; font-size: 0.7rem; opacity: 0.5; text-align: center; font-style: italic;">
@@ -2109,7 +2109,6 @@ section {
 <section id="platform">
   <div class="container">
     <div class="section-header fade-in">
-      <span class="label">Platform</span>
       <h2>Tools that ship themselves.</h2>
       <p>
         Production-grade Python tools, built and tested by an autonomous agent. 
@@ -2164,7 +2163,6 @@ section {
 <section id="how">
   <div class="container">
     <div class="section-header fade-in">
-      <span class="label">Autonomous</span>
       <h2>The system operates independently.</h2>
       <p>
         24/7 production. Zero manual overhead. Automated quality gates ensure reliability.
@@ -2202,7 +2200,6 @@ section {
 <section id="trust">
   <div class="container">
     <div class="section-header fade-in">
-      <span class="label">Enterprise-ready</span>
       <h2>Compliance built in.</h2>
       <p>
         Every layer of CREDIVA is designed for regulated environments. 
