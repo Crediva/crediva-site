@@ -57,7 +57,7 @@
     padding: 16px 24px;
     border-right: 1px solid var(--grid-line);
     display: flex;
-    align-items: center;
+    align-items: start;
   }
   .nav-cell:nth-child(1) { justify-content: flex-start; }
   .nav-cell:nth-child(2) { justify-content: center; }
@@ -71,7 +71,7 @@
     text-transform: uppercase;
     letter-spacing: 0.1em;
     display: inline-flex;
-    align-items: center;
+    align-items: start;
     gap: 8px;
     transition: opacity 0.3s;
   }
@@ -264,7 +264,7 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: 32px;
-    align-items: center;
+    align-items: start;
   }
   
   .hero-main-col {
@@ -317,7 +317,7 @@
   .tech-card-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
     border-bottom: 1px solid var(--grid-line);
     padding-bottom: 12px;
     margin-bottom: 16px;
@@ -328,7 +328,7 @@
   .tech-live-status {
     color: var(--accent);
     display: flex;
-    align-items: center;
+    align-items: start;
     gap: 6px;
     font-weight: bold;
   }
@@ -399,7 +399,7 @@
   .lightbox {
     position: fixed; inset: 0; background: rgba(5,5,5,0.96);
     z-index: 9999; opacity: 0; pointer-events: none;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    display: flex; flex-direction: column; align-items: start; justify-content: center;
     transition: opacity 0.4s ease; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   }
   .lightbox.active { opacity: 1; pointer-events: auto; }
@@ -472,7 +472,7 @@
     </div>
   </nav>
 
-    <header class="hero">
+      <header class="hero">
     <div class="hero-grid">
       
       <!-- Lewa Strona: Tytuł i Opis -->
@@ -482,7 +482,7 @@
         <p class="hero-desc">An experimental platform and art collective bridging raw street art culture with digital execution. Exploring the intersection of brutalism, corporate identity, and dark aesthetics — we build posters, branding frameworks, and motion clips that translate urban grit into a digital release.</p>
       </div>
 
-      # Prawa Strona: Widget 3D Wireframe & Live Stats
+      <!-- Prawa Strona: Widget 3D Wireframe & Live Stats -->
       <div class="hero-tech-col">
         <div class="hero-tech-card">
           <div class="tech-card-header">
