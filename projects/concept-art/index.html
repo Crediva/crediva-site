@@ -258,18 +258,31 @@
   }
   .item:hover::after { opacity: 1; }
 
+
+  /* ---------- CUSTOM FONT: SWIPE RACE ---------- */
+  @font-face {
+    font-family: 'SwipeRace';
+    src: url('./assets/fonts/SwipeRaceDemo.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  .exe-nav-logo {
+    font-family: 'SwipeRace', sans-serif !important;
+    font-size: 24px;
+    letter-spacing: 0.08em;
+    color: var(--fg);
+    text-transform: uppercase;
+    line-height: 1;
+  }
 </style>
 </head>
 <body>
 
   <nav class="top-nav">
     <div class="nav-cell">
-      <a href="../../index.html" class="back-btn">[ RETURN TO HUB ]</a>
-    </div>
-    <div class="nav-cell">
-      <!-- MIEJSCE NA LOGO (Wrzuć plik do assets/logo.png) -->
-      <img src="./assets/logo.png" alt=".EXE CONCEPT" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-      <span style="display:none; font-family:var(--font-head); font-weight:700;">.EXE CONCEPT</span>
+      <span class="exe-nav-logo">.EXE</span>
     </div>
     <div class="nav-cell">
       <span class="status-text">SYS.V_2026 // ONLINE</span>
