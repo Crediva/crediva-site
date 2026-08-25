@@ -359,19 +359,19 @@
 
   .card-glass-frame .slide {
     position: absolute;
-    inset: 0;
+    top: -15%;
+    left: 0;
     width: 100%;
-    height: 100%;
-    /* Wypełnia całą ramkę bez białych pasów */
+    height: 130%;
     object-fit: cover;
-    object-position: center top;
+    object-position: center center;
     opacity: 0;
-    transform: scale(1.12) translateY(0);
-    transition: opacity 0.7s ease-in-out;
+    transform: translate3d(0, 0, 0) scale(1.05);
+    transition: opacity 0.8s ease-in-out;
     will-change: transform, opacity;
   }
 
-  /* Aktywny slajd: fade-in + 3s pan z góry na dół */
+  /* Aktywny slajd: GPU hardware-accelerated 5.5s pan z góry na dół */
   .card-glass-frame .slide.active {
     opacity: 1;
     animation: slidePanDown 5.5s linear forwards;
@@ -379,9 +379,12 @@
 
   @keyframes slidePanDown {
     0% {
-      object-position: center top;
-      transform: scale(1.14) translateY(0);
+      transform: translate3d(0, 0, 0) scale(1.08);
     }
+    100% {
+      transform: translate3d(0, -12%, 0) scale(1.08);
+    }
+  }
     100% {
       object-position: center bottom;
       transform: scale(1.14) translateY(-6%);
