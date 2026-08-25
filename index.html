@@ -328,7 +328,6 @@
     border: 1px solid rgba(255, 255, 255, 0.7);
     box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9), 0 8px 20px rgba(33, 33, 58, 0.05);
 
-    /* DOMYŚLNIE UKRYTE - pojawia się płynnie dopiero po najechaniu */
     opacity: 0;
     transform: translateY(10px) scale(0.96);
     transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
@@ -340,14 +339,6 @@
   .card:focus-within .card-glass-frame {
     opacity: 1;
     transform: translateY(0) scale(1);
-  }
-
-  /* Mobile: karta w trybie touch ma zawsze widoczny teaser */
-  @media (hover: none) and (pointer: coarse) {
-    .card.is-active .card-glass-frame {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
   }
 
   .card-glass-frame .slideshow {
@@ -371,10 +362,9 @@
     will-change: transform, opacity;
   }
 
-  /* Aktywny slajd: kinowa panorama od góry do dołu (5.5s) */
   .card-glass-frame .slide.active {
     opacity: 1;
-    animation: slidePanDown 5.5s cubic-bezier(0.1, 0, 0.2, 1) forwards;
+    animation: slidePanDown 5.5s linear forwards;
   }
 
   @keyframes slidePanDown {
@@ -382,20 +372,18 @@
       transform: translate3d(0, 0, 0);
     }
     100% {
-      transform: translate3d(0, -31%, 0);
-    }
-  }
-    100% {
-      transform: translate3d(0, -12%, 0) scale(1.08);
-    }
-  }
-    100% {
-      object-position: center bottom;
-      transform: scale(1.14) translateY(-6%);
+      transform: translate3d(0, -32%, 0);
     }
   }
 
   .card-glass-frame .glass-tint {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.18) 100%);
+    pointer-events: none;
+    z-index: 2;
+  }
+  .glass-tint {
     position: absolute;
     inset: 0;
     background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.18) 100%);
