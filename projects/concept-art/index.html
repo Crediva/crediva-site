@@ -143,63 +143,86 @@
     100% { transform: translateX(-50%); }
   }
 
-  /* --- BENTO / MASONRY GALLERY --- */
-  .gallery-section {
-    padding: 24px;
-  }
+  /* --- BENTO / MASONRY GALLERY WITH IN-GRID EXPANSION --- */
+  .gallery-section { padding: 24px; }
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     grid-auto-rows: 400px;
+    grid-auto-flow: dense;
     gap: 24px;
   }
   
-  /* Cechy specyficzne dla siatki brutalistycznej */
   .item {
-    position: relative;
-    border: 1px solid var(--grid-line);
-    overflow: hidden;
-    background: #0a0a0a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative; border: 1px solid var(--grid-line); background: #050505;
+    overflow: hidden; display: flex; flex-direction: row; cursor: crosshair;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  /* Niektóre elementy mogą zajmować 2 kolumny na dużym ekranie */
-  .item.large {
-    grid-column: span 2;
+  .item.large { grid-column: span 2; }
+  
+  .item-media {
+    flex: 1; width: 100%; height: 100%; position: relative; overflow: hidden;
+  }
+  .item-media img, .item-media video {
+    width: 100%; height: 100%; object-fit: cover; filter: grayscale(80%) contrast(1.2);
+    transition: all 0.5s ease;
+  }
+  .item:hover .item-media img, .item:hover .item-media video { filter: grayscale(0%) contrast(1); transform: scale(1.02); }
+  
+  .item-label {
+    position: absolute; bottom: 16px; left: 16px; background: var(--fg); color: var(--bg);
+    padding: 4px 10px; font-size: 11px; font-weight: bold; text-transform: uppercase;
+    opacity: 0; transform: translateY(10px); transition: all 0.3s ease; pointer-events: none;
+  }
+  .item:hover .item-label { opacity: 1; transform: translateY(0); }
+  
+  .expand-hint {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background: var(--accent); color: #fff; padding: 10px 20px; font-size: 12px; font-weight: bold;
+    opacity: 0; transition: opacity 0.3s ease; pointer-events: none; text-transform: uppercase; z-index: 10;
+  }
+  .item:hover:not(.is-expanded) .expand-hint { opacity: 1; }
+  
+  /* THE EXPANDED STATE */
+  .item.is-expanded {
+    grid-column: 1 / -1 !important; /* Full width row */
+    grid-row: span 2; /* Height 2x (824px) */
+    cursor: default; border-color: var(--accent);
+    box-shadow: 0 0 50px rgba(255, 42, 0, 0.1);
+  }
+  .item.is-expanded .item-media img, .item.is-expanded .item-media video {
+    filter: grayscale(0%) contrast(1); object-fit: contain; background: #000; padding: 24px; transform: scale(1);
+  }
+  .item.is-expanded .item-label { display: none; }
+  
+  .item-info-drawer {
+    width: 0; opacity: 0; overflow: hidden; background: #0a0a0a; display: flex; flex-direction: column; justify-content: center; position: relative; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .item.is-expanded .item-info-drawer {
+    width: 420px; opacity: 1; border-left: 1px solid var(--grid-line);
   }
   
-  .item img, .item video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(80%) contrast(1.2);
-    transition: filter 0.5s ease, transform 0.8s ease;
+  .drawer-content {
+    padding: 40px; width: 420px; opacity: 0; transform: translateX(30px); transition: all 0.4s ease 0.2s;
   }
-  .item:hover img, .item:hover video {
-    filter: grayscale(0%) contrast(1);
-    transform: scale(1.03);
+  .item.is-expanded .drawer-content { opacity: 1; transform: translateX(0); }
+  
+  .drawer-title { font-family: var(--font-head); font-size: 22px; color: #fff; text-transform: uppercase; margin-bottom: 12px; line-height: 1.1; }
+  .drawer-tools { font-size: 11px; color: var(--accent); font-weight: bold; margin-bottom: 24px; letter-spacing: 0.15em; text-transform: uppercase; border-bottom: 1px solid var(--grid-line); padding-bottom: 24px; }
+  .drawer-desc { font-size: 13.5px; color: #a1a1aa; line-height: 1.7; font-family: var(--font-mono); }
+  
+  .close-expand {
+    position: absolute; top: 16px; right: 16px; background: rgba(0,0,0,0.8); border: 1px solid var(--grid-line); color: var(--fg); padding: 8px 16px; font-family: var(--font-mono); font-size: 11px; cursor: pointer; text-transform: uppercase; border-radius: 4px; transition: all 0.3s; z-index: 10; opacity: 0; pointer-events: none;
   }
-
-  .item-label {
-    position: absolute;
-    bottom: 16px;
-    left: 16px;
-    background: var(--fg);
-    color: var(--bg);
-    padding: 4px 10px;
-    font-size: 11px;
-    font-weight: bold;
-    text-transform: uppercase;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
+  .item.is-expanded .close-expand { opacity: 1; pointer-events: auto; }
+  .close-expand:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  
+  @media (max-width: 900px) {
+    .item.is-expanded { flex-direction: column; grid-row: span 2; }
+    .item.is-expanded .item-info-drawer { width: 100%; height: auto; border-left: none; border-top: 1px solid var(--grid-line); flex: 1; }
+    .drawer-content { width: 100%; padding: 24px; transform: translateY(20px); }
+    .item.is-expanded .drawer-content { transform: translateY(0); }
   }
-  .item:hover .item-label {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
   /* --- FOOTER --- */
   footer {
     border-top: 1px solid var(--grid-line);
@@ -309,101 +332,365 @@
 
   <section class="gallery-section">
     <div class="gallery-grid">
-      <div class="item large" data-title="2Pac — Legend Poster I" data-desc="Music poster referencing classic 90s hip-hop culture and bold brutalist typography." data-tools="PHOTOSHOP / PROCREATE">
-        <img src="./assets/2PAC - poster 01.JPG" alt="2Pac — Legend Poster I" loading="lazy">
-        <div class="item-label">01 // GRAPHIC / DESIGN</div>
+      <div class="item large">
+        <div class="item-media">
+          <img src="./assets/2PAC - poster 01.JPG" alt="2Pac — Legend Poster I" loading="lazy">
+          <div class="item-label">01 // GRAPHIC / DESIGN</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">2Pac — Legend Poster I</h3>
+            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / PROCREATE ]</div>
+            <p class="drawer-desc">Music poster referencing classic 90s hip-hop culture and bold brutalist typography.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title="2Pac — Legend Poster II" data-desc="Alternative poster variation focusing on high contrast and heavy grain texture." data-tools="PHOTOSHOP / PROCREATE">
-        <img src="./assets/2PAC - poster 02.JPG" alt="2Pac — Legend Poster II" loading="lazy">
-        <div class="item-label">02 // GRAPHIC / DESIGN</div>
+      <div class="item">
+        <div class="item-media">
+          <img src="./assets/2PAC - poster 02.JPG" alt="2Pac — Legend Poster II" loading="lazy">
+          <div class="item-label">02 // GRAPHIC / DESIGN</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">2Pac — Legend Poster II</h3>
+            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / PROCREATE ]</div>
+            <p class="drawer-desc">Alternative poster variation focusing on high contrast and heavy grain texture.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title="Notorious B.I.G. — King Poster" data-desc="Poster design inspired by the iconic style of The Notorious B.I.G." data-tools="PHOTOSHOP / PROCREATE">
-        <img src="./assets/BIGGIE- poster.JPG" alt="Notorious B.I.G. — King Poster" loading="lazy">
-        <div class="item-label">03 // GRAPHIC / DESIGN</div>
+      <div class="item">
+        <div class="item-media">
+          <img src="./assets/BIGGIE- poster.JPG" alt="Notorious B.I.G. — King Poster" loading="lazy">
+          <div class="item-label">03 // GRAPHIC / DESIGN</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Notorious B.I.G. — King Poster</h3>
+            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / PROCREATE ]</div>
+            <p class="drawer-desc">Poster design inspired by the iconic style of The Notorious B.I.G.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title="Burger Commercial Poster" data-desc="Commercial poster for the gastronomy industry featuring striking, bold typography." data-tools="PHOTOSHOP / ILLUSTRATOR">
-        <img src="./assets/BURGER - poster.JPG" alt="Burger Commercial Poster" loading="lazy">
-        <div class="item-label">04 // GRAPHIC / DESIGN</div>
+      <div class="item">
+        <div class="item-media">
+          <img src="./assets/BURGER - poster.JPG" alt="Burger Commercial Poster" loading="lazy">
+          <div class="item-label">04 // GRAPHIC / DESIGN</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Burger Commercial Poster</h3>
+            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / ILLUSTRATOR ]</div>
+            <p class="drawer-desc">Commercial poster for the gastronomy industry featuring striking, bold typography.</p>
+          </div>
+        </div>
       </div>
-      <div class="item large" data-title="Tomb Raider — AI Concept" data-desc="Character concept art blending Lara Croft heritage with modern AI digital artwork." data-tools="MIDJOURNEY / PROCREATE">
-        <img src="./assets/CHARACTER Ai - tomraider.PNG" alt="Tomb Raider — AI Concept" loading="lazy">
-        <div class="item-label">05 // GRAPHIC / DESIGN</div>
+      <div class="item large">
+        <div class="item-media">
+          <img src="./assets/CHARACTER Ai - tomraider.PNG" alt="Tomb Raider — AI Concept" loading="lazy">
+          <div class="item-label">05 // GRAPHIC / DESIGN</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Tomb Raider — AI Concept</h3>
+            <div class="drawer-tools">[ TOOLS USED: MIDJOURNEY / PROCREATE ]</div>
+            <p class="drawer-desc">Character concept art blending Lara Croft heritage with modern AI digital artwork.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title=".EXE System Motion" data-desc="Animated identity motion loop for the experimental .EXE platform." data-tools="AFTER EFFECTS / VN">
-        <video src="./assets/EXE_2x24.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-        <div class="item-label">06 // MOTION / VIDEO</div>
+      <div class="item">
+        <div class="item-media">
+          <video src="./assets/EXE_2x24.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
+          <div class="item-label">06 // MOTION / VIDEO</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">.EXE System Motion</h3>
+            <div class="drawer-tools">[ TOOLS USED: AFTER EFFECTS / VN ]</div>
+            <p class="drawer-desc">Animated identity motion loop for the experimental .EXE platform.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title="GPT Wizard Animation" data-desc="Animated loop concept representing an AI digital wizard interface." data-tools="AFTER EFFECTS / VN">
-        <video src="./assets/GPT_WIZARD_GIF.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-        <div class="item-label">07 // MOTION / VIDEO</div>
+      <div class="item">
+        <div class="item-media">
+          <video src="./assets/GPT_WIZARD_GIF.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
+          <div class="item-label">07 // MOTION / VIDEO</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">GPT Wizard Animation</h3>
+            <div class="drawer-tools">[ TOOLS USED: AFTER EFFECTS / VN ]</div>
+            <p class="drawer-desc">Animated loop concept representing an AI digital wizard interface.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title="Guns — AI Video Concept" data-desc="Experimental AI-generated video clip with rhythmic motion and generative visuals." data-tools="RUNWAY / VN">
-        <video src="./assets/GUNS - Ai gen. video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-        <div class="item-label">08 // MOTION / VIDEO</div>
+      <div class="item">
+        <div class="item-media">
+          <video src="./assets/GUNS - Ai gen. video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
+          <div class="item-label">08 // MOTION / VIDEO</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Guns — AI Video Concept</h3>
+            <div class="drawer-tools">[ TOOLS USED: RUNWAY / VN ]</div>
+            <p class="drawer-desc">Experimental AI-generated video clip with rhythmic motion and generative visuals.</p>
+          </div>
+        </div>
       </div>
-      <div class="item large" data-title="GZA — Wu-Tang Poster" data-desc="Music poster inspired by GZA's 'Liquid Swords' aesthetic and Wu-Tang legacy." data-tools="PHOTOSHOP / PROCREATE">
-        <img src="./assets/GZA - poster.JPG" alt="GZA — Wu-Tang Poster" loading="lazy">
-        <div class="item-label">09 // GRAPHIC / DESIGN</div>
+      <div class="item large">
+        <div class="item-media">
+          <img src="./assets/GZA - poster.JPG" alt="GZA — Wu-Tang Poster" loading="lazy">
+          <div class="item-label">09 // GRAPHIC / DESIGN</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">GZA — Wu-Tang Poster</h3>
+            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / PROCREATE ]</div>
+            <p class="drawer-desc">Music poster inspired by GZA's 'Liquid Swords' aesthetic and Wu-Tang legacy.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title="Home — AI Architectural" data-desc="Architectural visualization and 3D space concept crafted with generative AI." data-tools="MIDJOURNEY / PHOTOSHOP">
-        <img src="./assets/HOME - model render Ai.PNG" alt="Home — AI Architectural" loading="lazy">
-        <div class="item-label">10 // GRAPHIC / DESIGN</div>
+      <div class="item">
+        <div class="item-media">
+          <img src="./assets/HOME - model render Ai.PNG" alt="Home — AI Architectural" loading="lazy">
+          <div class="item-label">10 // GRAPHIC / DESIGN</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Home — AI Architectural</h3>
+            <div class="drawer-tools">[ TOOLS USED: MIDJOURNEY / PHOTOSHOP ]</div>
+            <p class="drawer-desc">Architectural visualization and 3D space concept crafted with generative AI.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title="Fly AI — Logo Concept" data-desc="Modern logo concept and brand identity system for a futuristic tech project." data-tools="ILLUSTRATOR / PROCREATE">
-        <img src="./assets/LOGO - fly Ai 03.JPG" alt="Fly AI — Logo Concept" loading="lazy">
-        <div class="item-label">11 // GRAPHIC / DESIGN</div>
+      <div class="item">
+        <div class="item-media">
+          <img src="./assets/LOGO - fly Ai 03.JPG" alt="Fly AI — Logo Concept" loading="lazy">
+          <div class="item-label">11 // GRAPHIC / DESIGN</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Fly AI — Logo Concept</h3>
+            <div class="drawer-tools">[ TOOLS USED: ILLUSTRATOR / PROCREATE ]</div>
+            <p class="drawer-desc">Modern logo concept and brand identity system for a futuristic tech project.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title="Luxavenon — Lamp Design I" data-desc="Industrial product design featuring the modern Luxavenon lamp." data-tools="BLENDER / PHOTOSHOP">
-        <img src="./assets/LUXAVENON - lamp 01.JPG" alt="Luxavenon — Lamp Design I" loading="lazy">
-        <div class="item-label">12 // GRAPHIC / DESIGN</div>
+      <div class="item">
+        <div class="item-media">
+          <img src="./assets/LUXAVENON - lamp 01.JPG" alt="Luxavenon — Lamp Design I" loading="lazy">
+          <div class="item-label">12 // GRAPHIC / DESIGN</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Luxavenon — Lamp Design I</h3>
+            <div class="drawer-tools">[ TOOLS USED: BLENDER / PHOTOSHOP ]</div>
+            <p class="drawer-desc">Industrial product design featuring the modern Luxavenon lamp.</p>
+          </div>
+        </div>
       </div>
-      <div class="item large" data-title="Luxavenon — Lamp Design II" data-desc="Alternative product shot and 3D studio render for Luxavenon lighting." data-tools="BLENDER / PHOTOSHOP">
-        <img src="./assets/LUXAVENON - lamp 02.JPG" alt="Luxavenon — Lamp Design II" loading="lazy">
-        <div class="item-label">13 // GRAPHIC / DESIGN</div>
+      <div class="item large">
+        <div class="item-media">
+          <img src="./assets/LUXAVENON - lamp 02.JPG" alt="Luxavenon — Lamp Design II" loading="lazy">
+          <div class="item-label">13 // GRAPHIC / DESIGN</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Luxavenon — Lamp Design II</h3>
+            <div class="drawer-tools">[ TOOLS USED: BLENDER / PHOTOSHOP ]</div>
+            <p class="drawer-desc">Alternative product shot and 3D studio render for Luxavenon lighting.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title=".EXE Outro Animation" data-desc="Dynamic animated outro sequence designed for the .EXE brand ecosystem." data-tools="AFTER EFFECTS / VN">
-        <video src="./assets/OUTRO_EXE.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-        <div class="item-label">14 // MOTION / VIDEO</div>
+      <div class="item">
+        <div class="item-media">
+          <video src="./assets/OUTRO_EXE.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
+          <div class="item-label">14 // MOTION / VIDEO</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">.EXE Outro Animation</h3>
+            <div class="drawer-tools">[ TOOLS USED: AFTER EFFECTS / VN ]</div>
+            <p class="drawer-desc">Dynamic animated outro sequence designed for the .EXE brand ecosystem.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title="Printemon — 3D Turnable" data-desc="3D printable character model showcased in a 360 turnable view." data-tools="BLENDER / NOMAD SCULPT">
-        <video src="./assets/PRINTEMON - model 3D.mov" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-        <div class="item-label">15 // MOTION / VIDEO</div>
+      <div class="item">
+        <div class="item-media">
+          <video src="./assets/PRINTEMON - model 3D.mov" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
+          <div class="item-label">15 // MOTION / VIDEO</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Printemon — 3D Turnable</h3>
+            <div class="drawer-tools">[ TOOLS USED: BLENDER / NOMAD SCULPT ]</div>
+            <p class="drawer-desc">3D printable character model showcased in a 360 turnable view.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title="Skepta — Grime Poster" data-desc="Music poster inspired by the UK grime scene and Skepta's aesthetic." data-tools="PHOTOSHOP / PROCREATE">
-        <img src="./assets/SKEPTA - poster.JPG" alt="Skepta — Grime Poster" loading="lazy">
-        <div class="item-label">16 // GRAPHIC / DESIGN</div>
+      <div class="item">
+        <div class="item-media">
+          <img src="./assets/SKEPTA - poster.JPG" alt="Skepta — Grime Poster" loading="lazy">
+          <div class="item-label">16 // GRAPHIC / DESIGN</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Skepta — Grime Poster</h3>
+            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / PROCREATE ]</div>
+            <p class="drawer-desc">Music poster inspired by the UK grime scene and Skepta's aesthetic.</p>
+          </div>
+        </div>
       </div>
-      <div class="item large" data-title="Smile — Motion Poster" data-desc="Motion poster combining static graphic design with subtle animated elements." data-tools="AFTER EFFECTS / VN / PROCREATE">
-        <video src="./assets/SMILE - poster video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-        <div class="item-label">17 // MOTION / VIDEO</div>
+      <div class="item large">
+        <div class="item-media">
+          <video src="./assets/SMILE - poster video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
+          <div class="item-label">17 // MOTION / VIDEO</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Smile — Motion Poster</h3>
+            <div class="drawer-tools">[ TOOLS USED: AFTER EFFECTS / VN / PROCREATE ]</div>
+            <p class="drawer-desc">Motion poster combining static graphic design with subtle animated elements.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title="Truck Commercial Video" data-desc="Commercial promo video and large-format mobile advertising concept." data-tools="AFTER EFFECTS / BLENDER / VN">
-        <video src="./assets/TRUCK - video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-        <div class="item-label">18 // MOTION / VIDEO</div>
+      <div class="item">
+        <div class="item-media">
+          <video src="./assets/TRUCK - video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
+          <div class="item-label">18 // MOTION / VIDEO</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Truck Commercial Video</h3>
+            <div class="drawer-tools">[ TOOLS USED: AFTER EFFECTS / BLENDER / VN ]</div>
+            <p class="drawer-desc">Commercial promo video and large-format mobile advertising concept.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title="Włodek — 3D Concept Model" data-desc="3D character concept sculpt focusing on detailed textures and proportions." data-tools="BLENDER / NOMAD SCULPT">
-        <img src="./assets/WLODEK - concept model.JPG" alt="Włodek — 3D Concept Model" loading="lazy">
-        <div class="item-label">19 // GRAPHIC / DESIGN</div>
+      <div class="item">
+        <div class="item-media">
+          <img src="./assets/WLODEK - concept model.JPG" alt="Włodek — 3D Concept Model" loading="lazy">
+          <div class="item-label">19 // GRAPHIC / DESIGN</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Włodek — 3D Concept Model</h3>
+            <div class="drawer-tools">[ TOOLS USED: BLENDER / NOMAD SCULPT ]</div>
+            <p class="drawer-desc">3D character concept sculpt focusing on detailed textures and proportions.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title="Włodek — 3D Motion Render" data-desc="Motion presentation video of the animated 3D character model 'Włodek'." data-tools="BLENDER / AFTER EFFECTS / VN">
-        <video src="./assets/WLODEK - model video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-        <div class="item-label">20 // MOTION / VIDEO</div>
+      <div class="item">
+        <div class="item-media">
+          <video src="./assets/WLODEK - model video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
+          <div class="item-label">20 // MOTION / VIDEO</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Włodek — 3D Motion Render</h3>
+            <div class="drawer-tools">[ TOOLS USED: BLENDER / AFTER EFFECTS / VN ]</div>
+            <p class="drawer-desc">Motion presentation video of the animated 3D character model 'Włodek'.</p>
+          </div>
+        </div>
       </div>
-      <div class="item large" data-title="Yerbador — Commercial Shot I" data-desc="Product photography and commercial branding shot for Yerbador." data-tools="PHOTOSHOP / LIGHTROOM">
-        <img src="./assets/YERBADOR - foto 01.JPG" alt="Yerbador — Commercial Shot I" loading="lazy">
-        <div class="item-label">21 // GRAPHIC / DESIGN</div>
+      <div class="item large">
+        <div class="item-media">
+          <img src="./assets/YERBADOR - foto 01.JPG" alt="Yerbador — Commercial Shot I" loading="lazy">
+          <div class="item-label">21 // GRAPHIC / DESIGN</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Yerbador — Commercial Shot I</h3>
+            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / LIGHTROOM ]</div>
+            <p class="drawer-desc">Product photography and commercial branding shot for Yerbador.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title="Yerbador — Commercial Shot II" data-desc="Commercial promotional shot showcasing the Yerbador product lineup." data-tools="PHOTOSHOP / LIGHTROOM">
-        <img src="./assets/YERBADOR - foto 03.JPG" alt="Yerbador — Commercial Shot II" loading="lazy">
-        <div class="item-label">22 // GRAPHIC / DESIGN</div>
+      <div class="item">
+        <div class="item-media">
+          <img src="./assets/YERBADOR - foto 03.JPG" alt="Yerbador — Commercial Shot II" loading="lazy">
+          <div class="item-label">22 // GRAPHIC / DESIGN</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Yerbador — Commercial Shot II</h3>
+            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / LIGHTROOM ]</div>
+            <p class="drawer-desc">Commercial promotional shot showcasing the Yerbador product lineup.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title="Yerbador Guarana — Commercial" data-desc="Commercial promo clip for the Yerbador Guarana drink edition." data-tools="AFTER EFFECTS / VN">
-        <video src="./assets/YERBADOR - guarana.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-        <div class="item-label">23 // MOTION / VIDEO</div>
+      <div class="item">
+        <div class="item-media">
+          <video src="./assets/YERBADOR - guarana.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
+          <div class="item-label">23 // MOTION / VIDEO</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Yerbador Guarana — Commercial</h3>
+            <div class="drawer-tools">[ TOOLS USED: AFTER EFFECTS / VN ]</div>
+            <p class="drawer-desc">Commercial promo clip for the Yerbador Guarana drink edition.</p>
+          </div>
+        </div>
       </div>
-      <div class="item" data-title="Yerbador — Main Commercial" data-desc="Main advertising campaign video created for Yerbador." data-tools="AFTER EFFECTS / VN">
-        <video src="./assets/YERBADOR - main.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-        <div class="item-label">24 // MOTION / VIDEO</div>
+      <div class="item">
+        <div class="item-media">
+          <video src="./assets/YERBADOR - main.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
+          <div class="item-label">24 // MOTION / VIDEO</div>
+          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+        </div>
+        <div class="item-info-drawer">
+          <button class="close-expand">[ X ] CLOSE</button>
+          <div class="drawer-content">
+            <h3 class="drawer-title">Yerbador — Main Commercial</h3>
+            <div class="drawer-tools">[ TOOLS USED: AFTER EFFECTS / VN ]</div>
+            <p class="drawer-desc">Main advertising campaign video created for Yerbador.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -417,157 +704,63 @@
     
 
 
-  <script>
-    // Automatyczne losowanie kolejności prac przy każdym załadowaniu strony
-    (function() {
-      const grid = document.querySelector('.gallery-grid');
-      if(!grid) return;
-      const items = Array.from(grid.children);
-      for (let i = items.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [items[i], items[j]] = [items[j], items[i]];
-      }
-      items.forEach((item, idx) => {
-        grid.appendChild(item);
-        const label = item.querySelector('.item-label');
-        if(label) {
-          const text = label.textContent.split('//')[1] || label.textContent;
-          label.textContent = String(idx + 1).padStart(2, '0') + ' //' + text;
-        }
-      });
-    })();
-  </script>
+  
 
   
 
 
-      <!-- === SPLIT-VIEW LIGHTBOX COMPONENT === -->
-  <style>
-    .lightbox {
-      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85);
-      z-index: 99999; opacity: 0; pointer-events: none;
-      display: flex; align-items: center; justify-content: center;
-      transition: opacity 0.4s ease; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-    }
-    .lightbox.active { opacity: 1; pointer-events: auto; }
-    
-    .lightbox-close {
-      position: absolute; top: 24px; right: 24px;
-      background: transparent; border: 1px solid var(--grid-line);
-      color: var(--fg); font-family: var(--font-mono); font-size: 11px; cursor: pointer;
-      text-transform: uppercase; letter-spacing: 0.15em; padding: 10px 18px; border-radius: 4px;
-      transition: all 0.3s ease; z-index: 100000;
-    }
-    .lightbox-close:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-    
-    .lightbox-dialog {
-      display: flex; flex-direction: row; 
-      width: 92vw; max-width: 1400px; height: 85vh;
-      background: var(--bg); border: 1px solid var(--grid-line);
-      box-shadow: 0 20px 80px rgba(255, 42, 0, 0.08);
-      transform: scale(0.98) translateY(10px);
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      overflow: hidden;
-    }
-    .lightbox.active .lightbox-dialog {
-      transform: scale(1) translateY(0);
-    }
-
-    .lightbox-media {
-      flex: 1; display: flex; justify-content: center; align-items: center;
-      background: #000; padding: 32px; position: relative;
-    }
-    .lightbox-content {
-      max-width: 100%; max-height: 100%; object-fit: contain;
-      filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
-    }
-    
-    .lightbox-info {
-      width: 380px; background: #050505; border-left: 1px solid var(--grid-line);
-      padding: 48px 32px; display: flex; flex-direction: column; justify-content: center;
-      transform: translateX(50px); opacity: 0;
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s; /* Delikatne opóźnienie wysunięcia */
-    }
-    .lightbox.active .lightbox-info {
-      transform: translateX(0); opacity: 1;
-    }
-
-    .lightbox-title { font-family: var(--font-head); font-size: 22px; margin-bottom: 12px; color: #fff; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.1; }
-    .lightbox-tools { font-size: 11px; color: var(--accent); font-weight: bold; margin-bottom: 24px; letter-spacing: 0.15em; text-transform: uppercase; border-bottom: 1px solid var(--grid-line); padding-bottom: 24px; }
-    .lightbox-desc { font-size: 13.5px; color: #a1a1aa; line-height: 1.7; font-family: var(--font-mono); }
-
-    @media (max-width: 900px) {
-      .lightbox-dialog { flex-direction: column; height: 90vh; width: 95vw; }
-      .lightbox-media { flex: 1; padding: 16px; min-height: 50vh; }
-      .lightbox-info { width: 100%; border-left: none; border-top: 1px solid var(--grid-line); padding: 24px; transform: translateY(30px); }
-      .lightbox.active .lightbox-info { transform: translateY(0); }
-      .lightbox-title { font-size: 18px; margin-bottom: 8px; }
-      .lightbox-tools { margin-bottom: 16px; padding-bottom: 16px; }
-      .lightbox-close { top: 12px; right: 12px; padding: 8px 12px; font-size: 10px; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
-    }
-  </style>
-
-  <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" id="lightboxClose">[ X ] CLOSE</button>
-    <div class="lightbox-dialog" id="lightboxDialog">
-      <div class="lightbox-media" id="lightboxMedia"></div>
-      <div class="lightbox-info">
-        <div class="lightbox-title" id="lightboxTitle"></div>
-        <div class="lightbox-tools" id="lightboxTools"></div>
-        <div class="lightbox-desc" id="lightboxDesc"></div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const lightbox = document.getElementById('lightbox');
-      const lbClose = document.getElementById('lightboxClose');
-      const lbMedia = document.getElementById('lightboxMedia');
-      const lbTitle = document.getElementById('lightboxTitle');
-      const lbTools = document.getElementById('lightboxTools');
-      const lbDesc = document.getElementById('lightboxDesc');
-
-      document.querySelectorAll('.item').forEach(item => {
-        item.addEventListener('click', () => {
-          const mediaElement = item.querySelector('img, video');
-          if(!mediaElement) return;
-          
-          lbMedia.innerHTML = '';
-          const clone = mediaElement.cloneNode(true);
-          clone.className = 'lightbox-content';
-          clone.removeAttribute('loading');
-          
-          if(clone.tagName === 'VIDEO') { 
-            clone.controls = true; 
-            clone.muted = false;
-            clone.play().catch(e => console.log("Autoplay:", e)); 
-          }
-          lbMedia.appendChild(clone);
-          
-          lbTitle.textContent = item.dataset.title || 'UNKNOWN_FILE.EXE';
-          lbTools.textContent = '[ TOOLS USED: ' + (item.dataset.tools || 'N/A') + ' ]';
-          lbDesc.textContent = item.dataset.desc || '';
-          
-          lightbox.classList.add('active');
-        });
-      });
-
-      function closeLightbox() {
-        lightbox.classList.remove('active');
-        lbMedia.innerHTML = '';
-      }
       
-      lbClose.addEventListener('click', closeLightbox);
-      lightbox.addEventListener('click', (e) => {
-        // Zamykaj tylko przy kliknięciu w czarne tło modala lub obszar wokół obrazka
-        if(e.target === lightbox || e.target === lbMedia) {
-          closeLightbox();
-        }
-      });
-    });
-  </script>
-  <!-- === END SPLIT-VIEW LIGHTBOX === -->
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.querySelector('.gallery-grid');
+    if (!grid) return;
+    
+    // 1. Shuffle
+    const items = Array.from(grid.children);
+    for (let i = items.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [items[i], items[j]] = [items[j], items[i]];
+    }
+    items.forEach((item, idx) => {
+      grid.appendChild(item);
+      const label = item.querySelector('.item-label');
+      if(label) {
+        const parts = label.textContent.split('//');
+        const right = parts.length > 1 ? parts.slice(1).join('//').trim() : label.textContent.trim();
+        label.textContent = String(idx + 1).padStart(2, '0') + ' // ' + right;
+      }
+    });
+
+    // 2. Click to Expand In-Grid
+    grid.addEventListener('click', (e) => {
+      const item = e.target.closest('.item');
+      if (!item) return;
+
+      // Close button clicked
+      if (e.target.closest('.close-expand')) {
+        item.classList.remove('is-expanded');
+        return;
+      }
+
+      // If already expanded, do nothing
+      if (item.classList.contains('is-expanded')) return;
+
+      // Close previously expanded items
+      document.querySelectorAll('.item.is-expanded').forEach(other => {
+        other.classList.remove('is-expanded');
+      });
+
+      // Expand clicked item
+      item.classList.add('is-expanded');
+
+      // Scroll into view smoothly
+      setTimeout(() => {
+        const y = item.getBoundingClientRect().top + window.scrollY - 100;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }, 350);
+    });
+  });
+</script>
 </body>
 </html>
