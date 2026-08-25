@@ -42,7 +42,7 @@
   ::selection { background: var(--fg); color: var(--bg); }
 
   /* --- NAWIGACJA (WIREFRAME) --- */
-  .top-nav {
+    .top-nav {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     border-bottom: 1px solid var(--grid-line);
@@ -59,7 +59,9 @@
     display: flex;
     align-items: center;
   }
-  .nav-cell:last-child { border-right: none; justify-content: flex-end; }
+  .nav-cell:nth-child(1) { justify-content: flex-start; }
+  .nav-cell:nth-child(2) { justify-content: center; }
+  .nav-cell:nth-child(3) { border-right: none; justify-content: flex-end; }
   .nav-cell:nth-child(2) { justify-content: center; }
 
   .back-btn {
@@ -280,7 +282,10 @@
 </head>
 <body>
 
-  <nav class="top-nav">
+    <nav class="top-nav">
+    <div class="nav-cell">
+      <a href="../../index.html" class="back-btn">[ RETURN TO HUB ]</a>
+    </div>
     <div class="nav-cell">
       <span class="exe-nav-logo">.EXE</span>
     </div>
