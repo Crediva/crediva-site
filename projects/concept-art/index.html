@@ -259,6 +259,125 @@
     transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
   }
 
+    /* --- HERO TECH WIDGET & GLITCH H1 --- */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 32px;
+    align-items: center;
+  }
+  
+  .hero-main-col {
+    grid-column: 1 / 8;
+  }
+  .hero-tech-col {
+    grid-column: 8 / -1;
+  }
+
+  .sys-badge {
+    display: inline-block;
+    background: rgba(255, 42, 0, 0.1);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 12px;
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  /* Glitch Effect on H1 */
+  .glitch-title {
+    position: relative;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  .glitch-title:hover {
+    text-shadow: 2px 0 var(--accent), -2px 0 #00f0ff;
+    animation: glitchAnim 0.3s infinite;
+  }
+  @keyframes glitchAnim {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+  }
+
+  /* Tech Card (Prawa Strona) */
+  .hero-tech-card {
+    border: 1px solid var(--grid-line);
+    background: #080808;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  }
+  .tech-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--grid-line);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: #888;
+  }
+  .tech-live-status {
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: bold;
+  }
+  .tech-live-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: blinkDot 1s infinite alternate;
+  }
+  @keyframes blinkDot {
+    from { opacity: 0.2; }
+    to { opacity: 1; }
+  }
+
+  .canvas-container {
+    width: 100%;
+    height: 180px;
+    position: relative;
+    background: #030303;
+    border: 1px solid rgba(255,255,255,0.05);
+    margin-bottom: 16px;
+  }
+  #wireframeCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .tech-card-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    font-size: 10px;
+    color: #666;
+    border-top: 1px solid var(--grid-line);
+    padding-top: 12px;
+    letter-spacing: 0.1em;
+  }
+  .tech-val {
+    color: var(--fg);
+    font-weight: bold;
+    margin-top: 2px;
+  }
+
+  @media(max-width: 900px) {
+    .hero-main-col { grid-column: 1 / -1; }
+    .hero-tech-col { grid-column: 1 / -1; margin-top: 24px; }
+  }
   /* --- FOOTER --- */
   footer {
     border-top: 1px solid var(--grid-line);
@@ -353,10 +472,52 @@
     </div>
   </nav>
 
-  <header class="hero">
+    <header class="hero">
     <div class="hero-grid">
-      <h1>Visual<br>Distortion</h1>
-      <p class="hero-desc">An experimental platform and art collective bridging raw street art culture with digital execution. Exploring the intersection of brutalism, corporate identity, and dark aesthetics — we build posters, branding frameworks, and motion clips that translate urban grit into a digital release.</p>
+      
+      <!-- Lewa Strona: Tytuł i Opis -->
+      <div class="hero-main-col">
+        <span class="sys-badge">[ SYS.02 // EXE_CORE ]</span>
+        <h1 class="glitch-title">Visual<br>Distortion</h1>
+        <p class="hero-desc">An experimental platform and art collective bridging raw street art culture with digital execution. Exploring the intersection of brutalism, corporate identity, and dark aesthetics — we build posters, branding frameworks, and motion clips that translate urban grit into a digital release.</p>
+      </div>
+
+      # Prawa Strona: Widget 3D Wireframe & Live Stats
+      <div class="hero-tech-col">
+        <div class="hero-tech-card">
+          <div class="tech-card-header">
+            <span>[ MATRIX_3D_CANVAS ]</span>
+            <div class="tech-live-status">
+              <div class="tech-live-dot"></div>
+              <span>LIVE_SIGNAL</span>
+            </div>
+          </div>
+          
+          <div class="canvas-container">
+            <canvas id="wireframeCanvas"></canvas>
+          </div>
+
+          <div class="tech-card-footer">
+            <div>
+              <span>SYSTEM TIME:</span>
+              <div class="tech-val" id="sysClock">00:00:00 UTC</div>
+            </div>
+            <div>
+              <span>INDEXED FILES:</span>
+              <div class="tech-val">24_ITEMS_TOTAL</div>
+            </div>
+            <div>
+              <span>LOCATION:</span>
+              <div class="tech-val">52.2297° N</div>
+            </div>
+            <div>
+              <span>RENDER ENGINE:</span>
+              <div class="tech-val" style="color:var(--accent);">CANVAS_3D_GPU</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </header>
 
@@ -821,6 +982,89 @@
         window.scrollTo({ top: y, behavior: 'smooth' });
       }, 350);
     });
+  });
+</script>
+<script>
+  // 3D Canvas Wireframe Cube & UTC Clock
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Zegar UTC
+    const sysClock = document.getElementById('sysClock');
+    if(sysClock) {
+      setInterval(() => {
+        const now = new Date();
+        sysClock.textContent = now.toUTCString().split(' ')[4] + ' UTC';
+      }, 1000);
+    }
+
+    // 2. 3D Wireframe Canvas
+    const canvas = document.getElementById('wireframeCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width, height;
+
+    function resize() {
+      width = canvas.width = canvas.offsetWidth;
+      height = canvas.height = canvas.offsetHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // 3D Cube Vertices
+    const nodes = [
+      [-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],
+      [-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]
+    ];
+    const edges = [
+      [0,1],[1,2],[2,3],[3,0],
+      [4,5],[5,6],[6,7],[7,4],
+      [0,4],[1,5],[2,6],[3,7]
+    ];
+
+    let rx = 0.4, ry = 0.4;
+    let mouseX = 0, mouseY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 0.02;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 0.02;
+    });
+
+    function render3D() {
+      ctx.clearRect(0, 0, width, height);
+      rx += 0.008 + mouseY;
+      ry += 0.012 + mouseX;
+
+      const scale = Math.min(width, height) * 0.28;
+      const cx = width / 2;
+      const cy = height / 2;
+
+      const projected = nodes.map(node => {
+        let y1 = node[1] * Math.cos(rx) - node[2] * Math.sin(rx);
+        let z1 = node[1] * Math.sin(rx) + node[2] * Math.cos(rx);
+        let x2 = node[0] * Math.cos(ry) + z1 * Math.sin(ry);
+        let z2 = -node[0] * Math.sin(ry) + z1 * Math.cos(ry);
+        return [x2 * scale + cx, y1 * scale + cy];
+      });
+
+      ctx.strokeStyle = '#ff2a00';
+      ctx.lineWidth = 1.2;
+
+      edges.forEach(edge => {
+        const p1 = projected[edge[0]];
+        const p2 = projected[edge[1]];
+        ctx.beginPath();
+        ctx.moveTo(p1[0], p1[1]);
+        ctx.lineTo(p2[0], p2[1]);
+        ctx.stroke();
+      });
+
+      ctx.fillStyle = '#ffffff';
+      projected.forEach(p => {
+        ctx.fillRect(p[0] - 2, p[1] - 2, 4, 4);
+      });
+
+      requestAnimationFrame(render3D);
+    }
+    render3D();
   });
 </script>
 </body>
