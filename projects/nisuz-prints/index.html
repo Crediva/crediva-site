@@ -694,6 +694,27 @@
     }
   }
 
+
+  /* iOS / iPhone Video Layout Fix */
+  .video-wrapper {
+    width: 100% !important;
+    aspect-ratio: 9 / 16;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+  }
+  .video-wrapper video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    display: block;
+    background: #000;
+  }
+  @media (max-width: 768px) {
+    .video-grid { grid-template-columns: 1fr !important; gap: 20px; }
+    .video-card { max-width: 100%; margin: 0 auto; }
+    .video-wrapper { height: 62vh !important; aspect-ratio: auto; }
+  }
 </style>
 </head>
 <body>
@@ -898,8 +919,8 @@
         <!-- Alien -->
         <div class="video-card">
           <div class="video-wrapper">
-            <video autoplay muted loop playsinline controls poster="./assets/foto/FOTO alien thumbnail.PNG">
-              <source src="./assets/foto/FILM alien -01.MOV" type="video/mp4">
+            <video webkit-playsinline preload="metadata" autoplay muted loop playsinline controls poster="./assets/foto/FOTO alien thumbnail.PNG">
+              <source src="./assets/foto/FILM alien -01.MOV" type="video/quicktime">
               Your browser does not support the video tag.
             </video>
           </div>
@@ -909,7 +930,7 @@
         <!-- Behelit -->
         <div class="video-card">
           <div class="video-wrapper">
-            <video autoplay muted loop playsinline controls poster="./assets/foto/FOTO behelit thumbnail.JPG">
+            <video webkit-playsinline preload="metadata" autoplay muted loop playsinline controls poster="./assets/foto/FOTO behelit thumbnail.JPG">
               <source src="./assets/foto/FILM behelit - 01.MP4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
@@ -920,8 +941,8 @@
         <!-- Lich Marine -->
         <div class="video-card">
           <div class="video-wrapper">
-            <video autoplay muted loop playsinline controls poster="./assets/foto/FOTO lich marine.PNG">
-              <source src="./assets/foto/FILM lich marine - 01.MOV" type="video/mp4">
+            <video webkit-playsinline preload="metadata" autoplay muted loop playsinline controls poster="./assets/foto/FOTO lich marine.PNG">
+              <source src="./assets/foto/FILM lich marine - 01.MOV" type="video/quicktime">
               Your browser does not support the video tag.
             </video>
           </div>
