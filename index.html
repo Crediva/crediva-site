@@ -311,24 +311,42 @@
   }
 
   
-  /* ---------- GLASSMORPHISM SLIDESHOW & SMOOTH TRANSITION ---------- */
+  
+  /* ---------- GLASSMORPHISM SLIDESHOW (HOVER ONLY & PERFECT FIT) ---------- */
   .card-glass-frame {
     position: relative;
     width: 100%;
-    height: 170px;
-    border-radius: 16px;
+    height: 155px;
+    border-radius: 14px;
     overflow: hidden;
+    margin-top: 38px; /* Odsuwa ramkę od wskaźników 01 oraz LIVE */
     margin-bottom: 12px;
-    background: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.45);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 8px 24px rgba(33, 33, 58, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9), 0 8px 20px rgba(33, 33, 58, 0.05);
+    
+    /* DOMYŚLNIE UKRYTE - pojawia się płynnie dopiero po najechaniu */
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
+  /* Płatne pokazanie slajdu po najechaniu na kartę */
+  .card:hover .card-glass-frame {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 
   .card-glass-frame .slideshow {
     position: absolute;
     inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.8) 0%, rgba(230,235,250,0.4) 100%);
   }
 
   .card-glass-frame .slide {
@@ -336,10 +354,12 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    /* PEŁNE DOPASOWANIE BEZ OBCINANIA EDGES */
+    object-fit: contain;
+    padding: 10px;
     opacity: 0;
-    transform: scale(1.06);
-    transition: opacity 1s ease-in-out, transform 1.2s ease-out;
+    transform: scale(0.95);
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-out;
   }
 
   .card-glass-frame .slide.active {
@@ -350,12 +370,10 @@
   .card-glass-frame .glass-tint {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.25) 100%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
     pointer-events: none;
-    border-radius: 16px;
   }
 
-  /* Aksamitna zasłona przejścia bez ostrego koła */
   .veil {
     position: fixed;
     inset: 0;
