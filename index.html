@@ -357,13 +357,15 @@
     object-fit: cover;
     object-position: center top;
     opacity: 0;
+    z-index: 1;
     transform: translate3d(0, 0, 0);
-    transition: opacity 0.8s ease-in-out;
+    transition: opacity 0.85s ease-in-out;
     will-change: transform, opacity;
   }
 
   .card-glass-frame .slide.active {
     opacity: 1;
+    z-index: 2;
     animation: slidePanDown 5.5s linear forwards;
   }
 
@@ -371,6 +373,10 @@
     0% {
       transform: translate3d(0, 0, 0);
     }
+    100% {
+      transform: translate3d(0, -32%, 0);
+    }
+  }
     100% {
       transform: translate3d(0, -32%, 0);
     }
@@ -481,7 +487,7 @@
       <span class="label card-label">2D Art</span>
       <h2 class="card-title">Concept &amp; Illustration</h2>
       <div class="card-reveal">
-        <p>Concept art and 2D illustration — worldbuilding, character design, and visual development in a dark-fantasy register.</p>
+        <p>Commercial graphic design &amp; 2D illustration — posters, ad visuals, branding graphics, packaging design, and simple motion clips.</p>
         <span class="card-cta">Coming soon <span class="arrow">→</span></span>
       </div>
     </div>
@@ -522,20 +528,27 @@
   document.querySelectorAll('.slideshow').forEach(slideshow => {
     const slides = slideshow.querySelectorAll('.slide');
     if (slides.length <= 1) return;
-    let idx = 0;
+    let activeIdx = 0;
 
-    function activateSlide(i) {
-      slides.forEach((s, n) => {
-        s.classList.remove('active');
-        void s.offsetWidth; // force reflow — restart CSS pan
-        if (n === i) s.classList.add('active');
-      });
-    }
+    slides[0].classList.add('active');
 
-    activateSlide(0);
     setInterval(() => {
-      idx = (idx + 1) % slides.length;
-      activateSlide(idx);
+      const nextIdx = (activeIdx + 1) % slides.length;
+      const currentSlide = slides[activeIdx];
+      const nextSlide = slides[nextIdx];
+
+      // Nowy slajd wchodzi na wierzch (z-index: 2) i odpala animację
+      void nextSlide.offsetWidth; // force reflow
+      nextSlide.classList.add('active');
+
+      // Dopiero po zakończeniu fadu (850ms) czyścimy poprzedni slajd pod spodem
+      setTimeout(() => {
+        if (currentSlide !== nextSlide) {
+          currentSlide.classList.remove('active');
+        }
+      }, 850);
+
+      activeIdx = nextIdx;
     }, 5500);
   });
 
