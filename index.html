@@ -364,7 +364,7 @@
   /* Aktywny slajd: fade-in + 3s pan z góry na dół */
   .card-glass-frame .slide.active {
     opacity: 1;
-    animation: slidePanDown 3s linear forwards;
+    animation: slidePanDown 4.5s linear forwards;
   }
 
   @keyframes slidePanDown {
@@ -528,7 +528,7 @@
     setInterval(() => {
       idx = (idx + 1) % slides.length;
       activateSlide(idx);
-    }, 3000);
+    }, 4500);
   });
 
   function showToast(){
