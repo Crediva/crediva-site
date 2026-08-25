@@ -538,5 +538,26 @@
     });
   </script>
 
+
+  <script>
+    // Automatyczne losowanie kolejności prac przy każdym załadowaniu strony
+    (function() {
+      const grid = document.querySelector('.gallery-grid');
+      if(!grid) return;
+      const items = Array.from(grid.children);
+      for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [items[i], items[j]] = [items[j], items[i]];
+      }
+      items.forEach((item, idx) => {
+        grid.appendChild(item);
+        const label = item.querySelector('.item-label');
+        if(label) {
+          const text = label.textContent.split('//')[1] || label.textContent;
+          label.textContent = String(idx + 1).padStart(2, '0') + ' //' + text;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
