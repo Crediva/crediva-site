@@ -112,6 +112,8 @@
   }
 
   .card{
+    touch-action: pan-y;
+    will-change: transform;
     position:relative;
     display:flex;
     flex-direction:column;
@@ -301,7 +303,9 @@
   }
 
   @media (prefers-reduced-motion: reduce){
-    .card{ animation:none; }
+    .card{
+    touch-action: pan-y;
+    will-change: transform; animation:none; }
     .blob{ animation:none; }
   }
 
@@ -570,78 +574,44 @@
   }
 
   document.querySelectorAll('.card').forEach(card => {
-    if (!reduceMotion && window.matchMedia('(hover: hover)').matches){
-      let settleTimer = null;
-      card.addEventListener('pointerenter', (e) => {
-        clearTimeout(settleTimer);
-        card.style.animation = 'none';
-        card.style.transition = 'transform .1s ease-out, box-shadow .6s ease';
-        card.style.setProperty('--pos-speed', '.15s');
-        document.body.classList.add('is-card-hovered');
-        updateCardPointer(card, e);
-      });
-      card.addEventListener('pointermove', (e) => updateCardPointer(card, e));
-      card.addEventListener('pointerleave', () => {
-        card.style.transition = 'transform .6s cubic-bezier(.22,1,.36,1), box-shadow .6s ease';
-        card.style.transform = '';
-        card.style.setProperty('--pos-speed', '.7s');
-        document.body.classList.remove('is-card-hovered');
-        settleTimer = setTimeout(() => { card.style.animation = ''; }, 620);
-      });
+    let settleTimer = null;
+
+    function startTilt(e){
+      clearTimeout(settleTimer);
+      card.style.animation = 'none';
+      card.style.transition = 'transform .1s ease-out, box-shadow .6s ease';
+      card.style.setProperty('--pos-speed', '.15s');
+      document.body.classList.add('is-card-hovered');
+      card.classList.add('is-active');
+      updateCardPointer(card, e);
     }
 
-    card.addEventListener('click', (e) => {
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+    function stopTilt(){
+      card.style.transition = 'transform .6s cubic-bezier(.22,1,.36,1), box-shadow .6s ease';
+      card.style.transform = '';
+      card.style.setProperty('--pos-speed', '.7s');
+      document.body.classList.remove('is-card-hovered');
+      settleTimer = setTimeout(() => { card.style.animation = ''; }, 620);
+    }
 
-      if (card.dataset.status === 'soon'){
-        e.preventDefault();
-        card.classList.remove('is-locked');
-        void card.offsetWidth;
-        card.classList.add('is-locked');
-        showToast();
-        return;
-      }
-
-      e.preventDefault();
-      const target = card.getAttribute('href');
-
-      if (reduceMotion){
-        window.location.href = target;
-        return;
-      }
-
-      veil.classList.add('is-animating');
-      document.body.classList.add('is-leaving');
-
-      setTimeout(() => { window.location.href = target; }, 420);
-    });
-  });
-
-
-  // ---- Mobile / touch: pokaż teaser po tapnięciu karty ----
-  (function(){
-    const cards = document.querySelectorAll('.card');
-    let activeCard = null;
-
-    cards.forEach(card => {
+    if (!reduceMotion){
+      // Reaguje zarówno na mysz, jak i na dotyk palca na mobile
+      card.addEventListener('pointerenter', (e) => {
+        if (e.pointerType === 'mouse') startTilt(e);
+      });
       card.addEventListener('pointerdown', (e) => {
-        // tylko touch / pióro; mysz zostaje na :hover
-        if (e.pointerType === 'mouse') return;
-
-        if (activeCard && activeCard !== card) {
-          activeCard.classList.remove('is-active');
+        startTilt(e);
+      });
+      card.addEventListener('pointermove', (e) => {
+        if (card.classList.contains('is-active') || card.classList.contains('is-card-hovered')){
+          updateCardPointer(card, e);
         }
-        card.classList.add('is-active');
-        activeCard = card;
-      }, { passive: true });
-    });
-
-    // tap poza kartami chowa teaser
-    document.addEventListener('pointerdown', (e) => {
-      if (!e.target.closest('.card') && activeCard) {
-        activeCard.classList.remove('is-active');
-        activeCard = null;
-      }
+      });
+      card.addEventListener('pointerleave', (e) => {
+        if (e.pointerType === 'mouse') stopTilt();
+      });
+      card.addEventListener('pointerup', stopTilt);
+      card.addEventListener('pointercancel', stopTilt);
     }, { passive: true });
   })();
 
