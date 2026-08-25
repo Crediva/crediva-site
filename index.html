@@ -1,1032 +1,468 @@
 <!doctype html>
-<html lang="pl">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>NISUZ PRINTS — Modular Collectible Figures</title>
-
-<!-- model-viewer web component (works standalone, no framework needed) -->
-<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+<title>CREDIVA — Aleksander Zusin, Projects</title>
+<meta name="description" content="Portfolio: 3D printing, 3D art, and AI automation." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Barlow+Condensed:wght@500;600&display=swap" rel="stylesheet">
 
 <style>
   :root{
-    /* ---- Tokens from the "mono" design system ---- */
-    --color-paper: #ffffff;
-    --color-ink: #292929;
-    --color-carbon: #000000;
+    /* ---- brand tokens, shared with the rest of crediva.dev ---- */
+    --font-nh: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-cond: 'Barlow Condensed', ui-sans-serif, system-ui, sans-serif;
+    --ink: #21213a;
+    --ink-soft: rgba(33,33,58,0.62);
 
-    --font-nh: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif; /* NH substitute */
-    --font-cond: 'Barlow Condensed', ui-sans-serif, system-ui, sans-serif;   /* S-Condensed substitute */
+    /* ---- required gradients ---- */
+    --bg: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 25%, #dbeafe 50%, #e0f2fe 75%, #d1fae5 100%);
+    --bg-2: linear-gradient(130deg, #c7d2fe 0%, #67e8f9 100%);
 
-    --text-caption: 12px;
-    --text-body-sm: 14px;
-    --text-body: 16px;
-    --text-subheading: 25px;
-    --text-heading-sm: 32px;
-    --text-heading: 40px;
-    --text-heading-lg: 43px;
-
-    --max-width: 1200px;
-    --section-gap: 50px;
-    --card-padding: 20px;
-    --element-gap: 8px;
+    --card-w: 300px;
+    --card-h: 400px;
   }
 
-  *{ box-sizing: border-box; }
+  *{ box-sizing:border-box; }
   html,body{ margin:0; padding:0; }
 
   body{
-    background: var(--color-paper);
-    color: var(--color-ink);
+    min-height:100vh;
+    background: var(--bg);
+    background-attachment: fixed;
+    color: var(--ink);
     font-family: var(--font-nh);
-    font-weight: 400;
-    font-size: var(--text-body);
-    line-height: 1.5;
-    letter-spacing: -0.32px;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    font-weight:400;
+    letter-spacing:-0.32px;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
 
-  a{ color: var(--color-ink); text-decoration: none; }
-  img{ display:block; max-width:100%; }
-
-  .wrap{
-    max-width: var(--max-width);
-    margin: 0 auto;
-    border-left: 1px solid var(--color-ink);
-    border-right: 1px solid var(--color-ink);
-  }
+  a{ color:inherit; }
 
   .label{
     font-family: var(--font-cond);
-    font-size: var(--text-caption);
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
   }
 
-  .hr{
-    border: none;
-    border-top: 1px solid var(--color-ink);
-    margin: 0;
+  /* ---------- ambient liquid background blobs (uses --bg-2) ---------- */
+  .blob{
+    position:fixed;
+    width:52vmax; height:52vmax;
+    border-radius:50%;
+    background: var(--bg-2);
+    filter: blur(90px);
+    opacity:.35;
+    pointer-events:none;
+    z-index:0;
+    transition: opacity 1.1s ease;
+  }
+  body.is-card-hovered .blob{ opacity:.52; }
+  .blob--a{ top:-22vmax; left:-18vmax; animation: drift1 26s ease-in-out infinite; }
+  .blob--b{ bottom:-26vmax; right:-20vmax; animation: drift2 32s ease-in-out infinite; }
+  @keyframes drift1{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(6vmax,4vmax) scale(1.08); }
+  }
+  @keyframes drift2{
+    0%,100%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(-5vmax,-3vmax) scale(1.06); }
   }
 
-  /* ---------- NAV ---------- */
-  .nav{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding: 20px var(--card-padding);
-    border-bottom: 1px solid var(--color-ink);
+  /* ---------- intro / hero ---------- */
+  .intro{
+    position:relative; z-index:2;
+    text-align:center;
+    padding: 12vh clamp(20px, 6vw, 56px) 6vh;
   }
-  .nav .wordmark{
+  .intro .eyebrow{
+    display:block;
+    color: var(--ink-soft);
+    margin-bottom:16px;
+  }
+  .intro h1{
+    margin:0;
     font-family: var(--font-nh);
-    font-weight: 300;
-    font-size: 20px;
-    letter-spacing: -0.02em;
-    display: flex;
-    align-items: center;
+    font-weight:600;
+    font-size: clamp(38px, 6.4vw, 64px);
+    letter-spacing:-0.01em;
   }
-  .logo-img{
-    height: 22px;
-    width: auto;
-    display: block;
+  .intro p{
+    max-width:520px;
+    margin: 18px auto 0;
+    font-size:16px;
+    color: var(--ink-soft);
   }
-  .logo-img--footer{
-    height: 16px;
-  }
-  .nav .links{ display:flex; gap: 20px; align-items:center; }
-  .nav .links a{
-    font-family: var(--font-cond);
-    font-size: var(--text-body-sm);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding: 4px 2px;
-    border-bottom: 1px solid transparent;
-  }
-  .nav .links a:hover{ border-bottom-color: var(--color-ink); }
-  .btn-ghost{
-    font-family: var(--font-cond);
-    font-size: var(--text-caption);
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 5px 20px;
-    border: 1px solid var(--color-ink);
-    background: transparent;
-    cursor: pointer;
-    border-radius: 0;
-    transition: background .15s, color .15s;
-  }
-  .btn-ghost:hover{ background: var(--color-ink); color: var(--color-paper); }
 
-  /* ---------- HERO : 3-cell grid ---------- */
-  .hero{
-    display: grid;
-    grid-template-columns: 3fr 6fr 1.4fr;
-    min-height: 640px;
+  /* ---------- menu ---------- */
+  .menu{
+    position:relative; z-index:2;
+    display:flex;
+    flex-wrap:wrap;
+    gap: 44px;
+    justify-content:center;
+    align-items:flex-start;
+    padding: 0 clamp(20px, 6vw, 56px) 12vh;
+    perspective: 1400px;
   }
-  .hero > div:not(:last-child){ border-right: 1px solid var(--color-ink); }
 
-  .hero-info{
-    padding: 43px var(--card-padding) var(--card-padding);
+  .card{
+    position:relative;
     display:flex;
     flex-direction:column;
-  }
-  .hero-info .label{ margin-bottom: var(--element-gap); }
-  .hero-info h1{
-    font-family: var(--font-nh);
-    font-weight: 300;
-    font-size: 40px;
-    line-height: 1.2;
-    letter-spacing: -0.8px;
-    margin: 0 0 20px 0;
-  }
-  .hero-info p{
-    font-size: var(--text-body);
-    font-weight: 400;
-    margin: 0 0 20px 0;
-  }
-  .meta-list{ margin-top: auto; padding-top: 20px; border-top: 1px solid var(--color-ink); }
-  .meta-list dl{ display:grid; grid-template-columns: 1fr 1fr; gap: 8px 0; margin:0; }
-  .meta-list dt{ font-family: var(--font-cond); font-size: var(--text-caption); letter-spacing: 0.1em; text-transform: uppercase; opacity:.6; }
-  .meta-list dd{ font-family: var(--font-cond); font-size: var(--text-body-sm); letter-spacing: 0.05em; margin:0; }
-
-  /* ---------- CENTERPIECE (model / video) ---------- */
-  .hero-stage{
-    position: relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background: var(--color-paper);
-    padding: 40px;
-  }
-  .stage-frame{
-    position:relative;
-    width: 100%;
-    max-width: 520px;
-    aspect-ratio: 1 / 1;
-    border: 1px solid var(--color-ink);
-  }
-  model-viewer, video.stage-media{
-    width:100%; height:100%;
-    --poster-color: #ffffff;
-    background-color: #ffffff;
-  }
-  .stage-media{ display:none; object-fit: cover; }
-  .stage-media.is-active{ display:block; }
-
-  /* circular text ring, decorative, orbits the stage */
-  .ring{
-    position:absolute;
-    top: 50%; left:50%;
-    width: 640px; height: 640px;
-    transform: translate(-50%,-50%);
-    pointer-events:none;
-    animation: spin 40s linear infinite;
-  }
-  .ring text{
-    font-family: var(--font-cond);
-    font-size: 13px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    fill: var(--color-ink);
-  }
-  @keyframes spin{ to{ transform: translate(-50%,-50%) rotate(360deg); } }
-  @media (prefers-reduced-motion: reduce){ .ring{ animation: none; } }
-
-  /* ---------- SIDEBAR : rotated categories ---------- */
-  .hero-side{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding: var(--card-padding);
-  }
-  .side-text{
-    font-family: var(--font-cond);
-    font-size: var(--text-body-sm);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-  }
-
-  /* ---------- SECTORS (Concept / Process / Result) ---------- */
-  .section{ padding: var(--section-gap) var(--card-padding); }
-  .section-head{ margin-bottom: 20px; }
-  .section-head .label{ display:block; margin-bottom: 8px; }
-
-  .sector-body--wide{
-    max-width: 760px;
-  }
-  .sector-body p{
-    font-size: var(--text-body);
-    margin: 0 0 16px 0;
-  }
-  .sector-body p:last-child{ margin-bottom: 0; }
-  .sector-body .lede{
-    font-family: var(--font-nh);
-    font-weight: 300;
-    font-size: var(--text-subheading);
-    line-height: 1.34;
-    letter-spacing: -0.5px;
-    margin-bottom: 20px;
-  }
-  .sector-body .subhead--inline{
-    font-family: var(--font-nh);
-    font-weight: 300;
-    font-size: 25px;
-    letter-spacing: -0.5px;
-    margin: 36px 0 12px 0;
-    padding-top: 20px;
-    border-top: 1px solid var(--color-ink);
-  }
-
-  .process-grid{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px 50px;
-  }
-  .process-grid--split{
-    align-items: stretch;
-  }
-  .process-col{
-    display:flex;
-    flex-direction: column;
-    gap: 50px;
-  }
-  .process-block .subhead{
-    font-family: var(--font-nh);
-    font-weight: 300;
-    font-size: 25px;
-    letter-spacing: -0.5px;
-    margin: 0 0 12px 0;
-  }
-  .process-block p{
-    font-size: var(--text-body-sm);
-    margin: 0 0 12px 0;
-  }
-  .process-block p:last-child{ margin-bottom: 0; }
-  .process-block--fill{
-    display:flex;
-    flex-direction: column;
-    flex: 1;
-  }
-
-  .process-figure{
-    margin: 16px 0 0 0;
-    border: 1px solid var(--color-ink);
-    background: #fff;
-  }
-  .process-figure img{
-    display:block;
-    width: 100%;
-    height: auto;
-  }
-  .process-figure figcaption{
-    padding: 8px 12px;
-    border-top: 1px solid var(--color-ink);
-    font-family: var(--font-cond);
-    font-size: var(--text-caption);
-    letter-spacing: 0.05em;
-  }
-  .process-figure--fill{
-    flex: 1;
-    display:flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-  .process-figure--fill img{
-    flex: 1;
-    min-height: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background: #fff;
-  }
-
-  .step-list{
-    list-style: none;
-    margin: 4px 0 16px 0;
-    padding: 0;
-    border-top: 1px solid var(--color-ink);
-  }
-  .step-list li{
-    display:flex;
-    gap: 16px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--color-ink);
-  }
-  .step-list .step-num{
-    font-family: var(--font-cond);
-    font-size: var(--text-caption);
-    letter-spacing: 0.1em;
-    opacity: .5;
-    flex: 0 0 22px;
-  }
-  .step-list .step-text{
-    font-size: var(--text-body-sm);
-  }
-
-  .todo{
-    border-bottom: 1px dashed var(--color-ink);
-    opacity: .55;
-  }
-  /* ---------- SLIDES ---------- */
-  .slides{ border-top: 1px solid var(--color-ink); padding: var(--section-gap) var(--card-padding); }
-  .slides-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-    margin-bottom: 20px;
-  }
-  .slides-counter{
-    font-family: var(--font-cond);
-    font-size: var(--text-caption);
-    letter-spacing: 0.1em;
-  }
-
-  .slide-viewport{
-    position:relative;
-    border: 1px solid var(--color-ink);
-    aspect-ratio: 16/9;
+    justify-content:flex-end;
+    width: var(--card-w);
+    height: var(--card-h);
+    max-width: 86vw;
+    padding: 26px;
+    border-radius: 28px;
     overflow:hidden;
-    background:#fff;
-  }
-  .slide{
-    position:absolute; inset:0;
-    display:none;
-  }
-  .slide.is-active{ display:block; }
-  .slide img{ width:100%; height:100%; object-fit:contain; cursor: zoom-in; }
-
-  .lightbox{
-    position: fixed;
-    inset: 0;
-    background: rgba(255,255,255,0.98);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    z-index: 1000;
-    cursor: zoom-out;
-  }
-  .lightbox.is-open{ display:flex; }
-  .lightbox img{
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    border: 1px solid var(--color-ink);
-    background: #fff;
-    cursor: default;
-  }
-  .lightbox-close{
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--color-ink);
-    background: var(--color-paper);
-    color: var(--color-ink);
-    font-size: 22px;
-    line-height: 1;
+    text-decoration:none;
+    color: var(--ink);
     cursor: pointer;
-  }
-  .lightbox-close:hover{ background: var(--color-ink); color: var(--color-paper); }
 
-  .lightbox-nav{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 48px;
-    height: 48px;
-    border: 1px solid var(--color-ink);
-    background: var(--color-paper);
-    color: var(--color-ink);
-    font-size: 20px;
-    line-height: 1;
-    cursor: pointer;
-  }
-  .lightbox-nav:hover{ background: var(--color-ink); color: var(--color-paper); }
-  .lightbox-nav--prev{ left: 20px; }
-  .lightbox-nav--next{ right: 20px; }
-  @media (max-width: 700px){
-    .lightbox-nav{ width: 40px; height: 40px; font-size: 16px; }
-    .lightbox-nav--prev{ left: 8px; }
-    .lightbox-nav--next{ right: 8px; }
-  }
-  .slide figcaption{
-    position:absolute; left:0; bottom:0; right:0;
-    padding: 8px var(--card-padding);
-    background: var(--color-paper);
-    border-top: 1px solid var(--color-ink);
-    font-family: var(--font-cond);
-    font-size: var(--text-caption);
-    letter-spacing: 0.05em;
-  }
+    background: linear-gradient(150deg, rgba(255,255,255,.58), rgba(255,255,255,.14));
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255,255,255,.65);
+    box-shadow:
+      0 24px 60px -24px rgba(49,46,129,.28),
+      inset 0 1px 0 rgba(255,255,255,.65);
 
-  .slide-controls{
-    display:flex;
-    justify-content:space-between;
-    margin-top: 12px;
-  }
-  .slide-controls button{
-    font-family: var(--font-cond);
-    font-size: var(--text-caption);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    background:none;
-    border:none;
-    color: var(--color-ink);
-    cursor:pointer;
-    padding: 4px 2px;
-    border-bottom: 1px solid transparent;
-  }
-  .slide-controls button:hover{ border-bottom-color: var(--color-ink); }
-
-  .gallery-empty{
-    position:absolute; inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding: 20px;
-    font-family: var(--font-cond);
-    font-size: var(--text-caption);
-    letter-spacing: 0.05em;
-    opacity: .6;
-  }
-  .gallery-empty code{
-    font-family: var(--font-cond);
-    background: transparent;
-  }
-
-  .thumbs{
-    display:flex;
-    gap: 1px;
-    margin-top: 12px;
-    border: 1px solid var(--color-ink);
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    cursor: grab;
-    -webkit-overflow-scrolling: touch;
-  }
-  .thumbs::-webkit-scrollbar{ display:none; }
-  .thumbs.is-dragging{ cursor: grabbing; scroll-behavior: auto; }
-  .thumbs button{
-    flex: 0 0 110px;
-    height: 84px;
-    padding:0;
-    border:none;
-    border-right: 1px solid var(--color-ink);
-    background: #fff;
-    cursor:pointer;
-    opacity: .45;
-    overflow: hidden;
-    transition: opacity .2s ease;
-  }
-  .thumbs button:last-child{ border-right:none; }
-  .thumbs button img{
-    width:100%; height:100%;
-    object-fit:cover;
-    display:block;
-    transition: transform .3s cubic-bezier(.2,.7,.3,1);
+    transform-style: preserve-3d;
     will-change: transform;
+    transition: transform .6s cubic-bezier(.22,1,.36,1), box-shadow .6s ease;
+    animation: floaty 9s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
   }
-  .thumbs button:hover img{ transform: scale(1.12); }
-  .thumbs button.is-active{ opacity: 1; }
-  .thumbs button.is-active img{ transform: scale(1.0); }
-  .thumbs button.is-active:hover img{ transform: scale(1.08); }
+  .card:hover, .card:focus-visible{
+    animation-play-state: paused;
+    transform: translateY(-10px) scale(1.015);
+    box-shadow:
+      0 34px 70px -22px rgba(49,46,129,.36),
+      inset 0 1px 0 rgba(255,255,255,.8);
+  }
+  @keyframes floaty{
+    0%,100%{ transform: translateY(0); }
+    50%{ transform: translateY(-6px); }
+  }
 
-  /* ---------- FOOTER ---------- */
-  .footer{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding: 20px var(--card-padding);
-    border-top: 1px solid var(--color-ink);
+  /* soft glass highlight — follows the cursor while hovered */
+  .card::before{
+    content:"";
+    position:absolute; inset:-30%;
+    background: radial-gradient(circle, rgba(255,255,255,.7), transparent 45%);
+    background-position: var(--mx, 30%) var(--my, 20%);
+    opacity:0;
+    mix-blend-mode: soft-light;
+    transition: opacity .6s ease, background-position var(--pos-speed, .6s) ease-out;
+    pointer-events:none;
   }
-  .footer .links{ display:flex; gap: 24px; }
-  .footer .links a{
+  .card:hover::before, .card:focus-visible::before{ opacity:1; }
+
+  .card-glow{
+    position:absolute; inset:0;
+    background: radial-gradient(circle, var(--accent), transparent 62%);
+    background-position: var(--mx, 30%) var(--my, 20%);
+    opacity:.32;
+    filter: blur(28px);
+    transition: opacity .6s ease, background-position var(--pos-speed, .6s) ease-out;
+    pointer-events:none;
+  }
+  .card:hover .card-glow, .card:focus-visible .card-glow{ opacity:.6; }
+
+  .card-index{
+    position:absolute;
+    top:22px; left:26px;
     font-family: var(--font-cond);
-    font-size: var(--text-caption);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-size:12px;
+    letter-spacing:0.12em;
+    opacity:.55;
   }
-  .footer .fmark{
+
+  .card-status{
+    position:absolute;
+    top:20px; right:22px;
     font-family: var(--font-cond);
-    font-size: var(--text-body-sm);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    display:flex;
-    align-items:center;
-    gap:6px;
-  }
-  .footer .fmark .glyph{ width:8px; height:8px; background: var(--color-ink); display:inline-block; }
-
-  /* ---------- RESPONSIVE ---------- */
-  @media (max-width: 900px){
-    .hero{ grid-template-columns: 1fr; min-height:auto; }
-    .hero > div:not(:last-child){ border-right:none; border-bottom: 1px solid var(--color-ink); }
-    .hero-side{ padding: 16px 20px; }
-    .side-text{
-      writing-mode: horizontal-tb;
-      transform:none;
-      white-space: normal;
-      display: block;
-      text-align: center;
-    }
-    .process-grid{ grid-template-columns: 1fr; }
-    .process-col{ height: auto !important; }
-    .process-block--fill{ flex: none; }
-    .process-figure--fill{ flex: none; }
-    .process-figure--fill img{ height: auto; }
-    .thumbs button{ flex: 0 0 84px; height: 64px; }
-    .ring{ display:none; }
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding: 5px 10px;
+    border-radius:999px;
+    background: rgba(255,255,255,.55);
+    border: 1px solid rgba(255,255,255,.7);
   }
 
-  @media (max-width: 560px){
-    :root{
-      --card-padding: 16px;
-      --section-gap: 36px;
-    }
-    .nav{ padding: 16px var(--card-padding); flex-wrap: wrap; row-gap: 10px; }
-    .nav .links{ gap: 14px; flex-wrap: wrap; }
-    .nav .links a{ font-size: 12px; letter-spacing: 0.12em; }
-    .logo-img{ height: 18px; }
-
-    .hero-info{ padding: 28px var(--card-padding) var(--card-padding); }
-    .hero-info h1{ font-size: 30px; }
-    .meta-list dl{ grid-template-columns: 1fr; gap: 10px 0; }
-
-    .hero-stage{ padding: 20px; }
-
-    .sector-body .lede{ font-size: 20px; }
-    .sector-body--wide{ max-width: 100%; }
-
-    .slide-viewport{ aspect-ratio: 4/5; }
-
-    .footer{ flex-wrap: wrap; gap: 12px; }
-    .footer .links{ flex-wrap: wrap; gap: 14px; }
+  .card-body{ position:relative; }
+  .card-label{ display:block; margin-bottom:6px; color: var(--ink-soft); }
+  .card-title{
+    margin:0;
+    font-family: var(--font-nh);
+    font-weight:500;
+    font-size:25px;
+    letter-spacing:-0.015em;
+    line-height:1.15;
   }
 
-  /* visible keyboard focus */
-  a:focus-visible, button:focus-visible{
-    outline: 2px solid var(--color-ink);
-    outline-offset: 2px;
+  .card-reveal{
+    position:relative;
+    max-height:0;
+    opacity:0;
+    transform: translateY(10px);
+    overflow:hidden;
+    transition:
+      max-height 1.2s cubic-bezier(.22,1,.36,1),
+      margin-top 1.2s cubic-bezier(.22,1,.36,1),
+      transform 1.2s cubic-bezier(.22,1,.36,1),
+      opacity 1s ease .1s;
+    margin-top:0;
+  }
+  .card:hover .card-reveal, .card:focus-visible .card-reveal{
+    max-height:130px; opacity:1; margin-top:12px; transform: translateY(0);
+  }
+  .card-reveal p{
+    font-size:13.5px;
+    line-height:1.45;
+    margin:0 0 12px;
+    color: var(--ink-soft);
+  }
+  .card-cta{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family: var(--font-cond);
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+  }
+  .card-cta .arrow{ transition: transform .3s ease; }
+  .card:hover .card-cta .arrow, .card:focus-visible .card-cta .arrow{ transform: translateX(4px); }
+
+  .card[data-status="soon"]{ cursor:default; }
+  .card[data-status="soon"] .card-glow{ opacity:.2; }
+  @keyframes shake{
+    0%,100%{ transform: translateX(0); }
+    25%{ transform: translateX(-5px); }
+    75%{ transform: translateX(5px); }
+  }
+  .card.is-locked{ animation: shake .35s ease; }
+
+  footer{
+    position:relative; z-index:2;
+    text-align:center;
+    padding: 0 20px 40px;
+    color: var(--ink-soft);
+    font-family: var(--font-cond);
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+  }
+
+  /* ---------- page transition veil ---------- */
+  .veil{
+    position:fixed; inset:0;
+    z-index:9999;
+    pointer-events:none;
+    background: var(--veil-color, #67e8f9);
+    clip-path: circle(0% at var(--ox,50%) var(--oy,50%));
+  }
+  .veil.is-animating{
+    transition: clip-path .85s cubic-bezier(.65,0,.35,1);
+    clip-path: circle(150% at var(--ox,50%) var(--oy,50%));
+  }
+
+  /* toast for locked cards */
+  .toast{
+    position:fixed;
+    left:50%; bottom:32px;
+    transform: translate(-50%, 20px);
+    z-index:20;
+    background: rgba(33,33,58,.9);
+    color:#fff;
+    padding:10px 18px;
+    border-radius:999px;
+    font-family: var(--font-cond);
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    opacity:0;
+    transition: opacity .3s ease, transform .3s ease;
+    pointer-events:none;
+  }
+  .toast.is-visible{ opacity:1; transform: translate(-50%, 0); }
+
+  @media (max-width:560px){
+    .menu{ gap:28px; }
+    :root{ --card-w: min(86vw, 320px); --card-h: 380px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .card{ animation:none; }
+    .blob{ animation:none; }
+  }
+
+  a:focus-visible, .card:focus-visible{
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
   }
 </style>
 </head>
 <body>
 
-<div class="wrap">
+<div class="blob blob--a" aria-hidden="true"></div>
+<div class="blob blob--b" aria-hidden="true"></div>
 
-  <!-- NAV -->
-  <header class="nav">
-    <a class="wordmark" href="#"><img src="./assets/logo-nisuz.png" alt="Nisuz Prints" class="logo-img"></a>
-    <nav class="links">
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=nisuz.prints@gmail.com" target="_blank" rel="noopener">Contact</a>
-    </nav>
-  </header>
+<section class="intro">
+  <span class="label eyebrow">Portfolio</span>
+  <h1>PROJECTS</h1>
+  <p>Concept, craft, and code. Pick a project to see the process behind it.</p>
+</section>
 
-  <!-- HERO -->
-  <section class="hero">
+<nav class="menu" id="projectMenu" aria-label="Projects">
 
-    <div class="hero-info">
-      <span class="label">Collectible Design — 2026</span>
-      <h1>Nisuz Prints<br>modular collectible figures</h1>
-      <p>An idea that exists only in the mind, pushed all the way through to something you can hold. Nisuz Prints is a personal concept turning digital sculpts into hand-finished, modular action figures — sketch to screen to physical object.</p>
-
-      <div class="meta-list">
-        <dl>
-          <dt>Role</dt><dd>2D &amp; 3D design, FDM Print and Finish</dd>
-          <dt>Year</dt><dd>2026</dd>
-          <dt>Material</dt><dd>PLA</dd>
-          <dt>Status</dt><dd>Ongoing series</dd>
-        </dl>
+  <a class="card"
+     href="projects/nisuz-prints/index.html"
+     data-status="live"
+     style="--accent:#67e8f9; --delay:0s;">
+    <span class="card-index">01</span>
+    <span class="card-status">Live</span>
+    <div class="card-glow" aria-hidden="true"></div>
+    <div class="card-body">
+      <span class="label card-label">3D Printing</span>
+      <h2 class="card-title">Nisuz Prints</h2>
+      <div class="card-reveal">
+        <p>Modular collectible figures — from digital sculpt, through FDM print, to hand-painted finish.</p>
+        <span class="card-cta">View project <span class="arrow">→</span></span>
       </div>
     </div>
+  </a>
 
-    <div class="hero-stage">
-      <div class="stage-frame">
-
-        <!--
-          MODEL 3D — zamień src poniżej na własny plik .glb / .gltf.
-          model-viewer działa jako niezależny web component, bez potrzeby frameworka.
-        -->
-        <model-viewer
-          id="model3d"
-          class="stage-media is-active"
-          src="./assets/marinezz-model.glb"
-          alt="Model 3D — Nisuz Prints figure"
-          camera-controls
-          auto-rotate
-          auto-rotate-delay="0"
-          rotation-per-second="18deg"
-          shadow-intensity="0"
-          exposure="1"
-          environment-image="neutral"
-          interaction-prompt="none">
-        </model-viewer>
-
-        <!-- circular decorative text ring -->
-        <svg class="ring" viewBox="0 0 640 640" aria-hidden="true">
-          <path id="ringPath" fill="none" d="M 320,80 A 240,240 0 1 1 319,80"></path>
-          <text>
-            <textPath href="#ringPath" startOffset="0%">
-              NISUZ PRINTS — 3D PRINTED ASSEMBLE ACTION FIGURE — 2026 — NISUZ PRINTS — 3D PRINTED ASSEMBLE ACTION FIGURE — 2026 —
-            </textPath>
-          </text>
-        </svg>
-
+  <a class="card"
+     href="projects/concept-art/index.html"
+     data-status="soon"
+     style="--accent:#c7d2fe; --delay:.6s;">
+    <span class="card-index">02</span>
+    <span class="card-status">Soon</span>
+    <div class="card-glow" aria-hidden="true"></div>
+    <div class="card-body">
+      <span class="label card-label">2D Art</span>
+      <h2 class="card-title">Concept &amp; Illustration</h2>
+      <div class="card-reveal">
+        <p>Concept art and 2D illustration — worldbuilding, character design, and visual development in a dark-fantasy register.</p>
+        <span class="card-cta">Coming soon <span class="arrow">→</span></span>
       </div>
     </div>
+  </a>
 
-    <div class="hero-side">
-      <span class="side-text">3D Sculpting, Product Design, Branding, 3D Printing, Collectibles</span>
-    </div>
-
-  </section>
-
-  <!-- SECTOR 01 — CONCEPT -->
-  <section class="section sector" id="about">
-    <div class="section-head">
-      <span class="label">01 — Concept</span>
-      <hr class="hr">
-    </div>
-    <div class="sector-body sector-body--wide">
-      <p class="lede">Nisuz Prints is a concept built on one simple idea: turning what exists only in the mind into something you can hold in your hands.</p>
-      <p>It started as a personal experiment — using digital tools to design objects that don't exist yet, and 3D printing to give them a physical form. Instead of stopping at a sketch or a digital render, every idea is pushed all the way through to a finished, tangible product.</p>
-      <p>The first project to come out of this process is a series of modular, collectible action figures. But Nisuz Prints isn't only about the figures themselves — it's about the full journey behind them: an idea, shaped into a 3D model, prepared for printing, and finally produced and finished by hand. That journey — from concept to object — is the core of the brand.</p>
-    </div>
-  </section>
-
-  <!-- SECTOR 02 — PRODUCT / PROCESS -->
-  <section class="section sector" id="work">
-    <div class="section-head">
-      <span class="label">02 — Product / Process</span>
-      <hr class="hr">
-    </div>
-
-    <div class="process-grid process-grid--split">
-
-      <div class="process-col">
-        <article class="process-block process-block--fill">
-          <h3 class="subhead">Print-Ready Graphics</h3>
-          <p>Alongside the physical figure, Nisuz Prints also designs and prints its own stickers and packaging graphics. These are prepared as production-ready files: a <strong>2–3 mm bleed</strong> around every die-cut shape, a separate <strong>cut-line layer</strong> for the cutting plotter, and full <strong>CMYK conversion</strong> to match the printer's color output — the same attention to technical detail as the 3D side of the process.</p>
-          <figure class="process-figure process-figure--fill">
-            <img src="./assets/die-cut-sticker.PNG" alt="Nisuz Prints — die-cut sticker artwork with bleed and cut-line layers">
-            <figcaption>Die-cut sticker artwork — bleed &amp; cut-line layers</figcaption>
-          </figure>
-        </article>
+  <a class="card"
+     href="projects/ai-agent/index.html"
+     data-status="soon"
+     style="--accent:#a7f3d0; --delay:1.2s;">
+    <span class="card-index">03</span>
+    <span class="card-status">Soon</span>
+    <div class="card-glow" aria-hidden="true"></div>
+    <div class="card-body">
+      <span class="label card-label">AI Automation</span>
+      <h2 class="card-title">Agent Factory</h2>
+      <div class="card-reveal">
+        <p>A Python pipeline that finds real problems in local businesses and builds specialized AI agents to solve them.</p>
+        <span class="card-cta">Coming soon <span class="arrow">→</span></span>
       </div>
-
-      <div class="process-col">
-        <article class="process-block">
-          <h3 class="subhead">3D Modeling</h3>
-          <p>Every figure begins as a digital sculpt in <strong>Nomad Sculpt</strong>, <strong>ZBrush</strong>, and <strong>Blender</strong>. The process follows a clear structure:</p>
-          <ol class="step-list">
-            <li><span class="step-num">01</span><span class="step-text"><strong>Blockout</strong> — establishing the base shape and proportions</span></li>
-            <li><span class="step-num">02</span><span class="step-text"><strong>Detailing</strong> — sculpting armor plating, emblems, and weapon geometry</span></li>
-            <li><span class="step-num">03</span><span class="step-text"><strong>Splitting into parts</strong> — separating the model into individual meshes that match the final physical parts: torso, arms, legs, helmets, shoulder pads, and weapons</span></li>
-            <li><span class="step-num">04</span><span class="step-text"><strong>Scale calibration</strong> — sizing the model to match the final physical dimensions (12 cm)</span></li>
-            <li><span class="step-num">05</span><span class="step-text"><strong>Export</strong> — preparing clean STL files for slicing</span></li>
-          </ol>
-          <p>Each joint is designed as a peg-and-socket connection, allowing the figure to be assembled without glue and re-configured afterward — helmets, weapons, and armor pieces can be swapped freely.</p>
-        </article>
-
-        <article class="process-block">
-          <h3 class="subhead">3D Printing</h3>
-          <p>Once modeled and sliced, every figure is printed on <strong>Bambu Lab A1</strong> and <strong>A1 mini</strong> printers. Parts are printed in <strong>PLA</strong> and <strong>PETG</strong>, with layer heights adjusted between fine detail areas (like helmets and faces) and larger structural parts, to balance detail and print time.</p>
-          <p>After printing, each part is cleaned of support material, sanded, primed, and hand-painted in layers — base coat, shading, highlights, and final details — before a protective finish is applied.</p>
-        </article>
-
-        <article class="process-block">
-          <h3 class="subhead">Branding</h3>
-          <p>The name <strong>Nisuz</strong> is an anagram of the designer's own surname, <strong>Zusin</strong> — the brand name is, quite literally, a signature. It's paired with the <strong>Ω (Omega)</strong> symbol. The Omega symbol marks this collectible series, representing the ultimate evolution of the Galaxy Commando project inspired by the legendary Ultramarines.</p>
-          <p>The logotype is built on <strong>DELCOM</strong> (<a href="https://www.dafont.com/delcom.font" target="_blank" rel="noopener">dafont.com/delcom.font</a>), a geometric, single-weight typeface chosen for its clean, technical look — the same visual language carries through packaging, stickers, and product graphics, so every touchpoint feels part of the same system.</p>
-        </article>
-      </div>
-
     </div>
-  </section>
+  </a>
 
-  <!-- SECTOR 03 — RESULT -->
-  <section class="section sector">
-    <div class="section-head">
-      <span class="label">03 — Result</span>
-      <hr class="hr">
-    </div>
-    <div class="sector-body sector-body--wide">
-      <p class="lede">The result is a fully assembled, hand-finished collectible figure — but also proof of a complete production pipeline, from a digital idea to a physical object.</p>
-      <p>Every finished piece carries its own visual story: a 3D model that started as a rough shape, a sticker and packaging design built around it, and a printed, painted figure that can be held, posed, and customized. The same modular base can be reconfigured into different collectible variants — proof that one well-designed system can produce many unique results.</p>
-      <p>Nisuz Prints documents that entire path openly, treating the process itself — not just the final product — as part of the design.</p>
-    </div>
-  </section>
+</nav>
 
-  <!-- SLIDES -->
-  <section class="slides">
-    <div class="slides-header">
-      <span class="label">Selected views</span>
-      <span class="slides-counter"><span id="slideCurrent">01</span> / <span id="slideTotal">--</span></span>
-    </div>
+<footer>Crediva — © 2026</footer>
 
-    <div class="slide-viewport" id="slideViewport">
-      <p class="gallery-empty" id="galleryEmpty">Loading photos from <code>assets/foto</code>…</p>
-    </div>
-
-    <div class="slide-controls">
-      <button type="button" id="prevSlide">← Previous</button>
-      <button type="button" id="nextSlide">Next →</button>
-    </div>
-
-    <div class="thumbs" id="thumbs"></div>
-  </section>
-
-  <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox">
-    <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
-    <button type="button" class="lightbox-nav lightbox-nav--prev" id="lightboxPrev" aria-label="Previous">←</button>
-    <img id="lightboxImg" src="" alt="">
-    <button type="button" class="lightbox-nav lightbox-nav--next" id="lightboxNext" aria-label="Next">→</button>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <nav class="links">
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=nisuz.prints@gmail.com" target="_blank" rel="noopener">Contact</a>
-      <a href="https://www.instagram.com/nisuz_prints/" target="_blank" rel="noopener">Instagram</a>
-    </nav>
-    <span class="fmark"><img src="./assets/logo-nisuz.png" alt="Nisuz Prints" class="logo-img logo-img--footer"></span>
-  </footer>
-
-</div>
+<div class="veil" id="veil" aria-hidden="true"></div>
+<div class="toast" id="toast" role="status">Project in progress</div>
 
 <script>
-  // ==========================================================
-  // SLIDES GALLERY — auto-loaded from ./assets/foto/
-  //
-  // Tryb 1 (domyślny, działa teraz lokalnie): jeśli serwer, na
-  // którym oglądasz stronę, generuje listę plików katalogu
-  // (np. `python -m http.server`), skrypt sam wykryje wszystkie
-  // zdjęcia w assets/foto — nic nie trzeba wpisywać ręcznie.
-  //
-  // Tryb 2 (fallback / produkcja): większość hostingów
-  // statycznych (Netlify, Vercel, GitHub Pages) NIE generuje
-  // takiej listy. W takim wypadku wpisz nazwy plików poniżej,
-  // w tablicy MANUAL_PHOTOS — skrypt użyje jej automatycznie,
-  // jeśli auto-wykrywanie się nie powiedzie.
-  // ==========================================================
-  const PHOTOS_DIR = './assets/foto/';
-  const MANUAL_PHOTOS = [
-    'E-shop-die-cut.JPG',
-    'E-shop_icon_GALAXY_COMMANDO_V.1.jpg',
-    'FOTO-black.PNG',
-    'FOTO-box-1.PNG',
-    'FOTO-box-2.PNG',
-    'FOTO-box-2.jpg',
-    'FOTO-green.PNG',
-    'FOTO-kitty.PNG',
-    'FOTO-necron.JPG',
-    'FOTO-pumpkin.PNG',
-    'FOTO-red.JPG',
-    'FOTO-steel.PNG',
-    'FOTO-thule.PNG',
-    'FOTO-wlepy.png',
-    'INFO-grafika-1.JPG',
-    'INFO-grafika-2.JPG',
-    'LOGO.PNG',
-    'MODEL-3D-bok.PNG',
-    'MODEL-3D-fromt2.PNG',
-    'MODEL-3D-front.PNG',
-    'MODEL-3D-ogolny.PNG',
-    'MODEL-gun.PNG',
-    'MODEL-gun2.PNG',
-    'MODEL-marinez.PNG',
-    'MODEL-marinez2.PNG',
-    'MODEL-marinez3.PNG',
-    'MODEL-marinez4.PNG',
-    'MODEL-marinez5.PNG',
-    'MODEL-necron.PNG',
-    'MODEL-necron2.PNG',
-  ];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const veil = document.getElementById('veil');
+  const toast = document.getElementById('toast');
+  let toastTimer = null;
 
-  const viewport = document.getElementById('slideViewport');
-  const thumbsEl = document.getElementById('thumbs');
-  const currentLabel = document.getElementById('slideCurrent');
-  const totalLabel = document.getElementById('slideTotal');
-  const emptyMsg = document.getElementById('galleryEmpty');
-
-  let slides = [];
-  let thumbs = [];
-  let current = 0;
-
-  function pad(n){ return String(n + 1).padStart(2, '0'); }
-
-  function titleFromFilename(name){
-    return name.replace(/\.[a-zA-Z0-9]+$/, '').replace(/[-_]+/g, ' ').trim();
+  function showToast(){
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 1800);
   }
 
-  function buildGallery(filenames){
-    if (!filenames.length){
-      emptyMsg.textContent = 'No photos found in assets/foto — add images or fill MANUAL_PHOTOS in the code.';
-      totalLabel.textContent = '00';
-      return;
-    }
-    emptyMsg.remove();
-
-    filenames.forEach((name, i) => {
-      const src = PHOTOS_DIR + name;
-      const title = titleFromFilename(name);
-
-      const fig = document.createElement('figure');
-      fig.className = 'slide' + (i === 0 ? ' is-active' : '');
-      fig.dataset.index = i;
-      fig.innerHTML = `<img src="${src}" alt="Nisuz Prints — ${title}" loading="${i === 0 ? 'eager' : 'lazy'}">
-        <figcaption>${pad(i)} — ${title}</figcaption>`;
-      viewport.appendChild(fig);
-
-      const thumb = document.createElement('button');
-      thumb.type = 'button';
-      thumb.className = 'is-active' === (i === 0 ? 'is-active' : '') ? '' : '';
-      if (i === 0) thumb.classList.add('is-active');
-      thumb.dataset.index = i;
-      thumb.innerHTML = `<img src="${src}" alt="" loading="lazy">`;
-      thumbsEl.appendChild(thumb);
-    });
-
-    slides = Array.from(viewport.querySelectorAll('.slide'));
-    thumbs = Array.from(thumbsEl.querySelectorAll('button'));
-    totalLabel.textContent = pad(slides.length - 1);
-
-    thumbs.forEach(t => t.addEventListener('click', (e) => {
-      if (thumbsEl.classList.contains('was-dragged')) return;
-      showSlide(+t.dataset.index);
-    }));
-
-    enableDragScroll(thumbsEl);
+  function updateCardPointer(card, e){
+    const r = card.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    const rotY = (px - 0.5) * 10;   // left/right tilt
+    const rotX = (0.5 - py) * 10;   // up/down tilt
+    card.style.transform = `translateY(-10px) scale(1.015) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    card.style.setProperty('--mx', (px * 100) + '%');
+    card.style.setProperty('--my', (py * 100) + '%');
   }
 
-  function showSlide(index){
-    if (!slides.length) return;
-    current = (index + slides.length) % slides.length;
-    slides.forEach(s => s.classList.toggle('is-active', +s.dataset.index === current));
-    thumbs.forEach(t => t.classList.toggle('is-active', +t.dataset.index === current));
-    currentLabel.textContent = pad(current);
+  document.querySelectorAll('.card').forEach(card => {
 
-    const activeThumb = thumbs[current];
-    if (activeThumb){
-      activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    // ---- cursor-follow 3D tilt (skipped for touch / reduced motion) ----
+    if (!reduceMotion && window.matchMedia('(hover: hover)').matches){
+      let settleTimer = null;
+      card.addEventListener('pointerenter', (e) => {
+        clearTimeout(settleTimer);
+        card.style.animation = 'none'; // CSS animation otherwise overrides inline transform
+        card.style.transition = 'transform .1s ease-out, box-shadow .6s ease';
+        card.style.setProperty('--pos-speed', '.15s'); // snappy while actively tracking
+        document.body.classList.add('is-card-hovered');
+        updateCardPointer(card, e);
+      });
+      card.addEventListener('pointermove', (e) => updateCardPointer(card, e));
+      card.addEventListener('pointerleave', () => {
+        card.style.transition = 'transform .6s cubic-bezier(.22,1,.36,1), box-shadow .6s ease';
+        card.style.transform = '';
+        card.style.setProperty('--pos-speed', '.7s'); // ease back gently once released
+        document.body.classList.remove('is-card-hovered');
+        settleTimer = setTimeout(() => { card.style.animation = ''; }, 620);
+      });
     }
-  }
 
-  document.getElementById('prevSlide').addEventListener('click', () => showSlide(current - 1));
-  document.getElementById('nextSlide').addEventListener('click', () => showSlide(current + 1));
+    // ---- click behaviour ----
+    card.addEventListener('click', (e) => {
+      // let ctrl/cmd/middle-click open a new tab natively
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
 
-  document.addEventListener('keydown', (e) => {
-    if (document.getElementById('lightbox').classList.contains('is-open')) return;
-    if(e.key === 'ArrowRight') showSlide(current + 1);
-    if(e.key === 'ArrowLeft') showSlide(current - 1);
-  });
-
-  // ---- drag-to-scroll for the thumbnail strip ----
-  function enableDragScroll(el){
-    let isDown = false;
-    let startX = 0;
-    let startScroll = 0;
-    let moved = false;
-
-    el.addEventListener('pointerdown', (e) => {
-      isDown = true;
-      moved = false;
-      el.classList.add('is-dragging');
-      startX = e.clientX;
-      startScroll = el.scrollLeft;
-    });
-
-    el.addEventListener('pointermove', (e) => {
-      if (!isDown) return;
-      const dx = e.clientX - startX;
-      if (Math.abs(dx) > 4) moved = true;
-      el.scrollLeft = startScroll - dx;
-    });
-
-    function endDrag(){
-      isDown = false;
-      el.classList.remove('is-dragging');
-      if (moved) el.classList.add('was-dragged');
-      setTimeout(() => el.classList.remove('was-dragged'), 50);
-    }
-    el.addEventListener('pointerup', endDrag);
-    el.addEventListener('pointerleave', endDrag);
-
-    // mouse wheel: allow vertical wheel to scroll the strip horizontally too
-    el.addEventListener('wheel', (e) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        el.scrollLeft += e.deltaY;
+      if (card.dataset.status === 'soon'){
         e.preventDefault();
+        card.classList.remove('is-locked');
+        void card.offsetWidth; // restart animation
+        card.classList.add('is-locked');
+        showToast();
+        return;
       }
-    }, { passive: false });
-  }
 
-  // ---- try auto-detecting files via directory listing, else fall back ----
-  async function loadGallery(){
-    if (MANUAL_PHOTOS.length){
-      buildGallery(MANUAL_PHOTOS);
-      return;
-    }
-    try {
-      const res = await fetch(PHOTOS_DIR);
-      if (!res.ok) throw new Error('directory listing not available (' + res.status + ')');
-      const html = await res.text();
-      const doc = new DOMParser().parseFromString(html, 'text/html');
-      const files = Array.from(doc.querySelectorAll('a'))
-        .map(a => a.getAttribute('href') || '')
-        .map(href => decodeURIComponent(href))
-        .filter(href => /\.(jpe?g|png|webp|gif)$/i.test(href))
-        .map(href => href.split('/').pop())
-        .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-      if (!files.length) throw new Error('no images found in directory listing');
-      buildGallery(files);
-    } catch (err) {
-      console.warn('Auto-detect assets/foto failed — fill MANUAL_PHOTOS in the script.', err);
-      buildGallery(MANUAL_PHOTOS);
-    }
-  }
+      // live card: animate a liquid reveal, then navigate
+      e.preventDefault();
+      const target = card.getAttribute('href');
+      const accent = getComputedStyle(card).getPropertyValue('--accent').trim() || '#67e8f9';
 
-  loadGallery();
+      if (reduceMotion){
+        window.location.href = target;
+        return;
+      }
 
-  // ---- Lightbox: click a slide image to view it full-screen ----
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightboxImg');
-  const lightboxClose = document.getElementById('lightboxClose');
-  const lightboxPrev = document.getElementById('lightboxPrev');
-  const lightboxNext = document.getElementById('lightboxNext');
+      const r = card.getBoundingClientRect();
+      const ox = ((r.left + r.width / 2) / window.innerWidth) * 100;
+      const oy = ((r.top + r.height / 2) / window.innerHeight) * 100;
+      veil.style.setProperty('--ox', ox + '%');
+      veil.style.setProperty('--oy', oy + '%');
+      veil.style.setProperty('--veil-color', accent);
+      requestAnimationFrame(() => veil.classList.add('is-animating'));
 
-  function updateLightboxImage(){
-    const activeSlide = slides[current];
-    if (!activeSlide) return;
-    const img = activeSlide.querySelector('img');
-    lightboxImg.src = img.src;
-    lightboxImg.alt = img.alt || '';
-  }
-
-  function openLightbox(index){
-    showSlide(index);
-    updateLightboxImage();
-    lightbox.classList.add('is-open');
-  }
-  function closeLightbox(){
-    lightbox.classList.remove('is-open');
-    lightboxImg.src = '';
-  }
-  function lightboxStep(dir){
-    showSlide(current + dir);
-    updateLightboxImage();
-  }
-
-  viewport.addEventListener('click', (e) => {
-    const img = e.target.closest('.slide img');
-    if (img) openLightbox(current);
+      setTimeout(() => { window.location.href = target; }, 780);
+    });
   });
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) closeLightbox();
-  });
-  lightboxClose.addEventListener('click', closeLightbox);
-  lightboxPrev.addEventListener('click', () => lightboxStep(-1));
-  lightboxNext.addEventListener('click', () => lightboxStep(1));
-
-  document.addEventListener('keydown', (e) => {
-    if (!lightbox.classList.contains('is-open')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowRight') lightboxStep(1);
-    if (e.key === 'ArrowLeft') lightboxStep(-1);
-  });
-
-  // ---- Match the height of the two "Product / Process" columns ----
-  // so the die-cut image column ends flush with the text column.
-  // Only applies on desktop (2-column) layout — on mobile the columns
-  // stack, so we reset to natural height instead.
-  function syncProcessColumnHeights(){
-    const cols = document.querySelectorAll('.process-grid--split .process-col');
-    if (cols.length < 2) return;
-    cols.forEach(c => c.style.height = 'auto');
-    if (window.matchMedia('(max-width: 900px)').matches) return;
-    const tallest = Math.max(...Array.from(cols).map(c => c.offsetHeight));
-    cols.forEach(c => c.style.height = tallest + 'px');
-  }
-  window.addEventListener('load', syncProcessColumnHeights);
-  window.addEventListener('resize', syncProcessColumnHeights);
-  // re-check shortly after load too, in case web fonts swap and reflow text
-  window.addEventListener('load', () => setTimeout(syncProcessColumnHeights, 300));
 </script>
 
 </body>
