@@ -580,97 +580,65 @@
     outline-offset: 2px;
   }
 
-  /* ---------- Przycisk Powrotu & Kurtyna Wejściowa ---------- */
   
-  /* Kurtyna wejściowa */
-  .veil-entrance {
+  /* ---------- PRZYCISK POWROTU DO MENU ---------- */
+  .back-to-hub-btn {
     position: fixed;
-    inset: 0;
-    z-index: 10000;
-    background: #67e8f9; /* Kolor akcentu Nisuz Prints */
-    pointer-events: none;
-    clip-path: circle(150% at 50% 50%);
-    transition: clip-path 0.9s cubic-bezier(0.65, 0, 0.35, 1);
-  }
-  .veil-entrance.is-loaded {
-    clip-path: circle(0% at 50% 50%);
-  }
-
-  /* Płynne wejście samej treści strony */
-  body {
-    opacity: 0;
-    transform: scale(1.02);
-    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  body.is-ready {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  /* Przycisk powrotu */
-  .back-hub-btn {
-    position: fixed;
-    top: 24px;
-    left: 24px;
-    z-index: 999;
-    display: flex;
+    top: 20px;
+    left: 20px;
+    z-index: 999999;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 16px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--color-ink);
-    border-radius: 30px;
-    color: var(--color-ink);
-    font-family: var(--font-cond);
-    font-size: 11px;
-    letter-spacing: 0.15em;
+    gap: 10px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 100px;
+    color: #21213a;
+    font-family: var(--font-cond, sans-serif);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     text-decoration: none;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  
-  .back-hub-btn:hover {
-    transform: translateX(-4px) scale(1.02);
-    background: var(--color-ink);
-    color: var(--color-paper);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  .back-to-hub-btn:hover {
+    background: #21213a;
+    color: #ffffff;
+    transform: translateX(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   }
-
-  .back-hub-btn svg {
+  .back-to-hub-btn svg {
     transition: transform 0.3s ease;
   }
-  .back-hub-btn:hover svg {
-    transform: translateX(-2px);
+  .back-to-hub-btn:hover svg {
+    transform: translateX(-3px);
   }
 
-  /* Responsywność dla urządzeń mobilnych */
-  @media (max-width: 768px) {
-    .back-hub-btn {
-      position: absolute; /* na telefonach nie zabiera miejsca podczas scrollowania */
-      top: 16px;
-      left: 16px;
-      padding: 8px 12px;
-      font-size: 10px;
-    }
+  /* Płynne łagodny entrance całej podstrony */
+  body {
+    animation: smoothPageEntrance 0.5s ease-out forwards;
+  }
+  @keyframes smoothPageEntrance {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
 </style>
 </head>
-<body class="loading-state">
+<body>
 
-  <!-- Kurtyna wejściowa dająca efekt ciągłego przejścia -->
-  <div class="veil-entrance" id="entranceVeil" aria-hidden="true"></div>
-
-  <!-- Przycisk powrotu do Menu Głównego -->
-  <a href="../../index.html" class="back-hub-btn" aria-label="Back to projects">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Przycisk powrotu do menu głównego -->
+  <a href="../../index.html" class="back-to-hub-btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <line x1="19" y1="12" x2="5" y2="12"></line>
       <polyline points="12 19 5 12 12 5"></polyline>
     </svg>
-    Back to projects
+    <span>Wszystkie projekty</span>
   </a>
 
 <div class="wrap">
@@ -1120,19 +1088,5 @@
 </script>
 
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const entranceVeil = document.getElementById('entranceVeil');
-      // Dodajemy klasę is-ready do body, aby odpalić płynne skalowanie i opacity
-      document.body.classList.add('is-ready');
-      
-      // Zwijamy kurtynę po delikatnym opóźnieniu (by przeglądarka zdążyła wyrenderować klatki)
-      setTimeout(() => {
-        if (entranceVeil) {
-          entranceVeil.classList.add('is-loaded');
-        }
-      }, 80);
-    });
-  </script>
-</body>
+  </body>
 </html>
