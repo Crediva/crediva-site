@@ -214,6 +214,50 @@
     .nav-cell { justify-content: center !important; padding: 12px; border-right: none; border-bottom: 1px solid var(--grid-line); }
     .item.large { grid-column: span 1; }
   }
+
+  /* --- LIGHTBOX (MODAL) --- */
+  .lightbox {
+    position: fixed; inset: 0; background: rgba(5,5,5,0.96);
+    z-index: 9999; opacity: 0; pointer-events: none;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: opacity 0.4s ease; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .lightbox.active { opacity: 1; pointer-events: auto; }
+  
+  .lightbox-close {
+    position: absolute; top: 24px; right: 24px;
+    background: transparent; border: none; color: var(--fg);
+    font-family: var(--font-mono); font-size: 14px; cursor: pointer;
+    text-transform: uppercase; letter-spacing: 0.1em; padding: 12px;
+  }
+  .lightbox-close:hover { color: var(--accent); }
+  
+  .lightbox-media {
+    width: 100%; max-width: 1200px; max-height: 70vh;
+    display: flex; justify-content: center;
+  }
+  .lightbox-content {
+    max-width: 100%; max-height: 100%; object-fit: contain;
+    border: 1px solid var(--grid-line);
+    box-shadow: 0 0 40px rgba(255,42,0,0.08);
+  }
+  
+  .lightbox-info {
+    margin-top: 32px; text-align: center; max-width: 700px; padding: 0 20px;
+  }
+  .lightbox-title { font-family: var(--font-head); font-size: 18px; margin-bottom: 12px; color: var(--accent); text-transform: uppercase; }
+  .lightbox-desc { font-size: 13px; color: #a1a1aa; line-height: 1.6; }
+
+  /* Modyfikacja .item dla kliknięcia */
+  .item { cursor: crosshair; }
+  .item::after {
+    content: '[ CLICK TO EXPAND ]';
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background: var(--accent); color: #fff; padding: 10px 20px; font-size: 12px; font-weight: bold;
+    opacity: 0; transition: opacity 0.3s ease; pointer-events: none; text-transform: uppercase;
+  }
+  .item:hover::after { opacity: 1; }
+
 </style>
 </head>
 <body>
@@ -279,6 +323,66 @@
     <div>.EXE CONCEPT © 2026</div>
     <div>ALL RIGHTS RESERVED</div>
   </footer>
+
+
+  <!-- LIGHTBOX MODAL -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">[ X ] CLOSE SYSTEM</button>
+    <div class="lightbox-media" id="lightboxMedia"></div>
+    <div class="lightbox-info">
+      <div class="lightbox-title" id="lightboxTitle"></div>
+      <div class="lightbox-desc" id="lightboxDesc"></div>
+    </div>
+  </div>
+
+  <script>
+    // Obsługa interaktywnej galerii (Lightbox)
+    const lightbox = document.getElementById('lightbox');
+    const lbClose = document.getElementById('lightboxClose');
+    const lbMedia = document.getElementById('lightboxMedia');
+    const lbTitle = document.getElementById('lightboxTitle');
+    const lbDesc = document.getElementById('lightboxDesc');
+
+    document.querySelectorAll('.item').forEach(item => {
+      item.addEventListener('click', () => {
+        const mediaElement = item.querySelector('img, video');
+        if(!mediaElement) return;
+        
+        // Klonujemy wybrane zdjęcie lub wideo
+        lbMedia.innerHTML = '';
+        const clone = mediaElement.cloneNode(true);
+        clone.className = 'lightbox-content';
+        
+        // Zapewniamy odtwarzanie jeśli to wideo
+        if(clone.tagName === 'VIDEO') { 
+          clone.controls = true; 
+          clone.muted = false; // można wyłączyć wyciszenie
+          clone.play(); 
+        }
+        lbMedia.appendChild(clone);
+        
+        // Ładujemy dane z dataset div'a (data-title, data-desc)
+        lbTitle.innerHTML = item.dataset.title || 'UNKNOWN_FILE.EXE';
+        lbDesc.innerHTML = item.dataset.desc || 'No description found in system files.';
+        
+        lightbox.classList.add('active');
+      });
+    });
+
+    // Zamykanie galerii
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      lbMedia.innerHTML = ''; // czyszczenie DOM ucisza też grające wideo
+    }
+    
+    lbClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      // Zamyka jeśli kliknięto w tło (nie w samo zdjęcie)
+      if(e.target === lightbox || e.target === lbMedia) {
+        closeLightbox();
+      }
+    });
+  </script>
 
 </body>
 </html>
