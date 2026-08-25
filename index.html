@@ -434,33 +434,31 @@
   }
 
 
-        /* ---------- CUSTOM FONTS FOR HEADINGS & CARDS ---------- */
-  @font-face {
-    font-family: 'Space Age';
-    src: url('./assets/fonts/neuropol-x.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
-
+          /* ---------- CLEAN CUSTOM FONTS DEFINITIONS ---------- */
   @font-face {
     font-family: 'Space Age';
     src: url('./assets/fonts/space-age.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+    font-weight: normal; font-style: normal; font-display: swap;
   }
-
+  @font-face {
+    font-family: 'Delcom';
+    src: url('./assets/fonts/delcom.ttf') format('truetype');
+    font-weight: normal; font-style: normal; font-display: swap;
+  }
   @font-face {
     font-family: 'SwipeRace';
     src: url('./assets/fonts/SwipeRaceDemo.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+    font-weight: normal; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Snasm';
+    src: url('./assets/fonts/snasm-lt.otf') format('opentype');
+    font-weight: normal; font-style: normal; font-display: swap;
   }
 
+  /* H1: PROJECTS - Space Age z gradientem */
   h1 {
-    font-family: 'Space Age', 'Barlow Condensed', sans-serif !important;
+    font-family: 'Space Age', sans-serif !important;
     letter-spacing: 0.18em !important;
     text-transform: uppercase;
     transform: scaleX(0.92);
@@ -481,6 +479,33 @@
     background-clip: text;
     color: transparent;
     animation: fluidTextGradient 8s ease infinite;
+  }
+
+  /* Karta 01: Nisuz Prints - Delcom */
+  .card-title-delcom {
+    font-family: 'Delcom', sans-serif !important;
+    font-size: 20px !important;
+    letter-spacing: 0.04em !important;
+    line-height: 1.2 !important;
+    margin-top: 6px;
+  }
+
+  /* Karta 02: .EXE Concept - SwipeRace */
+  .card-title-swiperace {
+    font-family: 'SwipeRace', sans-serif !important;
+    font-size: 11px !important;
+    letter-spacing: 0.06em !important;
+    line-height: 1.2 !important;
+    margin-top: 6px;
+  }
+
+  /* Karta 03: Agent Factory - Snasm */
+  .card-title-snasm {
+    font-family: 'Snasm', sans-serif !important;
+    font-size: 20px !important;
+    letter-spacing: 0.04em !important;
+    line-height: 1.2 !important;
+    margin-top: 6px;
   }
 
   /* Stylizacja nagłówka Nisuz Prints */
