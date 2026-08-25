@@ -587,6 +587,7 @@
     <a class="card"
      href="projects/nisuz-prints/index.html"
      data-status="live"
+     data-transition="circle"
      style="--accent:#67e8f9; --delay:0s;">
     <span class="card-index">01</span>
     <span class="card-status">Live</span>
@@ -619,6 +620,7 @@
         <a class="card"
      href="projects/concept-art/index.html"
      data-status="live"
+     data-transition="cyber"
      style="--accent:#c7d2fe; --delay:.6s;">
     <span class="card-index">02</span>
     <span class="card-status">Live</span>
@@ -787,6 +789,9 @@
         return;
       }
 
+      const transType = card.dataset.transition || 'circle';
+      veil.dataset.transition = transType;
+      document.body.dataset.transition = transType;
       veil.classList.add('is-animating');
       document.body.classList.add('is-leaving');
 
@@ -798,6 +803,7 @@
   window.addEventListener('pageshow', () => {
     veil.classList.remove('is-animating');
     document.body.classList.remove('is-leaving');
+    document.body.style.animation = 'none'; // reset glitch anim
   });
 </script>
 
