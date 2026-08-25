@@ -223,6 +223,42 @@
     .drawer-content { width: 100%; padding: 24px; transform: translateY(20px); }
     .item.is-expanded .drawer-content { transform: translateY(0); }
   }
+  
+  /* --- DYNAMIC ANIMATION VARIANTS FOR EXPAND --- */
+  
+  /* Variant 1: Glitch Pulse */
+  .item.anim-glitch .item-media img,
+  .item.anim-glitch .item-media video {
+    animation: cyberGlitchPulse 0.45s ease-out;
+  }
+  @keyframes cyberGlitchPulse {
+    0% { filter: contrast(2) invert(0.8) hue-rotate(90deg); }
+    50% { filter: contrast(1.5) hue-rotate(-90deg); }
+    100% { filter: grayscale(0%) contrast(1); }
+  }
+
+  /* Variant 2: Slide Up Drawer */
+  .item.anim-slide-up .drawer-content {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  .item.anim-slide-up.is-expanded .drawer-content {
+    transform: translateY(0);
+    opacity: 1;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  }
+
+  /* Variant 3: Scale Zoom Focus */
+  .item.anim-zoom .drawer-content {
+    transform: scale(0.88);
+    opacity: 0;
+  }
+  .item.anim-zoom.is-expanded .drawer-content {
+    transform: scale(1);
+    opacity: 1;
+    transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  }
+
   /* --- FOOTER --- */
   footer {
     border-top: 1px solid var(--grid-line);
@@ -732,31 +768,56 @@
       }
     });
 
-    // 2. Click to Expand In-Grid
+    // 2. Click to Expand with Randomized Animation & Cyber Text Decrypt
+    const animVariants = ['anim-slide-right', 'anim-glitch', 'anim-slide-up', 'anim-zoom'];
+    const glitchChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?/0123456789';
+
     grid.addEventListener('click', (e) => {
       const item = e.target.closest('.item');
       if (!item) return;
 
       // Close button clicked
       if (e.target.closest('.close-expand')) {
-        item.classList.remove('is-expanded');
+        item.classList.remove('is-expanded', ...animVariants);
         return;
       }
 
-      // If already expanded, do nothing
       if (item.classList.contains('is-expanded')) return;
 
-      // Close previously expanded items
+      // Close other expanded items
       document.querySelectorAll('.item.is-expanded').forEach(other => {
-        other.classList.remove('is-expanded');
+        other.classList.remove('is-expanded', ...animVariants);
       });
 
-      // Expand clicked item
-      item.classList.add('is-expanded');
+      // Pick a random animation style for this expand
+      const randomAnim = animVariants[Math.floor(Math.random() * animVariants.length)];
+      item.classList.add('is-expanded', randomAnim);
 
-      // Scroll into view smoothly
+      // Cyber Decrypt Text Effect on Title
+      const titleEl = item.querySelector('.drawer-title');
+      if (titleEl) {
+        const targetText = titleEl.textContent;
+        let iteration = 0;
+        clearInterval(titleEl.decryptInterval);
+
+        titleEl.decryptInterval = setInterval(() => {
+          titleEl.textContent = targetText.split('')
+            .map((char, idx) => {
+              if (idx < iteration) return targetText[idx];
+              return glitchChars[Math.floor(Math.random() * glitchChars.length)];
+            }).join('');
+
+          if (iteration >= targetText.length) {
+            titleEl.textContent = targetText;
+            clearInterval(titleEl.decryptInterval);
+          }
+          iteration += 1 / 2;
+        }, 30);
+      }
+
+      // Smooth scroll into view
       setTimeout(() => {
-        const y = item.getBoundingClientRect().top + window.scrollY - 100;
+        const y = item.getBoundingClientRect().top + window.scrollY - 80;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }, 350);
     });
