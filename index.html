@@ -513,6 +513,22 @@
       background-position: 0% 50%;
     }
   }
+
+  @font-face {
+    font-family: 'Snasm';
+    src: url('./assets/fonts/snasm-lt.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  .card-title-snasm {
+    font-family: 'Snasm', sans-serif !important;
+    font-size: 20px !important;
+    letter-spacing: 0.04em !important;
+    line-height: 1.2 !important;
+    margin-top: 6px;
+  }
 </style>
 </head>
 <body>
@@ -601,7 +617,7 @@
     <div class="card-glow" aria-hidden="true"></div>
     <div class="card-body">
       <span class="label card-label">AI Automation</span>
-      <h2 class="card-title card-title-space-age">Agent Factory</h2>
+      <h2 class="card-title card-title-snasm">Agent Factory</h2>
       <div class="card-reveal">
         <p>A Python pipeline that finds real problems in local businesses and builds specialized AI agents to solve them.</p>
         <span class="card-cta">Coming soon <span class="arrow">→</span></span>
