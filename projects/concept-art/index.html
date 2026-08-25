@@ -441,58 +441,75 @@
   
 
 
-  <!-- === ULTRACLEAN LIGHTBOX COMPONENT === -->
+      <!-- === SPLIT-VIEW LIGHTBOX COMPONENT === -->
   <style>
     .lightbox {
-      position: fixed; inset: 0; background: rgba(5, 5, 5, 0.94);
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85);
       z-index: 99999; opacity: 0; pointer-events: none;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.4s ease; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
     }
     .lightbox.active { opacity: 1; pointer-events: auto; }
     
+    .lightbox-close {
+      position: absolute; top: 24px; right: 24px;
+      background: transparent; border: 1px solid var(--grid-line);
+      color: var(--fg); font-family: var(--font-mono); font-size: 11px; cursor: pointer;
+      text-transform: uppercase; letter-spacing: 0.15em; padding: 10px 18px; border-radius: 4px;
+      transition: all 0.3s ease; z-index: 100000;
+    }
+    .lightbox-close:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    
     .lightbox-dialog {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      max-width: 1200px; width: 92%; max-height: 90vh;
-      transform: scale(0.94) translateY(20px);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex; flex-direction: row; 
+      width: 92vw; max-width: 1400px; height: 85vh;
+      background: var(--bg); border: 1px solid var(--grid-line);
+      box-shadow: 0 20px 80px rgba(255, 42, 0, 0.08);
+      transform: scale(0.98) translateY(10px);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
     }
     .lightbox.active .lightbox-dialog {
       transform: scale(1) translateY(0);
     }
 
-    .lightbox-close {
-      position: absolute; top: 24px; right: 24px;
-      background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15);
-      color: var(--fg); font-family: var(--font-mono); font-size: 11px; cursor: pointer;
-      text-transform: uppercase; letter-spacing: 0.15em; padding: 10px 18px; border-radius: 30px;
-      transition: all 0.3s ease; z-index: 100000;
-    }
-    .lightbox-close:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-    
     .lightbox-media {
-      width: 100%; height: 60vh;
-      display: flex; justify-content: center; align-items: center;
+      flex: 1; display: flex; justify-content: center; align-items: center;
+      background: #000; padding: 32px; position: relative;
     }
     .lightbox-content {
       max-width: 100%; max-height: 100%; object-fit: contain;
-      border: 1px solid var(--grid-line);
-      box-shadow: 0 12px 50px rgba(255, 42, 0, 0.12);
-      background: #000; border-radius: 4px;
+      filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
     }
     
     .lightbox-info {
-      margin-top: 24px; text-align: center; max-width: 680px; width: 100%;
+      width: 380px; background: #050505; border-left: 1px solid var(--grid-line);
+      padding: 48px 32px; display: flex; flex-direction: column; justify-content: center;
+      transform: translateX(50px); opacity: 0;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s; /* Delikatne opóźnienie wysunięcia */
     }
-    .lightbox-title { font-family: var(--font-head); font-size: 18px; margin-bottom: 6px; color: #ffffff; text-transform: uppercase; letter-spacing: 0.05em; }
-    .lightbox-tools { font-size: 11px; color: var(--accent); font-weight: bold; margin-bottom: 10px; letter-spacing: 0.15em; text-transform: uppercase; }
-    .lightbox-desc { font-size: 13px; color: #a1a1aa; line-height: 1.6; font-family: var(--font-mono); }
+    .lightbox.active .lightbox-info {
+      transform: translateX(0); opacity: 1;
+    }
+
+    .lightbox-title { font-family: var(--font-head); font-size: 22px; margin-bottom: 12px; color: #fff; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.1; }
+    .lightbox-tools { font-size: 11px; color: var(--accent); font-weight: bold; margin-bottom: 24px; letter-spacing: 0.15em; text-transform: uppercase; border-bottom: 1px solid var(--grid-line); padding-bottom: 24px; }
+    .lightbox-desc { font-size: 13.5px; color: #a1a1aa; line-height: 1.7; font-family: var(--font-mono); }
+
+    @media (max-width: 900px) {
+      .lightbox-dialog { flex-direction: column; height: 90vh; width: 95vw; }
+      .lightbox-media { flex: 1; padding: 16px; min-height: 50vh; }
+      .lightbox-info { width: 100%; border-left: none; border-top: 1px solid var(--grid-line); padding: 24px; transform: translateY(30px); }
+      .lightbox.active .lightbox-info { transform: translateY(0); }
+      .lightbox-title { font-size: 18px; margin-bottom: 8px; }
+      .lightbox-tools { margin-bottom: 16px; padding-bottom: 16px; }
+      .lightbox-close { top: 12px; right: 12px; padding: 8px 12px; font-size: 10px; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
+    }
   </style>
 
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" id="lightboxClose">[ X ] CLOSE</button>
-    <div class="lightbox-dialog">
+    <div class="lightbox-dialog" id="lightboxDialog">
       <div class="lightbox-media" id="lightboxMedia"></div>
       <div class="lightbox-info">
         <div class="lightbox-title" id="lightboxTitle"></div>
@@ -543,13 +560,14 @@
       
       lbClose.addEventListener('click', closeLightbox);
       lightbox.addEventListener('click', (e) => {
-        if(e.target === lightbox || e.target.classList.contains('lightbox-dialog') || e.target.classList.contains('lightbox-media')) {
+        // Zamykaj tylko przy kliknięciu w czarne tło modala lub obszar wokół obrazka
+        if(e.target === lightbox || e.target === lbMedia) {
           closeLightbox();
         }
       });
     });
   </script>
-  <!-- === END ULTRACLEAN LIGHTBOX === -->
+  <!-- === END SPLIT-VIEW LIGHTBOX === -->
 
 </body>
 </html>
