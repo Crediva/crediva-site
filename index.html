@@ -434,7 +434,7 @@
   }
 
 
-  /* ---------- CUSTOM FONT: SPACE AGE ---------- */
+    /* ---------- CUSTOM FONT & ANIMATED GRADIENT FOR H1 ---------- */
   @font-face {
     font-family: 'Space Age';
     src: url('./assets/fonts/space-age.ttf') format('truetype');
@@ -445,8 +445,36 @@
 
   h1 {
     font-family: 'Space Age', 'Barlow Condensed', sans-serif !important;
-    letter-spacing: 0.08em !important;
+    letter-spacing: 0.12em !important;
     text-transform: uppercase;
+    background: linear-gradient(
+      120deg,
+      #1e1b4b 0%,
+      #311b92 25%,
+      #0f172a 50%,
+      #164e63 75%,
+      #1e1b4b 100%
+    );
+    background-size: 250% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    animation: fluidTextGradient 9s ease infinite;
+    display: inline-block;
+  }
+
+  @keyframes fluidTextGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    h1 {
+      animation: none;
+      background-position: 0% 50%;
+    }
   }
 </style>
 </head>
