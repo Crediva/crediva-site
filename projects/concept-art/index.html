@@ -607,21 +607,23 @@ header, .hero, body {
     </div>
   </nav>
 
-      <header class="hero">
+        <header class="hero">
     <div class="hero-grid">
       
       <!-- Lewa Strona: Tytuł i Opis -->
       <div class="hero-main-col">
-        <span class="sys-badge">[ SYS.02 // EXE_CORE ]</span>
+        <div style="margin-bottom: 12px;">
+          <span class="sys-badge">[ SYS.02 // EXE_CORE ]</span>
+        </div>
         <h1 class="glitch-title">Visual<br>Distortion</h1>
-        <p class="hero-desc">An experimental platform and art collective bridging raw street art culture with digital execution. Exploring the intersection of brutalism, corporate identity, and dark aesthetics — we build posters, branding frameworks, and motion clips that translate urban grit into a digital release.</p>
+        <p class="hero-desc" style="margin-top: 24px;">An experimental platform and art collective bridging raw street art culture with digital execution. Exploring the intersection of brutalism, corporate identity, and dark aesthetics — we build posters, branding frameworks, and motion clips that translate urban grit into a digital release.</p>
       </div>
 
-      <!-- Prawa Strona: Widget 3D Wireframe & Live Stats -->
+      <!-- Prawa Strona: Czysty Widget 3D Wireframe -->
       <div class="hero-tech-col">
         <div class="hero-tech-card">
           <div class="tech-card-header">
-            <span>[ MATRIX_3D_CANVAS ]</span>
+            <span>[ MATRIX_GLOBE_CANVAS ]</span>
             <div class="tech-live-status">
               <div class="tech-live-dot"></div>
               <span>LIVE_SIGNAL</span>
@@ -643,11 +645,11 @@ header, .hero, body {
             </div>
             <div>
               <span>LOCATION:</span>
-              <div class="tech-val">52.2297° N</div>
+              <div class="tech-val">52.2297°N, 21.0122°E (WAW)</div>
             </div>
             <div>
               <span>RENDER ENGINE:</span>
-              <div class="tech-val" style="color:var(--accent);">CANVAS_3D_GPU</div>
+              <div class="tech-val" style="color:var(--accent);">CANVAS_SPHERE_GPU</div>
             </div>
           </div>
         </div>
@@ -1149,7 +1151,7 @@ header, .hero, body {
   });
 </script>
 <script>
-  // 3D Canvas Wireframe Cube & UTC Clock
+  // 3D Canvas Wireframe GLOBE & UTC Clock
   document.addEventListener('DOMContentLoaded', () => {
     // 1. Zegar UTC
     const sysClock = document.getElementById('sysClock');
@@ -1160,70 +1162,87 @@ header, .hero, body {
       }, 1000);
     }
 
-    // 2. 3D Wireframe Canvas
+    // 2. 3D Globe Canvas
     const canvas = document.getElementById('wireframeCanvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let width, height;
 
     function resize() {
-      width = canvas.width = canvas.offsetWidth;
-      height = canvas.height = canvas.offsetHeight;
+      width = canvas.width = canvas.parentElement.offsetWidth;
+      height = canvas.height = canvas.parentElement.offsetHeight;
     }
     window.addEventListener('resize', resize);
     resize();
 
-    // 3D Cube Vertices
-    const nodes = [
-      [-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],
-      [-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]
-    ];
-    const edges = [
-      [0,1],[1,2],[2,3],[3,0],
-      [4,5],[5,6],[6,7],[7,4],
-      [0,4],[1,5],[2,6],[3,7]
-    ];
+    // Generowanie siatki Kuli (Sfery)
+    const nodes = [];
+    const edges = [];
+    const RINGS = 10;   // Ilość równoleżników
+    const SEGS = 16;    // Ilość południków
+    const r = 1;
 
-    let rx = 0.4, ry = 0.4;
+    for (let i = 0; i <= RINGS; i++) {
+      let theta = (i / RINGS) * Math.PI;
+      for (let j = 0; j < SEGS; j++) {
+        let phi = (j / SEGS) * 2 * Math.PI;
+        let x = r * Math.sin(theta) * Math.cos(phi);
+        let y = r * Math.cos(theta);
+        let z = r * Math.sin(theta) * Math.sin(phi);
+        nodes.push([x, y, z]);
+
+        let curr = i * SEGS + j;
+        if (j > 0) edges.push([curr, curr - 1]);
+        if (j === SEGS - 1) edges.push([curr, i * SEGS]); // zamknięcie obręczy
+        if (i > 0) edges.push([curr, curr - SEGS]);       // łączenie w pionie
+      }
+    }
+
+    let rx = 0.2; // Oś X (odchylenie Ziemi)
+    let ry = 0;   // Oś Y (obrót wokół własnej osi)
     let mouseX = 0, mouseY = 0;
 
     document.addEventListener('mousemove', (e) => {
-      mouseX = (e.clientX / window.innerWidth - 0.5) * 0.02;
-      mouseY = (e.clientY / window.innerHeight - 0.5) * 0.02;
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 0.03;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 0.03;
     });
 
     function render3D() {
       ctx.clearRect(0, 0, width, height);
-      rx += 0.008 + mouseY;
-      ry += 0.012 + mouseX;
+      
+      rx += (0.002 + mouseY) * 0.2; // Minimalny ruch góra-dół
+      ry += 0.006 + mouseX;         // Ciągły obrót Kuli ziemskiej
 
-      const scale = Math.min(width, height) * 0.28;
+      const scale = Math.min(width, height) * 0.42; // Skala sfery
       const cx = width / 2;
       const cy = height / 2;
 
       const projected = nodes.map(node => {
+        // Obrót X
         let y1 = node[1] * Math.cos(rx) - node[2] * Math.sin(rx);
         let z1 = node[1] * Math.sin(rx) + node[2] * Math.cos(rx);
+        // Obrót Y
         let x2 = node[0] * Math.cos(ry) + z1 * Math.sin(ry);
         let z2 = -node[0] * Math.sin(ry) + z1 * Math.cos(ry);
-        return [x2 * scale + cx, y1 * scale + cy];
+        
+        return { x: x2 * scale + cx, y: y1 * scale + cy, z: z2 };
       });
 
-      ctx.strokeStyle = '#ff2a00';
-      ctx.lineWidth = 1.2;
-
+      // Rysowanie krawędzi kuli
+      ctx.lineWidth = 0.8;
       edges.forEach(edge => {
         const p1 = projected[edge[0]];
         const p2 = projected[edge[1]];
+        
+        // Pseudo 3D depth fade (tył kuli jest ciemniejszy/przezroczysty)
+        const zAvg = (p1.z + p2.z) / 2;
+        const alpha = Math.max(0.05, Math.min(1, (zAvg + r) / (2 * r)));
+        
+        ctx.strokeStyle = `rgba(255, 42, 0, ${alpha})`;
         ctx.beginPath();
-        ctx.moveTo(p1[0], p1[1]);
-        ctx.lineTo(p2[0], p2[1]);
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
         ctx.stroke();
-      });
-
-      ctx.fillStyle = '#ffffff';
-      projected.forEach(p => {
-        ctx.fillRect(p[0] - 2, p[1] - 2, 4, 4);
       });
 
       requestAnimationFrame(render3D);
