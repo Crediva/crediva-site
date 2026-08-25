@@ -528,7 +528,7 @@
   const toast = document.getElementById('toast');
   let toastTimer = null;
 
-  // Autoplay dla pokazu slajdów za szkłem
+  // 1. Pokaz slajdów (Layered Crossfade + Pan 5.5s)
   document.querySelectorAll('.slideshow').forEach(slideshow => {
     const slides = slideshow.querySelectorAll('.slide');
     if (slides.length <= 1) return;
@@ -541,11 +541,9 @@
       const currentSlide = slides[activeIdx];
       const nextSlide = slides[nextIdx];
 
-      // Nowy slajd wchodzi na wierzch (z-index: 2) i odpala animację
       void nextSlide.offsetWidth; // force reflow
       nextSlide.classList.add('active');
 
-      // Dopiero po zakończeniu fadu (850ms) czyścimy poprzedni slajd pod spodem
       setTimeout(() => {
         if (currentSlide !== nextSlide) {
           currentSlide.classList.remove('active');
@@ -562,17 +560,19 @@
     toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 1800);
   }
 
+  // 2. Kalkulacja trójwymiarowego tiltu
   function updateCardPointer(card, e){
     const r = card.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width;
     const py = (e.clientY - r.top) / r.height;
-    const rotY = (px - 0.5) * 10;
-    const rotX = (0.5 - py) * 10;
-    card.style.transform = `translateY(-10px) scale(1.015) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    const rotY = (px - 0.5) * 12;
+    const rotX = (0.5 - py) * 12;
+    card.style.transform = `translateY(-8px) scale(1.015) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
     card.style.setProperty('--mx', (px * 100) + '%');
     card.style.setProperty('--my', (py * 100) + '%');
   }
 
+  // 3. Obsługa kart (Tilt Mysz + Dotyk + Kliknięcia)
   document.querySelectorAll('.card').forEach(card => {
     let settleTimer = null;
 
@@ -591,11 +591,12 @@
       card.style.transform = '';
       card.style.setProperty('--pos-speed', '.7s');
       document.body.classList.remove('is-card-hovered');
+      card.classList.remove('is-active');
       settleTimer = setTimeout(() => { card.style.animation = ''; }, 620);
     }
 
     if (!reduceMotion){
-      // Reaguje zarówno na mysz, jak i na dotyk palca na mobile
+      // Reaguje na myszkę oraz na dotyk palcem (pointer events)
       card.addEventListener('pointerenter', (e) => {
         if (e.pointerType === 'mouse') startTilt(e);
       });
@@ -612,10 +613,37 @@
       });
       card.addEventListener('pointerup', stopTilt);
       card.addEventListener('pointercancel', stopTilt);
-    }, { passive: true });
-  })();
+    }
 
-  // Naprawa niebieskiego ekranu przy cofaniu w przeglądarce (BFCache fix)
+    // Obsługa kliknięcia i nawigacji
+    card.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+
+      if (card.dataset.status === 'soon'){
+        e.preventDefault();
+        card.classList.remove('is-locked');
+        void card.offsetWidth;
+        card.classList.add('is-locked');
+        showToast();
+        return;
+      }
+
+      e.preventDefault();
+      const target = card.getAttribute('href');
+
+      if (reduceMotion){
+        window.location.href = target;
+        return;
+      }
+
+      veil.classList.add('is-animating');
+      document.body.classList.add('is-leaving');
+
+      setTimeout(() => { window.location.href = target; }, 420);
+    });
+  });
+
+  // 4. BFCache Fix (poprawna obsługa cofania w przeglądarce)
   window.addEventListener('pageshow', () => {
     veil.classList.remove('is-animating');
     document.body.classList.remove('is-leaving');
