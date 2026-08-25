@@ -1060,6 +1060,17 @@
     return name.replace(/\.[a-zA-Z0-9]+$/, '').replace(/[-_]+/g, ' ').trim();
   }
 
+  
+  // Algorytm losujący kolejność przy każdym ładowaniu strony
+  function shufflePhotos(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
   function buildGallery(filenames){
     if (!filenames.length){
       emptyMsg.textContent = 'No photos found in assets/foto — add images or fill MANUAL_PHOTOS in the code.';
@@ -1165,7 +1176,7 @@
   // ---- try auto-detecting files via directory listing, else fall back ----
   async function loadGallery(){
     if (MANUAL_PHOTOS.length){
-      buildGallery(MANUAL_PHOTOS);
+      buildGallery(shufflePhotos(MANUAL_PHOTOS));
       return;
     }
     try {
@@ -1183,7 +1194,7 @@
       buildGallery(files);
     } catch (err) {
       console.warn('Auto-detect assets/foto failed — fill MANUAL_PHOTOS in the script.', err);
-      buildGallery(MANUAL_PHOTOS);
+      buildGallery(shufflePhotos(MANUAL_PHOTOS));
     }
   }
 
