@@ -259,7 +259,7 @@
     transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
   }
 
-    /* --- HERO TECH WIDGET & GLITCH H1 --- */
+      /* --- HERO TECH WIDGET & GLITCH H1 (IPAD / SAFARI FIX) --- */
   .hero-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -268,10 +268,12 @@
   }
   
   .hero-main-col {
-    grid-column: 1 / 8;
+    grid-column: 1 / 7;
+    min-width: 0;
   }
   .hero-tech-col {
-    grid-column: 8 / -1;
+    grid-column: 7 / -1;
+    min-width: 0;
   }
 
   .sys-badge {
@@ -287,10 +289,14 @@
     text-transform: uppercase;
   }
 
-  /* Glitch Effect on H1 */
+  /* Glitch Effect & Responsive H1 Size for iPad/Safari */
   .glitch-title {
     position: relative;
     display: inline-block;
+    font-size: clamp(28px, 4vw, 110px) !important;
+    line-height: 0.95;
+    max-width: 100%;
+    word-break: break-word;
     transition: all 0.3s ease;
   }
   .glitch-title:hover {
@@ -313,11 +319,12 @@
     padding: 20px;
     position: relative;
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    width: 100%;
   }
   .tech-card-header {
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: center;
     border-bottom: 1px solid var(--grid-line);
     padding-bottom: 12px;
     margin-bottom: 16px;
@@ -328,7 +335,7 @@
   .tech-live-status {
     color: var(--accent);
     display: flex;
-    align-items: start;
+    align-items: center;
     gap: 6px;
     font-weight: bold;
   }
@@ -374,9 +381,11 @@
     margin-top: 2px;
   }
 
-  @media(max-width: 900px) {
+  /* Breakpoint 1180px pod iPada - układ w 1 kolumnę */
+  @media(max-width: 1180px) {
     .hero-main-col { grid-column: 1 / -1; }
-    .hero-tech-col { grid-column: 1 / -1; margin-top: 24px; }
+    .hero-tech-col { grid-column: 1 / -1; margin-top: 28px; }
+    .glitch-title { font-size: clamp(32px, 7vw, 85px) !important; }
   }
   /* --- FOOTER --- */
   footer {
