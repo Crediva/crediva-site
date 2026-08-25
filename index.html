@@ -335,9 +335,19 @@
     pointer-events: none;
   }
 
-  .card:hover .card-glass-frame {
+  .card:hover .card-glass-frame,
+  .card.is-active .card-glass-frame,
+  .card:focus-within .card-glass-frame {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+
+  /* Mobile: karta w trybie touch ma zawsze widoczny teaser */
+  @media (hover: none) and (pointer: coarse) {
+    .card.is-active .card-glass-frame {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 
   .card-glass-frame .slideshow {
@@ -598,6 +608,34 @@
       setTimeout(() => { window.location.href = target; }, 420);
     });
   });
+
+
+  // ---- Mobile / touch: pokaż teaser po tapnięciu karty ----
+  (function(){
+    const cards = document.querySelectorAll('.card');
+    let activeCard = null;
+
+    cards.forEach(card => {
+      card.addEventListener('pointerdown', (e) => {
+        // tylko touch / pióro; mysz zostaje na :hover
+        if (e.pointerType === 'mouse') return;
+
+        if (activeCard && activeCard !== card) {
+          activeCard.classList.remove('is-active');
+        }
+        card.classList.add('is-active');
+        activeCard = card;
+      }, { passive: true });
+    });
+
+    // tap poza kartami chowa teaser
+    document.addEventListener('pointerdown', (e) => {
+      if (!e.target.closest('.card') && activeCard) {
+        activeCard.classList.remove('is-active');
+        activeCard = null;
+      }
+    }, { passive: true });
+  })();
 
   // Naprawa niebieskiego ekranu przy cofaniu w przeglądarce (BFCache fix)
   window.addEventListener('pageshow', () => {
