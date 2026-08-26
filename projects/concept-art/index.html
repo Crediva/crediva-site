@@ -538,57 +538,7 @@ header, .hero, body {
         display: none;
     }
 }
-
-/* === SAFE RESIZING FOR BENTO GRID === */
-.bento-grid img, .grid img, .bento-item img, .bento-card img {
-    max-width: 100% !important;
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    display: block;
-}
-
-.outlined-text {
-    color: transparent !important;
-    -webkit-text-stroke: 1.5px #ffffff;
-    text-stroke: 1.5px #ffffff;
-    display: inline-block;
-}
-
-/* === HUD PANEL STYLES === */
-header, .hero { position: relative !important; }
-.exe-hud-panel {
-    position: absolute;
-    right: max(2rem, 4vw);
-    top: 50%;
-    transform: translateY(-50%);
-    width: 210px;
-    padding: 1rem;
-    background: rgba(10, 10, 10, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    font-family: monospace;
-    font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.75);
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    pointer-events: none;
-    z-index: 10;
-}
-.hud-header { display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px dashed #444; padding-bottom: 0.4rem; }
-.hud-status-dot { width: 6px; height: 6px; background: #ff0055; border-radius: 50%; box-shadow: 0 0 6px #ff0055; }
-.hud-graphic { width: 60px; height: 60px; margin: 0 auto; opacity: 0.5; }
-.hud-radar { width: 100%; height: 100%; animation: hudSpin 20s linear infinite; }
-@keyframes hudSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-.hud-data-block { display: flex; flex-direction: column; gap: 0.25rem; border-top: 1px dashed #444; padding-top: 0.4rem; }
-.hud-row { display: flex; justify-content: space-between; }
-.hud-highlight { color: #00ffaa; font-weight: bold; }
-.hud-barcode { height: 12px; width: 100%; background: repeating-linear-gradient(to right, #fff 0 2px, transparent 2px 4px, #aaa 4px 7px, transparent 7px 9px); opacity: 0.3; }
-@media (max-width: 1024px) { .exe-hud-panel { display: none; } }
 </style>
-
 
 </head>
 <body>
@@ -607,74 +557,6 @@ header, .hero { position: relative !important; }
 
           <header class="hero">
     <div class="hero-grid">
-
-        <!-- NEW ARTWORK: REDDIT -->
-        <div class="bento-item" data-type="image" data-src="assets/reddit-glitch.jpg" data-title="REDDIT // NANO GLITCH" data-tools="Nano Banana, Procreate" data-description="Experimental brand identity concept combining AI-assisted generative workflows with manual digital retouching and raw glitch aesthetics.">
-            <img src="assets/reddit-glitch.jpg" alt="REDDIT // NANO GLITCH" loading="lazy">
-            <div class="card-overlay">
-                <span class="card-title">REDDIT // NANO GLITCH</span>
-                <span class="card-tools">[ NANO BANANA, PROCREATE ]</span>
-            </div>
-
-        <!-- NEW ARTWORK: REDDIT -->
-        <div class="bento-item" data-type="image" data-src="./assets/reddit-glitch.jpg" data-title="REDDIT // NANO GLITCH" data-tools="Nano Banana, Procreate" data-description="Experimental brand identity concept combining AI-assisted generative workflows with manual digital retouching and raw glitch aesthetics.">
-            <img src="./assets/reddit-glitch.jpg" alt="REDDIT // NANO GLITCH" loading="lazy">
-            <div class="overlay">
-                <span class="title">REDDIT // NANO GLITCH</span>
-                <span class="tools">[ NANO BANANA, PROCREATE ]</span>
-            </div>
-        </div>
-
-        <!-- NEW ARTWORK: NIKE -->
-        <div class="bento-item" data-type="image" data-src="./assets/nike-kinetic.jpg" data-title="NIKE // KINETIC DISTORTION" data-tools="Procreate" data-description="High-impact brutalist poster design focused on explosive typography, motion dynamics, and stark monochromatic contrast.">
-            <img src="./assets/nike-kinetic.jpg" alt="NIKE // KINETIC DISTORTION" loading="lazy">
-            <div class="overlay">
-                <span class="title">NIKE // KINETIC DISTORTION</span>
-                <span class="tools">[ PROCREATE ]</span>
-            </div>
-        </div>
-        </div>
-
-        <!-- NEW ARTWORK: NIKE -->
-        <div class="bento-item" data-type="image" data-src="assets/nike-kinetic.jpg" data-title="NIKE // KINETIC DISTORTION" data-tools="Procreate" data-description="High-impact brutalist poster design focused on explosive typography, motion dynamics, and stark monochromatic contrast.">
-            <img src="assets/nike-kinetic.jpg" alt="NIKE // KINETIC DISTORTION" loading="lazy">
-            <div class="card-overlay">
-                <span class="card-title">NIKE // KINETIC DISTORTION</span>
-                <span class="card-tools">[ PROCREATE ]</span>
-            </div>
-        </div>
-
-
-        <!-- BENTO ITEM: REDDIT // NANO GLITCH -->
-        <div class="bento-item" 
-             data-type="image"
-             data-src="assets/reddit-glitch.jpg"
-             data-title="REDDIT // NANO GLITCH" 
-             data-tools="Nano Banana, Procreate" 
-             data-description="Experimental brand identity concept combining AI-assisted generative workflows with manual digital retouching and raw glitch aesthetics.">
-            <img src="assets/reddit-glitch.jpg" alt="REDDIT // NANO GLITCH" loading="lazy" />
-            <div class="bento-overlay">
-                <div class="bento-info">
-                    <span class="bento-title">REDDIT // NANO GLITCH</span>
-                    <span class="bento-tools">[ NANO BANANA, PROCREATE ]</span>
-                </div>
-            </div>
-        </div>
-        <!-- BENTO ITEM: NIKE // KINETIC <span class="outlined-text">DISTORTION</span> -->
-        <div class="bento-item" 
-             data-type="image"
-             data-src="assets/nike-kinetic.jpg"
-             data-title="NIKE // KINETIC DISTORTION" 
-             data-tools="Procreate" 
-             data-description="High-impact brutalist poster design focused on explosive typography, motion dynamics, and stark monochromatic contrast.">
-            <img src="assets/nike-kinetic.jpg" alt="NIKE // KINETIC DISTORTION" loading="lazy" />
-            <div class="bento-overlay">
-                <div class="bento-info">
-                    <span class="bento-title">NIKE // KINETIC DISTORTION</span>
-                    <span class="bento-tools">[ PROCREATE ]</span>
-                </div>
-            </div>
-        </div>
       
       <!-- Lewa Strona: Tytuł i Opis -->
       <div class="hero-main-col">
@@ -1093,6 +975,24 @@ header, .hero { position: relative !important; }
         <div class="item-media">
           <video src="./assets/YERBADOR - main.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
           <div class="item-label">24 // MOTION / VIDEO</div>
+
+        <!-- NEW ARTWORK: REDDIT -->
+        <div class="item" data-type="image" data-src="assets/reddit-glitch.jpg" data-title="REDDIT // NANO GLITCH" data-tools="Nano Banana, Procreate" data-description="Experimental brand identity concept combining AI-assisted generative workflows with manual digital retouching and raw glitch aesthetics.">
+            <img src="assets/reddit-glitch.jpg" alt="REDDIT // NANO GLITCH" loading="lazy">
+            <div class="overlay">
+                <span class="title">REDDIT // NANO GLITCH</span>
+                <span class="tools">[ NANO BANANA, PROCREATE ]</span>
+            </div>
+        </div>
+
+        <!-- NEW ARTWORK: NIKE -->
+        <div class="item" data-type="image" data-src="assets/nike-kinetic.jpg" data-title="NIKE // KINETIC DISTORTION" data-tools="Procreate" data-description="High-impact brutalist poster design focused on explosive typography, motion dynamics, and stark monochromatic contrast.">
+            <img src="assets/nike-kinetic.jpg" alt="NIKE // KINETIC DISTORTION" loading="lazy">
+            <div class="overlay">
+                <span class="title">NIKE // KINETIC DISTORTION</span>
+                <span class="tools">[ PROCREATE ]</span>
+            </div>
+        </div>
           <div class="expand-hint">[ CLICK TO EXPAND ]</div>
         </div>
         <div class="item-info-drawer">
