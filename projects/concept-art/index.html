@@ -591,26 +591,36 @@ header, .hero, body {
     }
 }
 
-/* === HERO SECTION CUSTOM STYLES === */
+
+/* === HERO UPDATES: SHORT BADGE + GIF + 30% LARGER MATRIX === */
 .sys-badge {
-    display: block !important;
+    display: inline-block !important;
+    width: fit-content !important;
+    max-width: 100% !important;
     margin-bottom: 1rem !important;
     color: #ff0055;
     font-family: monospace;
     font-size: 0.8rem;
     letter-spacing: 0.1em;
+    padding: 4px 8px;
 }
 
 .hero-tech-card {
-    transform: scale(0.5) !important;
+    transform: scale(0.65) !important; /* Powiększenie z 0.5 o 30% */
     transform-origin: top right !important;
-    margin-bottom: -25% !important;
+    margin-bottom: -15% !important;
 }
 
-.exe-hud-panel {
-    display: none !important;
+.matrix-gif {
+    width: 100%;
+    height: 100%;
+    max-height: 220px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
 }
 </style>
+
 
 
 </head>
@@ -650,7 +660,7 @@ header, .hero, body {
           </div>
           
           <div class="canvas-container">
-            <canvas id="wireframeCanvas"></canvas>
+            <img src="./assets/EXE.gif" alt="EXE Matrix Animation" class="matrix-gif">
           </div>
 
           <div class="tech-card-footer">
