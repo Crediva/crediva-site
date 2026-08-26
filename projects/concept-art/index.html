@@ -592,34 +592,90 @@ header, .hero, body {
 }
 
 
-/* === HERO UPDATES: SHORT BADGE + GIF + 30% LARGER MATRIX === */
-.sys-badge {
-    display: inline-block !important;
-    width: fit-content !important;
-    max-width: 100% !important;
-    margin-bottom: 1rem !important;
-    color: #ff0055;
-    font-family: monospace;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    padding: 4px 8px;
+
+/* === HERO CLEAN LAYOUT v3 === */
+
+/* Usuń badge jeśli coś zostało */
+.sys-badge { display: none !important; }
+
+/* Lewa kolumna i tytuł równo do lewej */
+.hero-main-col {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  text-align: left !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+.glitch-title,
+.hero-main-col h1 {
+  text-align: left !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.hero-desc {
+  text-align: left !important;
+  margin-left: 0 !important;
+  max-width: 36rem !important;
+}
+
+/* Prawa kolumna / MATRIX większy i bez zbędnego shrink */
+.hero-tech-col {
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: flex-start !important;
 }
 
 .hero-tech-card {
-    transform: scale(0.65) !important; /* Powiększenie z 0.5 o 30% */
-    transform-origin: top right !important;
-    margin-bottom: -15% !important;
+  transform: none !important;
+  width: min(520px, 100%) !important;
+  max-width: 520px !important;
+  margin: 0 !important;
 }
 
-.matrix-gif {
-    width: 100%;
-    height: 100%;
-    max-height: 220px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
+/* Kontener "ekranu" — GIF ma wypełnić całość */
+.canvas-container {
+  position: relative !important;
+  width: 100% !important;
+  aspect-ratio: 16 / 10 !important;
+  min-height: 240px !important;
+  height: auto !important;
+  overflow: hidden !important;
+  background: #000 !important;
+  padding: 0 !important;
+}
+
+.matrix-gif,
+.canvas-container img,
+.canvas-container canvas {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;   /* wypełnia cały ekran panelu */
+  object-position: center !important;
+  display: block !important;
+  margin: 0 !important;
+  border: 0 !important;
+}
+
+/* Na mniejszych ekranach panel też ma sensowny rozmiar */
+@media (max-width: 900px) {
+  .hero-tech-card {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .canvas-container {
+    min-height: 200px !important;
+  }
 }
 </style>
+
 
 
 
@@ -643,7 +699,6 @@ header, .hero, body {
       
       <!-- Lewa Strona: Tytuł i Opis -->
       <div class="hero-main-col">
-        <span class="sys-badge">[ SYS.02 // EXE_CORE ]</span>
         <h1 class="glitch-title">Visual<br>Distortion</h1>
         <p class="hero-desc">An experimental platform and art collective bridging raw street art culture with digital execution. Exploring the intersection of brutalism, corporate identity, and dark aesthetics — we build posters, branding frameworks, and motion clips that translate urban grit into a digital release.</p>
       </div>
