@@ -601,102 +601,38 @@ header, .hero, body {
 <style>
 
 
-/* === HERO PERFECT TOP-TO-BOTTOM ALIGNMENT === */
-.sys-badge { display: none !important; }
 
-/* Główna siatka hero */
+/* === CLEAN HERO (MATRIX WIDGET REMOVED) === */
+.hero-tech-col, .hero-tech-card, .sys-badge, .exe-hud-panel {
+    display: none !important;
+}
+
 .hero-grid {
-  display: grid !important;
-  grid-template-columns: 1.1fr 0.9fr !important;
-  gap: clamp(1.5rem, 3vw, 3rem) !important;
-  align-items: stretch !important; /* Rozciąga kolumny od samej góry do samego dołu */
-  margin-top: 0 !important;
-  padding-top: 0 !important;
+    display: block !important;
+    max-width: 900px !important;
 }
 
-/* Lewa kolumna: Visual Distortion + Opis */
 .hero-main-col {
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: flex-start !important;
-  align-items: flex-start !important;
+    width: 100% !important;
+    max-width: 800px !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-.glitch-title,
-.hero-main-col h1 {
-  margin: 0 0 1.25rem 0 !important;
-  padding: 0 !important;
-  line-height: 0.95 !important;
+.glitch-title, .hero-main-col h1 {
+    margin: 0 0 1.5rem 0 !important;
+    padding: 0 !important;
+    line-height: 0.95 !important;
 }
 
 .hero-desc {
-  margin: 0 !important;
-  padding: 0 !important;
-  max-width: 38rem !important;
-  line-height: 1.6 !important;
-}
-
-/* Prawa kolumna: Podniesiona do samej góry! */
-.hero-tech-col {
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: flex-start !important; /* Wymusza pozycję od samej góry */
-  align-items: stretch !important;
-  align-self: stretch !important;
-  height: 100% !important;
-}
-
-/* Karta MATRIX */
-.hero-tech-card {
-  margin: 0 !important;
-  padding: 0 !important;
-  height: 100% !important;
-  max-height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: space-between !important;
-  box-sizing: border-box !important;
-  transform: none !important;
-}
-
-.tech-card-header,
-.tech-card-footer {
-  flex: 0 0 auto !important;
-}
-
-/* Ekran GIF-a w środku */
-.canvas-container {
-  position: relative !important;
-  flex: 1 1 auto !important;
-  width: 100% !important;
-  min-height: 140px !important;
-  overflow: hidden !important;
-  background: #000 !important;
-  padding: 0 !important;
-}
-
-.matrix-gif,
-.canvas-container img,
-.canvas-container canvas {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: center !important;
-  display: block !important;
-}
-
-@media (max-width: 900px) {
-  .hero-grid { grid-template-columns: 1fr !important; }
-  .hero-tech-card { height: auto !important; min-height: 260px !important; }
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 44rem !important;
+    line-height: 1.6 !important;
 }
 </style>
+
 
 
 </style></head>
@@ -724,13 +660,7 @@ header, .hero, body {
       </div>
 
       <!-- Prawa Strona: Widget 3D Wireframe & Live Stats -->
-      <div class="hero-tech-col">
-        <div class="hero-tech-card">
-          <div class="tech-card-header">
-            <span>[ MATRIX_3D_CANVAS ]</span>
-            <div class="tech-live-status">
-              <div class="tech-live-dot"></div>
-              <span>LIVE_SIGNAL</span>
+      <span>LIVE_SIGNAL</span>
             </div>
           </div>
           
