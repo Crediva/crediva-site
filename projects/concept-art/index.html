@@ -549,6 +549,26 @@ header, .hero, body {
 
 </style>
 
+
+<style>
+/* === TRWALE UKRYCIE PRZYCISKÓW EXPAND === */
+.click-to-expand, .expand-btn, .expand-badge, [class*="expand"] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+</style>
+<script>
+// JS Failsafe: Usuwa resztki pustych pomarańczowych bloków po załadowaniu
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('.bento-item, .grid-item, .card').forEach(card => {
+        const badge = card.querySelector('.click-to-expand, .expand-btn, [style*="background-color: rgb(255, 51, 0)"], [style*="background: #ff3300"]');
+        if(badge) badge.remove();
+    });
+});
+</script>
+
 </head>
 <body>
 
