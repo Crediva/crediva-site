@@ -599,18 +599,25 @@ header, .hero, body {
 
 
 <style>
-/* === HERO HEIGHT MATCH v5 === */
+
+/* === HERO GRID PERFECT ALIGNMENT === */
 .sys-badge { display: none !important; }
 
+/* Układ 2 kolumn równych wysokością */
 .hero-grid {
   display: grid !important;
-  grid-template-columns: 1.15fr 0.85fr !important;
-  align-items: start !important; /* ważne: nie stretch na ślepo */
-  gap: clamp(1.5rem, 4vw, 3rem) !important;
+  grid-template-columns: 1.1fr 0.9fr !important;
+  gap: clamp(2rem, 4vw, 3.5rem) !important;
+  align-items: stretch !important; /* Klucz: obie kolumny od samej góry do samego dołu */
+  margin-top: 1rem !important;
 }
 
+/* Lewa kolumna (Tytuł + Opis) */
 .hero-main-col {
-  display: block !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
   text-align: left !important;
 }
 
@@ -618,30 +625,33 @@ header, .hero, body {
 .hero-main-col h1 {
   text-align: left !important;
   margin: 0 0 1.25rem 0 !important;
+  padding: 0 !important;
+  line-height: 0.95 !important;
 }
 
 .hero-desc {
   text-align: left !important;
   margin: 0 !important;
-  max-width: 36rem !important;
+  max-width: 38rem !important;
+  line-height: 1.6 !important;
 }
 
-/* MATRIX zostaje po prawej */
+/* Prawa kolumna (MATRIX) - wyrównana do góry, pełna wysokość lewej strony */
 .hero-tech-col {
   display: flex !important;
-  justify-content: flex-end !important;
-  align-items: flex-start !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  height: 100% !important;
 }
 
-/* Wysokość będzie ustawiana przez JS = wysokość lewego bloku */
 .hero-tech-card {
   transform: none !important;
-  width: min(520px, 100%) !important;
-  max-width: 520px !important;
+  width: 100% !important;
+  height: 100% !important; /* Wysokość równa lewej kolumnie */
   margin: 0 !important;
   display: flex !important;
   flex-direction: column !important;
-  overflow: hidden !important;
   box-sizing: border-box !important;
 }
 
@@ -650,11 +660,12 @@ header, .hero, body {
   flex: 0 0 auto !important;
 }
 
+/* Ekran na GIF w środku karty */
 .canvas-container {
   position: relative !important;
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
+  flex: 1 1 auto !important; /* Rozciąga się pionowo wypełniając wolne miejsce */
   width: 100% !important;
+  min-height: 160px !important;
   overflow: hidden !important;
   background: #000 !important;
   padding: 0 !important;
@@ -664,20 +675,26 @@ header, .hero, body {
 .canvas-container img,
 .canvas-container canvas {
   position: absolute !important;
-  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important;
+  object-fit: cover !important; /* GIF wypełnia całą powierzchnię */
   object-position: center !important;
   display: block !important;
 }
 
 @media (max-width: 900px) {
-  .hero-grid { grid-template-columns: 1fr !important; }
-  .hero-tech-card { width: 100% !important; max-width: 100% !important; height: auto !important; min-height: 260px !important; }
-  .canvas-container { min-height: 220px !important; }
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .hero-tech-card {
+    height: auto !important;
+    min-height: 260px !important;
+  }
 }
 </style>
+
 </style></head>
 <body>
 
@@ -1287,40 +1304,6 @@ header, .hero, body {
     }
     render3D();
   });
-</script>
-
-<script id="hero-height-match">
-(function () {
-  function matchHeroHeights() {
-    var left = document.querySelector('.hero-main-col');
-    var card = document.querySelector('.hero-tech-card');
-    if (!left || !card) return;
-
-    // Na mobile nie wymuszamy sztucznej wysokości
-    if (window.innerWidth <= 900) {
-      card.style.height = '';
-      card.style.minHeight = '';
-      return;
-    }
-
-    // Wysokość lewego bloku treści (tytuł + opis)
-    var leftHeight = Math.ceil(left.getBoundingClientRect().height);
-    if (leftHeight > 0) {
-      card.style.height = leftHeight + 'px';
-      card.style.minHeight = leftHeight + 'px';
-    }
-  }
-
-  window.addEventListener('load', matchHeroHeights);
-  window.addEventListener('resize', matchHeroHeights);
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(matchHeroHeights).catch(function(){});
-  }
-  // po krótkiej chwili na wypadek późnego layoutu/fontów
-  setTimeout(matchHeroHeights, 50);
-  setTimeout(matchHeroHeights, 300);
-  setTimeout(matchHeroHeights, 1000);
-})();
 </script>
 
 </body>
