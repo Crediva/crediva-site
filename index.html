@@ -136,7 +136,7 @@
     flex-direction: column;
     justify-content: space-between;
     transform-style: preserve-3d;
-    box-shadow: 0 10px 30px rgba(33, 33, 58, 0.05);
+    box-shadow: 0 10px 30px rgba(33, 33, 58, 0.06), 0 30px 60px rgba(11, 11, 24, 0.04);
     touch-action: pan-y;
     will-change: transform;
     overflow: hidden;
@@ -230,28 +230,30 @@
   .card-title-swiperace { font-family: 'SwipeRaceFont', sans-serif !important; font-size: 11px !important; letter-spacing: 0.06em !important; line-height: 1.2 !important; margin-top: 4px; margin-bottom: 8px; }
   .card-title-snasm { font-family: 'SnasmFont', sans-serif !important; font-size: 20px !important; letter-spacing: 0.04em !important; line-height: 1.2 !important; margin-top: 4px; margin-bottom: 8px; }
 
-    /* Card Reveal Animation (Hover to show info) */
+      /* Card Reveal Animation (Kinematic Hover) */
   .card-reveal {
-    max-height: 0;
+    display: grid;
+    grid-template-rows: 0fr;
     opacity: 0;
+    transform: translateY(12px);
+    transition: grid-template-rows 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease 0.1s, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+  }
+  .card-reveal-inner {
     overflow: hidden;
-    transform: translateY(10px);
-    transition: all 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .card:hover .card-reveal,
   .card.is-active .card-reveal,
   .card:focus-within .card-reveal {
-    max-height: 120px; /* Adjust based on content size */
+    grid-template-rows: 1fr;
     opacity: 1;
     transform: translateY(0);
-    margin-top: 8px;
+    margin-top: 10px;
   }
   
-  .card-reveal p { font-size: 12px; color: var(--ink-soft); line-height: 1.4; margin-bottom: 12px; }
+  .card-reveal p { font-size: 12px; color: var(--ink-soft); line-height: 1.5; margin-bottom: 14px; margin-top: 2px; }
   .card-cta { font-family: var(--font-cond); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: var(--ink); display: inline-flex; align-items: center; gap: 6px; }
-  .card-cta .arrow { transition: transform 0.3s ease; }
-  .card:hover .card-cta .arrow { transform: translateX(4px); }
-
+  .card-cta .arrow { transition: transform 0.4s ease; }
+  .card:hover .card-cta .arrow { transform: translateX(5px); }
   /* Lock Shake */
   .card[data-status="soon"] { cursor: default; opacity: 0.85; }
   .card.is-locked { animation: cardShake 0.35s ease; }
@@ -326,9 +328,11 @@
         <span class="card-label">3D Printing</span>
         <h2 class="card-title-delcom">Nisuz Prints</h2>
         <div class="card-reveal">
+        <div class="card-reveal-inner">
           <p>Modular collectible figures — from digital sculpt, through FDM print, to hand-assembled finish.</p>
           <span class="card-cta">View project <span class="arrow">→</span></span>
         </div>
+      </div>
       </div>
     </a>
 
@@ -357,9 +361,11 @@
         <span class="card-label">Branding &amp; Art Collective</span>
         <h2 class="card-title-swiperace">.EXE Concept</h2>
         <div class="card-reveal">
+        <div class="card-reveal-inner">
           <p>Commercial graphic design, brutalist branding, experimental platform, posters and simple motion clips.</p>
           <span class="card-cta">View projects <span class="arrow">→</span></span>
         </div>
+      </div>
       </div>
     </a>
 
@@ -375,9 +381,11 @@
         <span class="card-label">AI Automation</span>
         <h2 class="card-title-snasm">Agent Factory</h2>
         <div class="card-reveal">
+        <div class="card-reveal-inner">
           <p>A Python pipeline that finds real problems in local businesses and builds specialized AI agents to solve them.</p>
           <span class="card-cta">Coming soon <span class="arrow">→</span></span>
         </div>
+      </div>
       </div>
     </a>
 
