@@ -593,58 +593,68 @@ header, .hero, body {
 
 
 
-/* === HERO CLEAN LAYOUT v3 === */
 
-/* Usuń badge jeśli coś zostało */
+
+
+
+
+<style>
+/* === HERO HEIGHT MATCH v5 === */
 .sys-badge { display: none !important; }
 
-/* Lewa kolumna i tytuł równo do lewej */
+.hero-grid {
+  display: grid !important;
+  grid-template-columns: 1.15fr 0.85fr !important;
+  align-items: start !important; /* ważne: nie stretch na ślepo */
+  gap: clamp(1.5rem, 4vw, 3rem) !important;
+}
+
 .hero-main-col {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  justify-content: center !important;
+  display: block !important;
   text-align: left !important;
-  padding-left: 0 !important;
-  margin-left: 0 !important;
 }
 
 .glitch-title,
 .hero-main-col h1 {
   text-align: left !important;
-  margin-left: 0 !important;
-  padding-left: 0 !important;
-  width: 100% !important;
-  max-width: 100% !important;
+  margin: 0 0 1.25rem 0 !important;
 }
 
 .hero-desc {
   text-align: left !important;
-  margin-left: 0 !important;
+  margin: 0 !important;
   max-width: 36rem !important;
 }
 
-/* Prawa kolumna / MATRIX większy i bez zbędnego shrink */
+/* MATRIX zostaje po prawej */
 .hero-tech-col {
   display: flex !important;
   justify-content: flex-end !important;
   align-items: flex-start !important;
 }
 
+/* Wysokość będzie ustawiana przez JS = wysokość lewego bloku */
 .hero-tech-card {
   transform: none !important;
   width: min(520px, 100%) !important;
   max-width: 520px !important;
   margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
 }
 
-/* Kontener "ekranu" — GIF ma wypełnić całość */
+.tech-card-header,
+.tech-card-footer {
+  flex: 0 0 auto !important;
+}
+
 .canvas-container {
   position: relative !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
   width: 100% !important;
-  aspect-ratio: 16 / 10 !important;
-  min-height: 240px !important;
-  height: auto !important;
   overflow: hidden !important;
   background: #000 !important;
   padding: 0 !important;
@@ -657,29 +667,18 @@ header, .hero, body {
   inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important;   /* wypełnia cały ekran panelu */
+  object-fit: cover !important;
   object-position: center !important;
   display: block !important;
-  margin: 0 !important;
-  border: 0 !important;
 }
 
-/* Na mniejszych ekranach panel też ma sensowny rozmiar */
 @media (max-width: 900px) {
-  .hero-tech-card {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-  .canvas-container {
-    min-height: 200px !important;
-  }
+  .hero-grid { grid-template-columns: 1fr !important; }
+  .hero-tech-card { width: 100% !important; max-width: 100% !important; height: auto !important; min-height: 260px !important; }
+  .canvas-container { min-height: 220px !important; }
 }
 </style>
-
-
-
-
-</head>
+</style></head>
 <body>
 
     <nav class="top-nav">
@@ -1289,5 +1288,40 @@ header, .hero, body {
     render3D();
   });
 </script>
+
+<script id="hero-height-match">
+(function () {
+  function matchHeroHeights() {
+    var left = document.querySelector('.hero-main-col');
+    var card = document.querySelector('.hero-tech-card');
+    if (!left || !card) return;
+
+    // Na mobile nie wymuszamy sztucznej wysokości
+    if (window.innerWidth <= 900) {
+      card.style.height = '';
+      card.style.minHeight = '';
+      return;
+    }
+
+    // Wysokość lewego bloku treści (tytuł + opis)
+    var leftHeight = Math.ceil(left.getBoundingClientRect().height);
+    if (leftHeight > 0) {
+      card.style.height = leftHeight + 'px';
+      card.style.minHeight = leftHeight + 'px';
+    }
+  }
+
+  window.addEventListener('load', matchHeroHeights);
+  window.addEventListener('resize', matchHeroHeights);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(matchHeroHeights).catch(function(){});
+  }
+  // po krótkiej chwili na wypadek późnego layoutu/fontów
+  setTimeout(matchHeroHeights, 50);
+  setTimeout(matchHeroHeights, 300);
+  setTimeout(matchHeroHeights, 1000);
+})();
+</script>
+
 </body>
 </html>
