@@ -230,8 +230,27 @@
   .card-title-swiperace { font-family: 'SwipeRaceFont', sans-serif !important; font-size: 11px !important; letter-spacing: 0.06em !important; line-height: 1.2 !important; margin-top: 4px; margin-bottom: 8px; }
   .card-title-snasm { font-family: 'SnasmFont', sans-serif !important; font-size: 20px !important; letter-spacing: 0.04em !important; line-height: 1.2 !important; margin-top: 4px; margin-bottom: 8px; }
 
+    /* Card Reveal Animation (Hover to show info) */
+  .card-reveal {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(10px);
+    transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .card:hover .card-reveal,
+  .card.is-active .card-reveal,
+  .card:focus-within .card-reveal {
+    max-height: 120px; /* Adjust based on content size */
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 8px;
+  }
+  
   .card-reveal p { font-size: 12px; color: var(--ink-soft); line-height: 1.4; margin-bottom: 12px; }
   .card-cta { font-family: var(--font-cond); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: var(--ink); display: inline-flex; align-items: center; gap: 6px; }
+  .card-cta .arrow { transition: transform 0.3s ease; }
+  .card:hover .card-cta .arrow { transform: translateX(4px); }
 
   /* Lock Shake */
   .card[data-status="soon"] { cursor: default; opacity: 0.85; }
@@ -244,8 +263,18 @@
 
   /* Page Exit Transitions */
   .veil { position: fixed; inset: 0; z-index: 99999; pointer-events: none; }
-  .veil[data-transition="circle"] { background: rgba(224, 231, 255, 0.82); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); opacity: 0; transition: opacity 0.45s ease; }
-  .veil[data-transition="circle"].is-animating { opacity: 1; pointer-events: auto; }
+    .veil[data-transition="circle"] {
+    background: var(--veil-color, #67e8f9);
+    clip-path: circle(0% at var(--ox,50%) var(--oy,50%));
+    backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px);
+    transition: clip-path 0.8s cubic-bezier(0.65,0,0.35,1), backdrop-filter 0.8s ease;
+  }
+  .veil[data-transition="circle"].is-animating {
+    clip-path: circle(150% at var(--ox,50%) var(--oy,50%));
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    pointer-events: auto;
+    opacity: 1;
+  }
   body[data-transition="circle"].is-leaving { transform: scale(0.97); opacity: 0.4; transition: all 0.45s ease; }
 
   .veil[data-transition="cyber"] { background: #050505; clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%); transition: clip-path 0.4s cubic-bezier(0.8, 0, 0.2, 1) 0.15s; }
@@ -460,8 +489,19 @@
           return;
         }
 
-        veil.dataset.transition = transType;
+                veil.dataset.transition = transType;
         document.body.dataset.transition = transType;
+
+        if (transType === 'circle') {
+          const r = card.getBoundingClientRect();
+          const ox = ((r.left + r.width / 2) / window.innerWidth) * 100;
+          const oy = ((r.top + r.height / 2) / window.innerHeight) * 100;
+          const accent = getComputedStyle(card).getPropertyValue('--accent').trim() || '#67e8f9';
+          veil.style.setProperty('--ox', ox + '%');
+          veil.style.setProperty('--oy', oy + '%');
+          veil.style.setProperty('--veil-color', accent);
+        }
+
         veil.classList.add('is-animating');
         document.body.classList.add('is-leaving');
 
