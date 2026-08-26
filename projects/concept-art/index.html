@@ -441,7 +441,7 @@
   /* Modyfikacja .item dla kliknięcia */
   .item { cursor: crosshair; }
   .item::after {
-    content: '[ CLICK TO EXPAND ]';
+    content: '';
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
     background: var(--accent); color: #fff; padding: 10px 20px; font-size: 12px; font-weight: bold;
     opacity: 0; transition: opacity 0.3s ease; pointer-events: none; text-transform: uppercase;
@@ -538,6 +538,15 @@ header, .hero, body {
         display: none;
     }
 }
+
+/* === REMOVE EXPAND BADGES === */
+.expand-btn, .expand-badge, .click-expand, [class*="expand-btn"], [class*="click-to-expand"], [data-action="expand"] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
 </style>
 
 </head>
@@ -589,7 +598,7 @@ header, .hero, body {
             </div>
             <div>
               <span>INDEXED FILES:</span>
-              <div class="tech-val">24_ITEMS_TOTAL</div>
+              <div class="tech-val">26_ITEMS_TOTAL</div>
             </div>
             <div>
               <span>LOCATION:</span>
@@ -630,7 +639,7 @@ header, .hero, body {
         <div class="item-media">
           <img src="./assets/2PAC - poster 01.JPG" alt="2Pac — Legend Poster I" loading="lazy">
           <div class="item-label">01 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -645,7 +654,7 @@ header, .hero, body {
         <div class="item-media">
           <img src="./assets/2PAC - poster 02.JPG" alt="2Pac — Legend Poster II" loading="lazy">
           <div class="item-label">02 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -660,7 +669,7 @@ header, .hero, body {
         <div class="item-media">
           <img src="./assets/BIGGIE- poster.JPG" alt="Notorious B.I.G. — King Poster" loading="lazy">
           <div class="item-label">03 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -675,7 +684,7 @@ header, .hero, body {
         <div class="item-media">
           <img src="./assets/BURGER - poster.JPG" alt="Burger Commercial Poster" loading="lazy">
           <div class="item-label">04 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -690,7 +699,7 @@ header, .hero, body {
         <div class="item-media">
           <img src="./assets/CHARACTER Ai - tomraider.PNG" alt="Tomb Raider — AI Concept" loading="lazy">
           <div class="item-label">05 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -705,7 +714,7 @@ header, .hero, body {
         <div class="item-media">
           <video src="./assets/EXE_2x24.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
           <div class="item-label">06 // MOTION / VIDEO</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -720,7 +729,7 @@ header, .hero, body {
         <div class="item-media">
           <video src="./assets/GPT_WIZARD_GIF.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
           <div class="item-label">07 // MOTION / VIDEO</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -735,7 +744,7 @@ header, .hero, body {
         <div class="item-media">
           <video src="./assets/GUNS - Ai gen. video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
           <div class="item-label">08 // MOTION / VIDEO</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -750,7 +759,7 @@ header, .hero, body {
         <div class="item-media">
           <img src="./assets/GZA - poster.JPG" alt="GZA — Wu-Tang Poster" loading="lazy">
           <div class="item-label">09 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -765,7 +774,7 @@ header, .hero, body {
         <div class="item-media">
           <img src="./assets/HOME - model render Ai.PNG" alt="Home — AI Architectural" loading="lazy">
           <div class="item-label">10 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -780,7 +789,7 @@ header, .hero, body {
         <div class="item-media">
           <img src="./assets/LOGO - fly Ai 03.JPG" alt="Fly AI — Logo Concept" loading="lazy">
           <div class="item-label">11 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -795,7 +804,7 @@ header, .hero, body {
         <div class="item-media">
           <img src="./assets/LUXAVENON - lamp 01.JPG" alt="Luxavenon — Lamp Design I" loading="lazy">
           <div class="item-label">12 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -810,7 +819,7 @@ header, .hero, body {
         <div class="item-media">
           <img src="./assets/LUXAVENON - lamp 02.JPG" alt="Luxavenon — Lamp Design II" loading="lazy">
           <div class="item-label">13 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -825,7 +834,7 @@ header, .hero, body {
         <div class="item-media">
           <video src="./assets/OUTRO_EXE.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
           <div class="item-label">14 // MOTION / VIDEO</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -840,7 +849,7 @@ header, .hero, body {
         <div class="item-media">
           <video src="./assets/PRINTEMON - model 3D.mov" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
           <div class="item-label">15 // MOTION / VIDEO</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -855,7 +864,7 @@ header, .hero, body {
         <div class="item-media">
           <img src="./assets/SKEPTA - poster.JPG" alt="Skepta — Grime Poster" loading="lazy">
           <div class="item-label">16 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -870,7 +879,7 @@ header, .hero, body {
         <div class="item-media">
           <video src="./assets/SMILE - poster video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
           <div class="item-label">17 // MOTION / VIDEO</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -885,7 +894,7 @@ header, .hero, body {
         <div class="item-media">
           <video src="./assets/TRUCK - video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
           <div class="item-label">18 // MOTION / VIDEO</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -900,7 +909,7 @@ header, .hero, body {
         <div class="item-media">
           <img src="./assets/WLODEK - concept model.JPG" alt="Włodek — 3D Concept Model" loading="lazy">
           <div class="item-label">19 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -915,7 +924,7 @@ header, .hero, body {
         <div class="item-media">
           <video src="./assets/WLODEK - model video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
           <div class="item-label">20 // MOTION / VIDEO</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -930,7 +939,7 @@ header, .hero, body {
         <div class="item-media">
           <img src="./assets/YERBADOR - foto 01.JPG" alt="Yerbador — Commercial Shot I" loading="lazy">
           <div class="item-label">21 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -945,7 +954,7 @@ header, .hero, body {
         <div class="item-media">
           <img src="./assets/YERBADOR - foto 03.JPG" alt="Yerbador — Commercial Shot II" loading="lazy">
           <div class="item-label">22 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -960,7 +969,7 @@ header, .hero, body {
         <div class="item-media">
           <video src="./assets/YERBADOR - guarana.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
           <div class="item-label">23 // MOTION / VIDEO</div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -992,8 +1001,18 @@ header, .hero, body {
                 <span class="title">NIKE // KINETIC DISTORTION</span>
                 <span class="tools">[ PROCREATE ]</span>
             </div>
+
+        <!-- BENTO ITEM: REDDIT -->
+        <div class="item large" data-type="image" data-src="assets/reddit-glitch.jpg" data-title="REDDIT // NANO GLITCH" data-tools="Nano Banana, Procreate" data-description="Experimental brand identity concept combining AI-assisted generative workflows with manual digital retouching and raw glitch aesthetics.">
+            <img src="assets/reddit-glitch.jpg" alt="REDDIT // NANO GLITCH" loading="lazy">
         </div>
-          <div class="expand-hint">[ CLICK TO EXPAND ]</div>
+
+        <!-- BENTO ITEM: NIKE -->
+        <div class="item large" data-type="image" data-src="assets/nike-kinetic.jpg" data-title="NIKE // KINETIC DISTORTION" data-tools="Procreate" data-description="High-impact brutalist poster design focused on explosive typography, motion dynamics, and stark monochromatic contrast.">
+            <img src="assets/nike-kinetic.jpg" alt="NIKE // KINETIC DISTORTION" loading="lazy">
+        </div>
+        </div>
+          <div class="expand-hint"></div>
         </div>
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
@@ -1044,7 +1063,7 @@ header, .hero, body {
       }
     });
 
-    // 2. Click to Expand with Randomized Animation & Cyber Text Decrypt
+    // 2.with Randomized Animation & Cyber Text Decrypt
     const animVariants = ['anim-slide-right', 'anim-glitch', 'anim-slide-up', 'anim-zoom'];
     const glitchChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?/0123456789';
 
