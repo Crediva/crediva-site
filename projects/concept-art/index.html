@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Crediva — .EXE Concept</title>
-<link rel="icon" type="image/png" href="../../assets/favicon.png">
+<title>.EXE CONCEPT — Branding & Experimental Platform</title>
 
 <!-- Google Fonts dla stylu Brutalist/Tech -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,7 +42,7 @@
   ::selection { background: var(--fg); color: var(--bg); }
 
   /* --- NAWIGACJA (WIREFRAME) --- */
-    .top-nav {
+  .top-nav {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     border-bottom: 1px solid var(--grid-line);
@@ -58,11 +57,9 @@
     padding: 16px 24px;
     border-right: 1px solid var(--grid-line);
     display: flex;
-    align-items: start;
+    align-items: center;
   }
-  .nav-cell:nth-child(1) { justify-content: flex-start; }
-  .nav-cell:nth-child(2) { justify-content: center; }
-  .nav-cell:nth-child(3) { border-right: none; justify-content: flex-end; }
+  .nav-cell:last-child { border-right: none; justify-content: flex-end; }
   .nav-cell:nth-child(2) { justify-content: center; }
 
   .back-btn {
@@ -72,7 +69,7 @@
     text-transform: uppercase;
     letter-spacing: 0.1em;
     display: inline-flex;
-    align-items: start;
+    align-items: center;
     gap: 8px;
     transition: opacity 0.3s;
   }
@@ -144,250 +141,63 @@
     100% { transform: translateX(-50%); }
   }
 
-  /* --- BENTO / MASONRY GALLERY WITH IN-GRID EXPANSION --- */
-  .gallery-section { padding: 24px; }
+  /* --- BENTO / MASONRY GALLERY --- */
+  .gallery-section {
+    padding: 24px;
+  }
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     grid-auto-rows: 400px;
-    grid-auto-flow: dense;
     gap: 24px;
   }
   
+  /* Cechy specyficzne dla siatki brutalistycznej */
   .item {
-    position: relative; border: 1px solid var(--grid-line); background: #050505;
-    overflow: hidden; display: flex; flex-direction: row; cursor: crosshair;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .item.large { grid-column: span 2; }
-  
-  .item-media {
-    flex: 1; width: 100%; height: 100%; position: relative; overflow: hidden;
-  }
-  .item-media img, .item-media video {
-    width: 100%; height: 100%; object-fit: cover; filter: grayscale(80%) contrast(1.2);
-    transition: all 0.5s ease;
-  }
-  .item:hover .item-media img, .item:hover .item-media video { filter: grayscale(0%) contrast(1); transform: scale(1.02); }
-  
-  .item-label {
-    position: absolute; bottom: 16px; left: 16px; background: var(--fg); color: var(--bg);
-    padding: 4px 10px; font-size: 11px; font-weight: bold; text-transform: uppercase;
-    opacity: 0; transform: translateY(10px); transition: all 0.3s ease; pointer-events: none;
-  }
-  .item:hover .item-label { opacity: 1; transform: translateY(0); }
-  
-  .expand-hint {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    background: var(--accent); color: #fff; padding: 10px 20px; font-size: 12px; font-weight: bold;
-    opacity: 0; transition: opacity 0.3s ease; pointer-events: none; text-transform: uppercase; z-index: 10;
-  }
-  .item:hover:not(.is-expanded) .expand-hint { opacity: 1; }
-  
-  /* THE EXPANDED STATE */
-  .item.is-expanded {
-    grid-column: 1 / -1 !important; /* Full width row */
-    grid-row: span 2; /* Height 2x (824px) */
-    cursor: default; border-color: var(--accent);
-    box-shadow: 0 0 50px rgba(255, 42, 0, 0.1);
-  }
-  .item.is-expanded .item-media img, .item.is-expanded .item-media video {
-    filter: grayscale(0%) contrast(1); object-fit: contain; background: #000; padding: 24px; transform: scale(1);
-  }
-  .item.is-expanded .item-label { display: none; }
-  
-  .item-info-drawer {
-    width: 0; opacity: 0; overflow: hidden; background: #0a0a0a; display: flex; flex-direction: column; justify-content: center; position: relative; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .item.is-expanded .item-info-drawer {
-    width: 420px; opacity: 1; border-left: 1px solid var(--grid-line);
-  }
-  
-  .drawer-content {
-    padding: 40px; width: 420px; opacity: 0; transform: translateX(30px); transition: all 0.4s ease 0.2s;
-  }
-  .item.is-expanded .drawer-content { opacity: 1; transform: translateX(0); }
-  
-  .drawer-title { font-family: var(--font-head); font-size: 22px; color: #fff; text-transform: uppercase; margin-bottom: 12px; line-height: 1.1; }
-  .drawer-tools { font-size: 11px; color: var(--accent); font-weight: bold; margin-bottom: 24px; letter-spacing: 0.15em; text-transform: uppercase; border-bottom: 1px solid var(--grid-line); padding-bottom: 24px; }
-  .drawer-desc { font-size: 13.5px; color: #a1a1aa; line-height: 1.7; font-family: var(--font-mono); }
-  
-  .close-expand {
-    position: absolute; top: 16px; right: 16px; background: rgba(0,0,0,0.8); border: 1px solid var(--grid-line); color: var(--fg); padding: 8px 16px; font-family: var(--font-mono); font-size: 11px; cursor: pointer; text-transform: uppercase; border-radius: 4px; transition: all 0.3s; z-index: 10; opacity: 0; pointer-events: none;
-  }
-  .item.is-expanded .close-expand { opacity: 1; pointer-events: auto; }
-  .close-expand:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-  
-  @media (max-width: 900px) {
-    .item.is-expanded { flex-direction: column; grid-row: span 2; }
-    .item.is-expanded .item-info-drawer { width: 100%; height: auto; border-left: none; border-top: 1px solid var(--grid-line); flex: 1; }
-    .drawer-content { width: 100%; padding: 24px; transform: translateY(20px); }
-    .item.is-expanded .drawer-content { transform: translateY(0); }
-  }
-  
-  /* --- DYNAMIC ANIMATION VARIANTS FOR EXPAND --- */
-  
-  /* Variant 1: Glitch Pulse */
-  .item.anim-glitch .item-media img,
-  .item.anim-glitch .item-media video {
-    animation: cyberGlitchPulse 0.45s ease-out;
-  }
-  @keyframes cyberGlitchPulse {
-    0% { filter: contrast(2) invert(0.8) hue-rotate(90deg); }
-    50% { filter: contrast(1.5) hue-rotate(-90deg); }
-    100% { filter: grayscale(0%) contrast(1); }
-  }
-
-  /* Variant 2: Slide Up Drawer */
-  .item.anim-slide-up .drawer-content {
-    transform: translateY(50px);
-    opacity: 0;
-  }
-  .item.anim-slide-up.is-expanded .drawer-content {
-    transform: translateY(0);
-    opacity: 1;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
-  }
-
-  /* Variant 3: Scale Zoom Focus */
-  .item.anim-zoom .drawer-content {
-    transform: scale(0.88);
-    opacity: 0;
-  }
-  .item.anim-zoom.is-expanded .drawer-content {
-    transform: scale(1);
-    opacity: 1;
-    transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
-  }
-
-        /* --- HERO TECH WIDGET & GLITCH H1 (IPAD / SAFARI FIX) --- */
-  .hero-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 32px;
-    align-items: start;
-  }
-  
-  .hero-main-col {
-    grid-column: 1 / 9;
-    min-width: 0;
-  }
-  .hero-tech-col {
-    grid-column: 9 / -1;
-    min-width: 0;
-  }
-
-  .sys-badge {
-    display: inline-block;
-    background: rgba(255, 42, 0, 0.1);
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    font-size: 11px;
-    font-weight: bold;
-    padding: 4px 12px;
-    letter-spacing: 0.15em;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-  }
-
-  /* Glitch Effect & Responsive H1 Size for iPad/Safari */
-  .glitch-title {
     position: relative;
-    display: inline-block;
-    font-size: clamp(28px, 4vw, 110px) !important;
-    line-height: 0.95;
-    max-width: 100%;
-    word-break: break-word;
-    transition: all 0.3s ease;
-  }
-  .glitch-title:hover {
-    text-shadow: 2px 0 var(--accent), -2px 0 #00f0ff;
-    animation: glitchAnim 0.3s infinite;
-  }
-  @keyframes glitchAnim {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
-  }
-
-  /* Tech Card (Prawa Strona) */
-  .hero-tech-card {
     border: 1px solid var(--grid-line);
-    background: #080808;
-    padding: 20px;
-    position: relative;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-    width: 100%;
-  }
-  .tech-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--grid-line);
-    padding-bottom: 12px;
-    margin-bottom: 16px;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: #888;
-  }
-  .tech-live-status {
-    color: var(--accent);
+    overflow: hidden;
+    background: #0a0a0a;
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-weight: bold;
+    justify-content: center;
   }
-  .tech-live-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    animation: blinkDot 1s infinite alternate;
+  /* Niektóre elementy mogą zajmować 2 kolumny na dużym ekranie */
+  .item.large {
+    grid-column: span 2;
   }
-  @keyframes blinkDot {
-    from { opacity: 0.2; }
-    to { opacity: 1; }
-  }
-
-  .canvas-container {
-    width: 100%;
-    height: 180px;
-    position: relative;
-    background: #030303;
-    border: 1px solid rgba(255,255,255,0.05);
-    margin-bottom: 16px;
-  }
-  #wireframeCanvas {
+  
+  .item img, .item video {
     width: 100%;
     height: 100%;
-    display: block;
+    object-fit: cover;
+    filter: grayscale(80%) contrast(1.2);
+    transition: filter 0.5s ease, transform 0.8s ease;
+  }
+  .item:hover img, .item:hover video {
+    filter: grayscale(0%) contrast(1);
+    transform: scale(1.03);
   }
 
-  .tech-card-footer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    font-size: 10px;
-    color: #666;
-    border-top: 1px solid var(--grid-line);
-    padding-top: 12px;
-    letter-spacing: 0.1em;
-  }
-  .tech-val {
-    color: var(--fg);
+  .item-label {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    background: var(--fg);
+    color: var(--bg);
+    padding: 4px 10px;
+    font-size: 11px;
     font-weight: bold;
-    margin-top: 2px;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+  }
+  .item:hover .item-label {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  /* Breakpoint 1180px pod iPada - układ w 1 kolumnę */
-  @media(max-width: 1180px) {
-    .hero-main-col { grid-column: 1 / -1; }
-    .hero-tech-col { grid-column: 1 / -1; margin-top: 28px; }
-    .glitch-title { font-size: clamp(32px, 7vw, 85px) !important; }
-  }
   /* --- FOOTER --- */
   footer {
     border-top: 1px solid var(--grid-line);
@@ -409,7 +219,7 @@
   .lightbox {
     position: fixed; inset: 0; background: rgba(5,5,5,0.96);
     z-index: 9999; opacity: 0; pointer-events: none;
-    display: flex; flex-direction: column; align-items: start; justify-content: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
     transition: opacity 0.4s ease; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   }
   .lightbox.active { opacity: 1; pointer-events: auto; }
@@ -448,601 +258,78 @@
   }
   .item:hover::after { opacity: 1; }
 
-
-  /* ---------- CUSTOM FONT: SWIPE RACE ---------- */
-  @font-face {
-    font-family: 'SwipeRace';
-    src: url('./assets/fonts/SwipeRaceDemo.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  .exe-nav-logo {
-    font-family: 'SwipeRace', sans-serif !important;
-    font-size: 24px;
-    letter-spacing: 0.08em;
-    color: var(--fg);
-    text-transform: uppercase;
-    line-height: 1;
-  }
-
-/* === .EXE CYBER HUD & OUTLINE TEXT STYLES === */
-.outlined-text {
-    color: transparent !important;
-    -webkit-text-stroke: 1.5px #ffffff;
-    text-stroke: 1.5px #ffffff;
-    letter-spacing: 0.02em;
-    display: inline-block;
-    transition: text-shadow 0.3s ease;
-}
-
-.outlined-text:hover {
-    text-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
-}
-
-header, .hero, body {
-    position: relative;
-}
-
-.exe-hud-panel {
-    position: absolute;
-    right: max(2rem, 5vw);
-    top: 220px;
-    width: 210px;
-    padding: 1.25rem;
-    background: rgba(10, 10, 10, 0.65);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 4px;
-    font-family: 'Courier New', Courier, monospace, sans-serif;
-    font-size: 0.68rem;
-    color: rgba(255, 255, 255, 0.7);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    pointer-events: none;
-    z-index: 20;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.02);
-}
-
-
-
-
-
-@keyframes hudPulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.3; transform: scale(0.8); }
-}
-
-
-
-
-
-@keyframes hudSpin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-
-
-
-
-
-
-
-
-@media (max-width: 1024px) {
-    .exe-hud-panel {
-        display: none;
-    }
-}
-
-/* === REMOVE EXPAND BADGES === */
-.expand-btn, .expand-badge, .click-expand, [class*="expand-btn"], [class*="click-to-expand"], [data-action="expand"] {
-    display: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-}
-
 </style>
-
 
 <style>
-/* === TRWALE UKRYCIE PRZYCISKÓW EXPAND === */
-.click-to-expand, .expand-btn, .expand-badge, [class*="expand"] {
+/* ABSOLUTNE USUNIĘCIE POMARAŃCZOWYCH BAZ / BADGE'Y */
+.badge, .expand, .expand-btn, .click-to-expand, [class*="expand"] {
     display: none !important;
+    background: none !important;
+    background-color: transparent !important;
+    width: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
     opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
 }
 </style>
-<script>
-// JS Failsafe: Usuwa resztki pustych pomarańczowych bloków po załadowaniu
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('.bento-item, .grid-item, .card').forEach(card => {
-        const badge = card.querySelector('.click-to-expand, .expand-btn, [style*="background-color: rgb(255, 51, 0)"], [style*="background: #ff3300"]');
-        if(badge) badge.remove();
-    });
-});
-</script>
 
 </head>
 <body>
 
-    <nav class="top-nav">
+  <nav class="top-nav">
     <div class="nav-cell">
       <a href="../../index.html" class="back-btn">[ RETURN TO HUB ]</a>
     </div>
     <div class="nav-cell">
-      <span class="exe-nav-logo">.EXE</span>
+      <!-- MIEJSCE NA LOGO (Wrzuć plik do assets/logo.png) -->
+      <img src="./assets/logo.png" alt=".EXE CONCEPT" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <span style="display:none; font-family:var(--font-head); font-weight:700;">.EXE CONCEPT</span>
     </div>
     <div class="nav-cell">
       <span class="status-text">SYS.V_2026 // ONLINE</span>
     </div>
   </nav>
 
-          <header class="hero">
+  <header class="hero">
     <div class="hero-grid">
-      
-      <!-- Lewa Strona: Tytuł i Opis -->
-      <div class="hero-main-col">
-        <div style="margin-bottom: 12px;">
-          <span class="sys-badge">[ SYS.02 // EXE_CORE ]</span>
-        </div>
-        <h1 class="glitch-title">Visual<br>Distortion</h1>
-        <p class="hero-desc" style="margin-top: 24px;">An experimental platform and art collective bridging raw street art culture with digital execution. Exploring the intersection of brutalism, corporate identity, and dark aesthetics — we build posters, branding frameworks, and motion clips that translate urban grit into a digital release.</p>
-      </div>
-
-      <!-- Prawa Strona: Czysty Panel 3D Globe (BEZ ŻADNYCH NAKŁADEK) -->
-      <div class="hero-tech-col">
-        <div class="hero-tech-card">
-          <div class="tech-card-header">
-            <span>[ MATRIX_GLOBE_CANVAS ]</span>
-            <div class="tech-live-status">
-              <div class="tech-live-dot"></div>
-              <span>LIVE_SIGNAL</span>
-            </div>
-          </div>
-          
-          <div class="canvas-container">
-            <canvas id="wireframeCanvas"></canvas>
-          </div>
-
-          <div class="tech-card-footer">
-            <div>
-              <span>SYSTEM TIME:</span>
-              <div class="tech-val" id="sysClock">00:00:00 UTC</div>
-            </div>
-            <div>
-              <span>INDEXED FILES:</span>
-              <div class="tech-val">26_ITEMS_TOTAL</div>
-            </div>
-            <div>
-              <span>LOCATION:</span>
-              <div class="tech-val">52.2297°N, 21.0122°E (WAW)</div>
-            </div>
-            <div>
-              <span>RENDER ENGINE:</span>
-              <div class="tech-val" style="color:var(--accent);">CANVAS_SPHERE_GPU</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <h1>Visual<br>Distortion</h1>
+      <p class="hero-desc">An experimental platform and art collective. Exploring the intersection of brutalism, corporate identity, and dark aesthetics. We build posters, branding frameworks, and motion clips that disrupt the noise.</p>
     </div>
   </header>
 
   <div class="marquee-wrap">
-    
-        <!-- === .EXE CYBER HUD PANEL === -->
-        
-            
-            
-            
-
-            
-
-            
-        </aside>
-
-<div class="marquee">
+    <div class="marquee">
       .EXE CONCEPT // BRANDING // MOTION DESIGN // POSTERS // EXPERIMENTAL PLATFORM // .EXE CONCEPT // BRANDING // MOTION DESIGN // POSTERS // EXPERIMENTAL PLATFORM // .EXE CONCEPT // BRANDING // MOTION DESIGN // POSTERS // EXPERIMENTAL PLATFORM // 
     </div>
   </div>
 
   <section class="gallery-section">
     <div class="gallery-grid">
-      <div class="item large" data-title="2Pac — Legend Poster I" data-desc="Music poster referencing classic 90s hip-hop culture and bold brutalist typography." data-tools="PHOTOSHOP / PROCREATE">
-        <div class="item-media">
-          <img src="./assets/2PAC - poster 01.JPG" alt="2Pac — Legend Poster I" loading="lazy">
-          <div class="item-label">01 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">2Pac — Legend Poster I</h3>
-            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / PROCREATE ]</div>
-            <p class="drawer-desc">Music poster referencing classic 90s hip-hop culture and bold brutalist typography.</p>
-          </div>
-        </div>
+      
+      <!-- PLACEHOLDER GALERII (przykład na 3 elementy) -->
+      
+      <!-- Item 1 (Duży) -->
+      <div class="item large">
+        <!-- Zmień src na własne zdjęcie w folderze assets/ -->
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="Artwork 1">
+        <div class="item-label">01 // Key Visual</div>
       </div>
-      <div class="item" data-title="2Pac — Legend Poster II" data-desc="Alternative poster variation focusing on high contrast and heavy grain texture." data-tools="PHOTOSHOP / PROCREATE">
-        <div class="item-media">
-          <img src="./assets/2PAC - poster 02.JPG" alt="2Pac — Legend Poster II" loading="lazy">
-          <div class="item-label">02 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">2Pac — Legend Poster II</h3>
-            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / PROCREATE ]</div>
-            <p class="drawer-desc">Alternative poster variation focusing on high contrast and heavy grain texture.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Notorious B.I.G. — King Poster" data-desc="Poster design inspired by the iconic style of The Notorious B.I.G." data-tools="PHOTOSHOP / PROCREATE">
-        <div class="item-media">
-          <img src="./assets/BIGGIE- poster.JPG" alt="Notorious B.I.G. — King Poster" loading="lazy">
-          <div class="item-label">03 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Notorious B.I.G. — King Poster</h3>
-            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / PROCREATE ]</div>
-            <p class="drawer-desc">Poster design inspired by the iconic style of The Notorious B.I.G.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Burger Commercial Poster" data-desc="Commercial poster for the gastronomy industry featuring striking, bold typography." data-tools="PHOTOSHOP / ILLUSTRATOR">
-        <div class="item-media">
-          <img src="./assets/BURGER - poster.JPG" alt="Burger Commercial Poster" loading="lazy">
-          <div class="item-label">04 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Burger Commercial Poster</h3>
-            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / ILLUSTRATOR ]</div>
-            <p class="drawer-desc">Commercial poster for the gastronomy industry featuring striking, bold typography.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item large" data-title="Tomb Raider — AI Concept" data-desc="Character concept art blending Lara Croft heritage with modern AI digital artwork." data-tools="MIDJOURNEY / PROCREATE">
-        <div class="item-media">
-          <img src="./assets/CHARACTER Ai - tomraider.PNG" alt="Tomb Raider — AI Concept" loading="lazy">
-          <div class="item-label">05 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Tomb Raider — AI Concept</h3>
-            <div class="drawer-tools">[ TOOLS USED: MIDJOURNEY / PROCREATE ]</div>
-            <p class="drawer-desc">Character concept art blending Lara Croft heritage with modern AI digital artwork.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title=".EXE System Motion" data-desc="Animated identity motion loop for the experimental .EXE platform." data-tools="PROCREATE / VN">
-        <div class="item-media">
-          <video src="./assets/EXE_2x24.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-          <div class="item-label">06 // MOTION / VIDEO</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">.EXE System Motion</h3>
-            <div class="drawer-tools">[ TOOLS USED: PROCREATE / VN ]</div>
-            <p class="drawer-desc">Animated identity motion loop for the experimental .EXE platform.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Pixel Wizard Animation" data-desc="Animated loop concept created using generated pixel art frame sprites and assembled in Procreate." data-tools="PIXELART SPRITES / PROCREATE">
-        <div class="item-media">
-          <video src="./assets/GPT_WIZARD_GIF.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-          <div class="item-label">07 // MOTION / VIDEO</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Pixel Wizard Animation</h3>
-            <div class="drawer-tools">[ TOOLS USED: PIXELART SPRITES / PROCREATE ]</div>
-            <p class="drawer-desc">Animated loop concept created using generated pixel art frame sprites and assembled in Procreate.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Guns — AI Video Concept" data-desc="Experimental AI-generated video clip with rhythmic motion and generative visuals." data-tools="RUNWAY / VN">
-        <div class="item-media">
-          <video src="./assets/GUNS - Ai gen. video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-          <div class="item-label">08 // MOTION / VIDEO</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Guns — AI Video Concept</h3>
-            <div class="drawer-tools">[ TOOLS USED: RUNWAY / VN ]</div>
-            <p class="drawer-desc">Experimental AI-generated video clip with rhythmic motion and generative visuals.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item large" data-title="GZA — Wu-Tang Poster" data-desc="Music poster inspired by GZA's 'Liquid Swords' aesthetic and Wu-Tang legacy." data-tools="PHOTOSHOP / PROCREATE">
-        <div class="item-media">
-          <img src="./assets/GZA - poster.JPG" alt="GZA — Wu-Tang Poster" loading="lazy">
-          <div class="item-label">09 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">GZA — Wu-Tang Poster</h3>
-            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / PROCREATE ]</div>
-            <p class="drawer-desc">Music poster inspired by GZA's 'Liquid Swords' aesthetic and Wu-Tang legacy.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Home — AI Architectural" data-desc="Architectural space concept modeled in Valence 3D and rendered using generative AI." data-tools="VALENCE 3D / AI RENDER">
-        <div class="item-media">
-          <img src="./assets/HOME - model render Ai.PNG" alt="Home — AI Architectural" loading="lazy">
-          <div class="item-label">10 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Home — AI Architectural</h3>
-            <div class="drawer-tools">[ TOOLS USED: VALENCE 3D / AI RENDER ]</div>
-            <p class="drawer-desc">Architectural visualization and 3D space concept crafted with generative AI.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Fly AI — Logo Concept" data-desc="Modern logo concept and brand identity system for a futuristic tech project." data-tools="ILLUSTRATOR / PROCREATE">
-        <div class="item-media">
-          <img src="./assets/LOGO - fly Ai 03.JPG" alt="Fly AI — Logo Concept" loading="lazy">
-          <div class="item-label">11 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Fly AI — Logo Concept</h3>
-            <div class="drawer-tools">[ TOOLS USED: ILLUSTRATOR / PROCREATE ]</div>
-            <p class="drawer-desc">Modern logo concept and brand identity system for a futuristic tech project.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Luxavenon — Lamp Design I" data-desc="Industrial product design concept optimized for 3D printing and FDM technology, featuring the modern Luxavenon lamp." data-tools="BLENDER / PHOTOSHOP">
-        <div class="item-media">
-          <img src="./assets/LUXAVENON - lamp 01.JPG" alt="Luxavenon — Lamp Design I" loading="lazy">
-          <div class="item-label">12 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Luxavenon — Lamp Design I</h3>
-            <div class="drawer-tools">[ TOOLS USED: BLENDER / PHOTOSHOP ]</div>
-            <p class="drawer-desc">Industrial product design concept optimized for 3D printing and FDM technology, featuring the modern Luxavenon lamp.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item large" data-title="Luxavenon — Lamp Design II" data-desc="Alternative product shot and 3D studio render for Luxavenon lighting." data-tools="BLENDER / PHOTOSHOP">
-        <div class="item-media">
-          <img src="./assets/LUXAVENON - lamp 02.JPG" alt="Luxavenon — Lamp Design II" loading="lazy">
-          <div class="item-label">13 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Luxavenon — Lamp Design II</h3>
-            <div class="drawer-tools">[ TOOLS USED: BLENDER / PHOTOSHOP ]</div>
-            <p class="drawer-desc">Alternative product shot and 3D studio render for Luxavenon lighting.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title=".EXE Outro Animation" data-desc="Dynamic animated outro sequence designed for the .EXE brand ecosystem." data-tools="PROCREATE / VN">
-        <div class="item-media">
-          <video src="./assets/OUTRO_EXE.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-          <div class="item-label">14 // MOTION / VIDEO</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">.EXE Outro Animation</h3>
-            <div class="drawer-tools">[ TOOLS USED: PROCREATE / VN ]</div>
-            <p class="drawer-desc">Dynamic animated outro sequence designed for the .EXE brand ecosystem.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Printemon — 3D Turnable" data-desc="3D printable character model showcased in a 360 turnable view." data-tools="BLENDER / NOMAD SCULPT">
-        <div class="item-media">
-          <video src="./assets/PRINTEMON - model 3D.mov" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-          <div class="item-label">15 // MOTION / VIDEO</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Printemon — 3D Turnable</h3>
-            <div class="drawer-tools">[ TOOLS USED: BLENDER / NOMAD SCULPT ]</div>
-            <p class="drawer-desc">3D printable character model showcased in a 360 turnable view.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Skepta — Grime Poster" data-desc="Music poster inspired by the UK grime scene and Skepta's aesthetic." data-tools="PHOTOSHOP / PROCREATE">
-        <div class="item-media">
-          <img src="./assets/SKEPTA - poster.JPG" alt="Skepta — Grime Poster" loading="lazy">
-          <div class="item-label">16 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Skepta — Grime Poster</h3>
-            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / PROCREATE ]</div>
-            <p class="drawer-desc">Music poster inspired by the UK grime scene and Skepta's aesthetic.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item large" data-title="Smile — Motion Poster" data-desc="Motion poster combining static graphic design with subtle animated elements." data-tools="AFTER EFFECTS / VN / PROCREATE">
-        <div class="item-media">
-          <video src="./assets/SMILE - poster video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-          <div class="item-label">17 // MOTION / VIDEO</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Smile — Motion Poster</h3>
-            <div class="drawer-tools">[ TOOLS USED: AFTER EFFECTS / VN / PROCREATE ]</div>
-            <p class="drawer-desc">Motion poster combining static graphic design with subtle animated elements.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Truck Commercial Video" data-desc="Commercial promo video and large-format mobile advertising concept." data-tools="PROCREATE / NOMAD SCULPT / BLENDER / AFTER EFFECTS / VN">
-        <div class="item-media">
-          <video src="./assets/TRUCK - video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-          <div class="item-label">18 // MOTION / VIDEO</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Truck Commercial Video</h3>
-            <div class="drawer-tools">[ TOOLS USED: PROCREATE / NOMAD SCULPT / BLENDER / AFTER EFFECTS / VN ]</div>
-            <p class="drawer-desc">Commercial promo video and large-format mobile advertising concept.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Włodek — 3D Concept Model" data-desc="3D character concept sculpt focusing on detailed textures and proportions." data-tools="BLENDER / NOMAD SCULPT">
-        <div class="item-media">
-          <img src="./assets/WLODEK - concept model.JPG" alt="Włodek — 3D Concept Model" loading="lazy">
-          <div class="item-label">19 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Włodek — 3D Concept Model</h3>
-            <div class="drawer-tools">[ TOOLS USED: BLENDER / NOMAD SCULPT ]</div>
-            <p class="drawer-desc">3D character concept sculpt focusing on detailed textures and proportions.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Włodek — 3D Motion Render" data-desc="Motion presentation video of the animated 3D character model 'Włodek'." data-tools="BLENDER / AFTER EFFECTS / VN">
-        <div class="item-media">
-          <video src="./assets/WLODEK - model video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-          <div class="item-label">20 // MOTION / VIDEO</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Włodek — 3D Motion Render</h3>
-            <div class="drawer-tools">[ TOOLS USED: BLENDER / AFTER EFFECTS / VN ]</div>
-            <p class="drawer-desc">Motion presentation video of the animated 3D character model 'Włodek'.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item large" data-title="Yerbador — Commercial Shot I" data-desc="Product photography and commercial branding shot for Yerbador." data-tools="PHOTOSHOP / LIGHTROOM">
-        <div class="item-media">
-          <img src="./assets/YERBADOR - foto 01.JPG" alt="Yerbador — Commercial Shot I" loading="lazy">
-          <div class="item-label">21 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Yerbador — Commercial Shot I</h3>
-            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / LIGHTROOM ]</div>
-            <p class="drawer-desc">Product photography and commercial branding shot for Yerbador.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Yerbador — Commercial Shot II" data-desc="Commercial promotional shot showcasing the Yerbador product lineup." data-tools="PHOTOSHOP / LIGHTROOM">
-        <div class="item-media">
-          <img src="./assets/YERBADOR - foto 03.JPG" alt="Yerbador — Commercial Shot II" loading="lazy">
-          <div class="item-label">22 // GRAPHIC / DESIGN</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Yerbador — Commercial Shot II</h3>
-            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / LIGHTROOM ]</div>
-            <p class="drawer-desc">Commercial promotional shot showcasing the Yerbador product lineup.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Yerbador Guarana — Commercial" data-desc="Commercial promo clip for the Yerbador Guarana drink edition." data-tools="PROCREATE / VN">
-        <div class="item-media">
-          <video src="./assets/YERBADOR - guarana.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-          <div class="item-label">23 // MOTION / VIDEO</div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Yerbador Guarana — Commercial</h3>
-            <div class="drawer-tools">[ TOOLS USED: PROCREATE / VN ]</div>
-            <p class="drawer-desc">Commercial promo clip for the Yerbador Guarana drink edition.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Yerbador — Main Commercial" data-desc="Main advertising campaign video created for Yerbador." data-tools="AFTER EFFECTS / VN">
-        <div class="item-media">
-          <video src="./assets/YERBADOR - main.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-          <div class="item-label">24 // MOTION / VIDEO</div>
 
-        <!-- NEW ARTWORK: REDDIT -->
-        <div class="item" data-type="image" data-src="assets/reddit-glitch.jpg" data-title="REDDIT // NANO GLITCH" data-tools="Nano Banana, Procreate" data-description="Experimental brand identity concept combining AI-assisted generative workflows with manual digital retouching and raw glitch aesthetics.">
-            <img src="assets/reddit-glitch.jpg" alt="REDDIT // NANO GLITCH" loading="lazy">
-            <div class="overlay">
-                <span class="title">REDDIT // NANO GLITCH</span>
-                <span class="tools">[ NANO BANANA, PROCREATE ]</span>
-            </div>
-        </div>
-
-        <!-- NEW ARTWORK: NIKE -->
-        <div class="item" data-type="image" data-src="assets/nike-kinetic.jpg" data-title="NIKE // KINETIC DISTORTION" data-tools="Procreate" data-description="High-impact brutalist poster design focused on explosive typography, motion dynamics, and stark monochromatic contrast.">
-            <img src="assets/nike-kinetic.jpg" alt="NIKE // KINETIC DISTORTION" loading="lazy">
-            <div class="overlay">
-                <span class="title">NIKE // KINETIC DISTORTION</span>
-                <span class="tools">[ PROCREATE ]</span>
-            </div>
-
-        <!-- BENTO ITEM: REDDIT -->
-        <div class="item large" data-type="image" data-src="assets/reddit-glitch.jpg" data-title="REDDIT // NANO GLITCH" data-tools="Nano Banana, Procreate" data-description="Experimental brand identity concept combining AI-assisted generative workflows with manual digital retouching and raw glitch aesthetics.">
-            <img src="assets/reddit-glitch.jpg" alt="REDDIT // NANO GLITCH" loading="lazy">
-        </div>
-
-        <!-- BENTO ITEM: NIKE -->
-        <div class="item large" data-type="image" data-src="assets/nike-kinetic.jpg" data-title="NIKE // KINETIC DISTORTION" data-tools="Procreate" data-description="High-impact brutalist poster design focused on explosive typography, motion dynamics, and stark monochromatic contrast.">
-            <img src="assets/nike-kinetic.jpg" alt="NIKE // KINETIC DISTORTION" loading="lazy">
-        </div>
-        </div>
-          <div class="expand-hint"></div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Yerbador — Main Commercial</h3>
-            <div class="drawer-tools">[ TOOLS USED: PIXELART SPRITES / PROCREATE ]</div>
-            <p class="drawer-desc">Main advertising campaign video created for Yerbador.</p>
-          </div>
-        </div>
+      <!-- Item 2 (Wideo) -->
+      <div class="item">
+        <!-- Możesz użyć tagu video tak samo jak obrazka -->
+        <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop" alt="Artwork 2">
+        <div class="item-label">02 // Concept</div>
       </div>
+
+      <!-- Item 3 -->
+      <div class="item">
+        <img src="https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=2787&auto=format&fit=crop" alt="Artwork 3">
+        <div class="item-label">03 // Motion</div>
+      </div>
+      
+      <!-- ABY DODAĆ WIĘCEJ PRAC, PO PROSTU KOPIUJ BLOK <div class="item">...</div> -->
+
     </div>
   </section>
 
@@ -1052,191 +339,64 @@ document.addEventListener("DOMContentLoaded", () => {
   </footer>
 
 
+  <!-- LIGHTBOX MODAL -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">[ X ] CLOSE SYSTEM</button>
+    <div class="lightbox-media" id="lightboxMedia"></div>
+    <div class="lightbox-info">
+      <div class="lightbox-title" id="lightboxTitle"></div>
+      <div class="lightbox-desc" id="lightboxDesc"></div>
+    </div>
+  </div>
+
+  <script>
+    // Obsługa interaktywnej galerii (Lightbox)
+    const lightbox = document.getElementById('lightbox');
+    const lbClose = document.getElementById('lightboxClose');
+    const lbMedia = document.getElementById('lightboxMedia');
+    const lbTitle = document.getElementById('lightboxTitle');
+    const lbDesc = document.getElementById('lightboxDesc');
+
+    document.querySelectorAll('.item').forEach(item => {
+      item.addEventListener('click', () => {
+        const mediaElement = item.querySelector('img, video');
+        if(!mediaElement) return;
+        
+        // Klonujemy wybrane zdjęcie lub wideo
+        lbMedia.innerHTML = '';
+        const clone = mediaElement.cloneNode(true);
+        clone.className = 'lightbox-content';
+        
+        // Zapewniamy odtwarzanie jeśli to wideo
+        if(clone.tagName === 'VIDEO') { 
+          clone.controls = true; 
+          clone.muted = false; // można wyłączyć wyciszenie
+          clone.play(); 
+        }
+        lbMedia.appendChild(clone);
+        
+        // Ładujemy dane z dataset div'a (data-title, data-desc)
+        lbTitle.innerHTML = item.dataset.title || 'UNKNOWN_FILE.EXE';
+        lbDesc.innerHTML = item.dataset.desc || 'No description found in system files.';
+        
+        lightbox.classList.add('active');
+      });
+    });
+
+    // Zamykanie galerii
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      lbMedia.innerHTML = ''; // czyszczenie DOM ucisza też grające wideo
+    }
     
-
-
-  
-
-  
-
-
-      
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const grid = document.querySelector('.gallery-grid');
-    if (!grid) return;
-    
-    // 1. Shuffle
-    const items = Array.from(grid.children);
-    for (let i = items.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [items[i], items[j]] = [items[j], items[i]];
-    }
-    items.forEach((item, idx) => {
-      grid.appendChild(item);
-      const label = item.querySelector('.item-label');
-      if(label) {
-        const parts = label.textContent.split('//');
-        const right = parts.length > 1 ? parts.slice(1).join('//').trim() : label.textContent.trim();
-        label.textContent = String(idx + 1).padStart(2, '0') + ' // ' + right;
+    lbClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      // Zamyka jeśli kliknięto w tło (nie w samo zdjęcie)
+      if(e.target === lightbox || e.target === lbMedia) {
+        closeLightbox();
       }
     });
+  </script>
 
-    // 2.with Randomized Animation & Cyber Text Decrypt
-    const animVariants = ['anim-slide-right', 'anim-glitch', 'anim-slide-up', 'anim-zoom'];
-    const glitchChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?/0123456789';
-
-    grid.addEventListener('click', (e) => {
-      const item = e.target.closest('.item');
-      if (!item) return;
-
-      // Close button clicked
-      if (e.target.closest('.close-expand')) {
-        item.classList.remove('is-expanded', ...animVariants);
-        return;
-      }
-
-      if (item.classList.contains('is-expanded')) return;
-
-      // Close other expanded items
-      document.querySelectorAll('.item.is-expanded').forEach(other => {
-        other.classList.remove('is-expanded', ...animVariants);
-      });
-
-      // Pick a random animation style for this expand
-      const randomAnim = animVariants[Math.floor(Math.random() * animVariants.length)];
-      item.classList.add('is-expanded', randomAnim);
-
-      // Cyber Decrypt Text Effect on Title
-      const titleEl = item.querySelector('.drawer-title');
-      if (titleEl) {
-        const targetText = titleEl.textContent;
-        let iteration = 0;
-        clearInterval(titleEl.decryptInterval);
-
-        titleEl.decryptInterval = setInterval(() => {
-          titleEl.textContent = targetText.split('')
-            .map((char, idx) => {
-              if (idx < iteration) return targetText[idx];
-              return glitchChars[Math.floor(Math.random() * glitchChars.length)];
-            }).join('');
-
-          if (iteration >= targetText.length) {
-            titleEl.textContent = targetText;
-            clearInterval(titleEl.decryptInterval);
-          }
-          iteration += 1 / 2;
-        }, 30);
-      }
-
-      // Smooth scroll into view
-      setTimeout(() => {
-        const y = item.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }, 350);
-    });
-  });
-</script>
-<script>
-  // 3D Canvas Wireframe GLOBE & UTC Clock
-  document.addEventListener('DOMContentLoaded', () => {
-    // 1. Zegar UTC
-    const sysClock = document.getElementById('sysClock');
-    if(sysClock) {
-      setInterval(() => {
-        const now = new Date();
-        sysClock.textContent = now.toUTCString().split(' ')[4] + ' UTC';
-      }, 1000);
-    }
-
-    // 2. 3D Globe Canvas
-    const canvas = document.getElementById('wireframeCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let width, height;
-
-    function resize() {
-      width = canvas.width = canvas.parentElement.offsetWidth;
-      height = canvas.height = canvas.parentElement.offsetHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    // Generowanie siatki Kuli (Sfery)
-    const nodes = [];
-    const edges = [];
-    const RINGS = 10;   // Ilość równoleżników
-    const SEGS = 16;    // Ilość południków
-    const r = 1;
-
-    for (let i = 0; i <= RINGS; i++) {
-      let theta = (i / RINGS) * Math.PI;
-      for (let j = 0; j < SEGS; j++) {
-        let phi = (j / SEGS) * 2 * Math.PI;
-        let x = r * Math.sin(theta) * Math.cos(phi);
-        let y = r * Math.cos(theta);
-        let z = r * Math.sin(theta) * Math.sin(phi);
-        nodes.push([x, y, z]);
-
-        let curr = i * SEGS + j;
-        if (j > 0) edges.push([curr, curr - 1]);
-        if (j === SEGS - 1) edges.push([curr, i * SEGS]); // zamknięcie obręczy
-        if (i > 0) edges.push([curr, curr - SEGS]);       // łączenie w pionie
-      }
-    }
-
-    let rx = 0.2; // Oś X (odchylenie Ziemi)
-    let ry = 0;   // Oś Y (obrót wokół własnej osi)
-    let mouseX = 0, mouseY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      mouseX = (e.clientX / window.innerWidth - 0.5) * 0.03;
-      mouseY = (e.clientY / window.innerHeight - 0.5) * 0.03;
-    });
-
-    function render3D() {
-      ctx.clearRect(0, 0, width, height);
-      
-      rx += (0.002 + mouseY) * 0.2; // Minimalny ruch góra-dół
-      ry += 0.006 + mouseX;         // Ciągły obrót Kuli ziemskiej
-
-      const scale = Math.min(width, height) * 0.42; // Skala sfery
-      const cx = width / 2;
-      const cy = height / 2;
-
-      const projected = nodes.map(node => {
-        // Obrót X
-        let y1 = node[1] * Math.cos(rx) - node[2] * Math.sin(rx);
-        let z1 = node[1] * Math.sin(rx) + node[2] * Math.cos(rx);
-        // Obrót Y
-        let x2 = node[0] * Math.cos(ry) + z1 * Math.sin(ry);
-        let z2 = -node[0] * Math.sin(ry) + z1 * Math.cos(ry);
-        
-        return { x: x2 * scale + cx, y: y1 * scale + cy, z: z2 };
-      });
-
-      // Rysowanie krawędzi kuli
-      ctx.lineWidth = 0.8;
-      edges.forEach(edge => {
-        const p1 = projected[edge[0]];
-        const p2 = projected[edge[1]];
-        
-        // Pseudo 3D depth fade (tył kuli jest ciemniejszy/przezroczysty)
-        const zAvg = (p1.z + p2.z) / 2;
-        const alpha = Math.max(0.05, Math.min(1, (zAvg + r) / (2 * r)));
-        
-        ctx.strokeStyle = `rgba(255, 42, 0, ${alpha})`;
-        ctx.beginPath();
-        ctx.moveTo(p1.x, p1.y);
-        ctx.lineTo(p2.x, p2.y);
-        ctx.stroke();
-      });
-
-      requestAnimationFrame(render3D);
-    }
-    render3D();
-  });
-</script>
 </body>
 </html>
