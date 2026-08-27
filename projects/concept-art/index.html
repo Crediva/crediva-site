@@ -726,23 +726,7 @@ header, .hero, body {
 .carousel-counter { bottom: 8px; left: 50%; transform: translateX(-50%); background: #0a0a0a; color: var(--accent); padding: 6px 16px; font-family: var(--font-mono); font-size: 12px; font-weight: bold; border: 1px solid var(--grid-line); text-align: center; letter-spacing: 2px; }
 </style>
 
-<style>
-/* Force visible media for standard gallery items */
-.item:not(.micro-gallery) .item-media img,
-.item:not(.micro-gallery) .item-media video {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-}
-.item.is-expanded:not(.micro-gallery) .item-media img,
-.item.is-expanded:not(.micro-gallery) .item-media video {
-  object-fit: contain !important;
-  background: #000 !important;
-}
-</style>
+
 
 </head>
 <body>
@@ -1127,7 +1111,7 @@ header, .hero, body {
       <!-- J1 PARTY POSTER -->
       <div class="item" data-title="J1 — Event Poster" data-desc="High-impact party poster design with bold typography, raw club energy and brutalist layout composition." data-tools="PROCREATE">
         <div class="item-media">
-          <img src="/projects/concept-art/assets/J1_POSTER.jpg" alt="J1 — Event Poster" loading="eager" decoding="async">
+          <img src="./assets/J1_POSTER.jpg" alt="J1 — Event Poster" loading="lazy">
           <div class="item-label">00 // GRAPHIC / DESIGN</div>
         </div>
         <div class="item-info-drawer">
@@ -1143,7 +1127,7 @@ header, .hero, body {
       <!-- BIG PARTY POSTER -->
       <div class="item" data-title="B.I.G. — Event Poster" data-desc="Concert / club event poster concept built around heavy contrast, grain texture and aggressive visual hierarchy." data-tools="PROCREATE">
         <div class="item-media">
-          <img src="/projects/concept-art/assets/BIG_POSTER.jpg" alt="B.I.G. — Event Poster" loading="eager" decoding="async">
+          <img src="./assets/BIG_POSTER.jpg" alt="B.I.G. — Event Poster" loading="lazy">
           <div class="item-label">00 // GRAPHIC / DESIGN</div>
         </div>
         <div class="item-info-drawer">
