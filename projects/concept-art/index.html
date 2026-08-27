@@ -701,6 +701,27 @@ header, .hero, body {
 }
 </style>
 
+
+<style>
+/* --- YERBADOR MICRO GALLERY CSS --- */
+.yerbador-gallery .carousel-slides { position: relative; width: 100%; height: 100%; }
+.yerbador-gallery .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.6s ease-in-out; object-fit: cover; z-index: 1; }
+.yerbador-gallery .slide.active { opacity: 1; z-index: 2; }
+/* Ukrycie UI gdy nie jest powiększone */
+.carousel-btn, .carousel-indicators { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; position: absolute; z-index: 10; }
+/* Pokazanie UI po powiększeniu */
+.item.is-expanded.yerbador-gallery .carousel-btn, .item.is-expanded.yerbador-gallery .carousel-indicators { opacity: 1; pointer-events: auto; }
+/* Stylizacja strzałek */
+.carousel-btn { top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.8); color: var(--accent); border: 1px solid var(--accent); padding: 12px 18px; cursor: crosshair; font-family: var(--font-mono); font-weight: bold; font-size: 14px; transition: all 0.3s; }
+.carousel-btn:hover { background: var(--accent); color: #fff; box-shadow: 0 0 10px var(--accent); }
+.carousel-btn.prev { left: 16px; }
+.carousel-btn.next { right: 16px; }
+/* Stylizacja kropek */
+.carousel-indicators { bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; background: rgba(0,0,0,0.7); padding: 8px 12px; border: 1px solid var(--grid-line); }
+.carousel-indicators .dot { width: 8px; height: 8px; background: #333; transition: background 0.3s, transform 0.3s; }
+.carousel-indicators .dot.active { background: var(--accent); transform: scale(1.3); }
+</style>
+
 </head>
 <body>
 
@@ -1025,62 +1046,44 @@ header, .hero, body {
           </div>
         </div>
       </div>
-      <div class="item large" data-title="Yerbador — Commercial Shot I" data-desc="Product photography and commercial branding shot for Yerbador." data-tools="PHOTOSHOP / LIGHTROOM">
+      
+      <div class="item yerbador-gallery" data-title="Yerbador — Full Campaign" data-desc="Complete advertising campaign archive." data-tools="NANO BANANA / MIDJOURNEY / VN / PHOTOSHOP">
         <div class="item-media">
-          <img src="./assets/YERBADOR - foto 01.JPG" alt="Yerbador — Commercial Shot I" loading="lazy">
-          <div class="item-label">21 // GRAPHIC / DESIGN</div>
+          <div class="carousel-slides">
+            <img src="./assets/YERBADOR - foto 01.JPG" alt="Yerbador Shot 1" class="slide active" loading="lazy">
+            <img src="./assets/YERBADOR - foto 03.JPG" alt="Yerbador Shot 2" class="slide" loading="lazy">
+            <video src="./assets/YERBADOR - guarana.MP4" class="slide" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
+            <video src="./assets/YERBADOR - main.MP4" class="slide" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
+          </div>
+          <div class="item-label">21 // CAMPAIGN / MICRO-GALLERY</div>
+          
+          <button class="carousel-btn prev">[ &lt; ]</button>
+          <button class="carousel-btn next">[ &gt; ]</button>
+          <div class="carousel-indicators">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
         </div>
+        
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
           <div class="drawer-content">
-            <h3 class="drawer-title">Yerbador — Commercial Shot I</h3>
-            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / LIGHTROOM ]</div>
-            <p class="drawer-desc">Product photography and commercial branding shot for Yerbador.</p>
+            <h3 class="drawer-title">Yerbador — Full Campaign</h3>
+            <div class="drawer-tools">[ TOOLS USED: NANO BANANA / MIDJOURNEY / VN / PHOTOSHOP ]</div>
+            <p class="drawer-desc">
+              Comprehensive advertising campaign archive for Yerbador. This micro-gallery contains product photography, commercial branding shots, and the main promotional motion clips.<br><br>
+              [ SOCIAL MEDIA REACH: GLOBAL ]<br>
+              [ CONTENT TYPE: PHOTO & MOTION VIDEO ]
+            </p>
           </div>
         </div>
       </div>
-      <div class="item" data-title="Yerbador — Commercial Shot II" data-desc="Commercial promotional shot showcasing the Yerbador product lineup." data-tools="PHOTOSHOP / LIGHTROOM">
-        <div class="item-media">
-          <img src="./assets/YERBADOR - foto 03.JPG" alt="Yerbador — Commercial Shot II" loading="lazy">
-          <div class="item-label">22 // GRAPHIC / DESIGN</div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Yerbador — Commercial Shot II</h3>
-            <div class="drawer-tools">[ TOOLS USED: PHOTOSHOP / LIGHTROOM ]</div>
-            <p class="drawer-desc">Commercial promotional shot showcasing the Yerbador product lineup.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Yerbador Guarana — Commercial" data-desc="Commercial promo clip for the Yerbador Guarana drink edition." data-tools="PROCREATE / VN">
-        <div class="item-media">
-          <video src="./assets/YERBADOR - guarana.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-          <div class="item-label">23 // MOTION / VIDEO</div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Yerbador Guarana — Commercial</h3>
-            <div class="drawer-tools">[ TOOLS USED: PROCREATE / VN ]</div>
-            <p class="drawer-desc">Commercial promo clip for the Yerbador Guarana drink edition.</p>
-          </div>
-        </div>
-      </div>
-      <div class="item" data-title="Yerbador — Main Commercial" data-desc="Main advertising campaign video created for Yerbador." data-tools="NANO BANANA / MIDJOURNEY / VN">
-        <div class="item-media">
-          <video src="./assets/YERBADOR - main.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-          <div class="item-label">24 // MOTION / VIDEO</div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Yerbador — Main Commercial</h3>
-            <div class="drawer-tools">[ TOOLS USED: NANO BANANA / MIDJOURNEY / VN ]</div>
-            <p class="drawer-desc">Main advertising campaign video created for Yerbador.</p>
-          </div>
-        </div>
-      </div>
+
+      
+      
+      
     </div>
   </section>
 
@@ -1249,5 +1252,47 @@ header, .hero, body {
   });
 </script>
 
+
+<script>
+  // YERBADOR MICRO GALLERY LOGIC
+  document.addEventListener('DOMContentLoaded', () => {
+    const gallery = document.querySelector('.yerbador-gallery');
+
+    const slides = gallery.querySelectorAll('.slide');
+    const dots = gallery.querySelectorAll('.dot');
+    const prevBtn = gallery.querySelector('.prev');
+    const nextBtn = gallery.querySelector('.next');
+    let currentIndex = 0;
+    let rotationInterval;
+
+    function showSlide(index) {
+      slides.forEach(s => s.classList.remove('active'));
+      dots.forEach(d => d.classList.remove('active'));
+      currentIndex = (index + slides.length) % slides.length;
+      slides[currentIndex].classList.add('active');
+      dots[currentIndex].classList.add('active');
+    }
+
+    // Rotacja okładki gdy nie powiększone
+    function startRotation() {
+      rotationInterval = setInterval(() => {
+          showSlide(currentIndex + 1);
+        }
+      }, 2500); // zmiana co 2.5 sekundy
+    }
+    startRotation();
+
+    // Strzałki
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Blokuje zamknięcie galerii
+      showSlide(currentIndex - 1);
+    });
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showSlide(currentIndex + 1);
+    });
+  });
+</script>
 </body>
+
 </html>
