@@ -705,19 +705,18 @@ header, .hero, body {
 
 
 <style>
-/* --- YERBADOR MICRO GALLERY CSS V2 (SMART FIT) --- */
-/* STAN ZWINIĘTY (w siatce) - Wypełnienie 100% kafelka (cover) */
-.yerbador-gallery .carousel-slides { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #050505; }
-.yerbador-gallery .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.6s ease-in-out; object-fit: cover; z-index: 1; }
-.yerbador-gallery .slide.active { opacity: 1; z-index: 2; }
+/* --- UNIFIED MICRO GALLERY CSS --- */
+.micro-gallery .carousel-slides { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #050505; }
+.micro-gallery .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.6s ease-in-out; object-fit: cover; z-index: 1; }
+.micro-gallery .slide.active { opacity: 1; z-index: 2; }
 
-/* STAN POWIĘKSZONY (is-expanded) - Dopasowanie całościowe (contain) + miejsce na licznik */
-.item.is-expanded.yerbador-gallery .carousel-slides { height: calc(100% - 40px); }
-.item.is-expanded.yerbador-gallery .slide { object-fit: contain; }
+/* Stan powiększony (is-expanded) */
+.item.is-expanded.micro-gallery .carousel-slides { height: calc(100% - 40px); }
+.item.is-expanded.micro-gallery .slide { object-fit: contain; }
 
-/* UI (Strzałki i Licznik) */
+/* Przycisk i licznik */
 .carousel-btn, .carousel-counter { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; position: absolute; z-index: 20; }
-.item.is-expanded.yerbador-gallery .carousel-btn, .item.is-expanded.yerbador-gallery .carousel-counter { opacity: 1; pointer-events: auto; }
+.item.is-expanded.micro-gallery .carousel-btn, .item.is-expanded.micro-gallery .carousel-counter { opacity: 1; pointer-events: auto; }
 
 .carousel-btn { top: 45%; transform: translateY(-50%); background: rgba(5,5,5,0.9); color: var(--accent); border: 1px solid var(--accent); padding: 12px 18px; cursor: crosshair; font-family: var(--font-mono); font-weight: bold; font-size: 14px; transition: all 0.3s; z-index: 30; }
 .carousel-btn:hover { background: var(--accent); color: #fff; box-shadow: 0 0 10px var(--accent); }
@@ -1009,37 +1008,37 @@ header, .hero, body {
           </div>
         </div>
       </div>
-      <div class="item" data-title="Włodek — 3D Concept Model" data-desc="3D character concept sculpt focusing on detailed textures and proportions." data-tools="BLENDER / NOMAD SCULPT">
+      <!-- WLODEK MICRO GALLERY -->
+      <div class="item micro-gallery wlodek-gallery" data-title="Włodek — 3D Character Series" data-desc="Complete 3D character design archive including sculpt models and motion renders." data-tools="BLENDER / NOMAD SCULPT / AFTER EFFECTS / VN">
         <div class="item-media">
-          <img src="./assets/WLODEK - concept model.JPG" alt="Włodek — 3D Concept Model" loading="lazy">
-          <div class="item-label">19 // GRAPHIC / DESIGN</div>
+          <div class="carousel-slides">
+            <img src="./assets/WLODEK - concept model.JPG" alt="Włodek Concept Model" class="slide active" loading="lazy">
+            <video src="./assets/WLODEK - model video.MP4" class="slide" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
+          </div>
+          <div class="item-label">19 // 3D / MICRO-GALLERY</div>
+          
+          <!-- Carousel UI -->
+          <button class="carousel-btn prev">[ &lt; ]</button>
+          <button class="carousel-btn next">[ &gt; ]</button>
+          <div class="carousel-counter">[ 1 / 2 ]</div>
         </div>
+        
         <div class="item-info-drawer">
           <button class="close-expand">[ X ] CLOSE</button>
           <div class="drawer-content">
-            <h3 class="drawer-title">Włodek — 3D Concept Model</h3>
-            <div class="drawer-tools">[ TOOLS USED: BLENDER / NOMAD SCULPT ]</div>
-            <p class="drawer-desc">3D character concept sculpt focusing on detailed textures and proportions.</p>
+            <h3 class="drawer-title">Włodek — 3D Character Series</h3>
+            <div class="drawer-tools">[ TOOLS USED: BLENDER / NOMAD SCULPT / AFTER EFFECTS / VN ]</div>
+            <p class="drawer-desc">
+              Comprehensive 3D character development archive for 'Włodek'. Featuring high-detail digital sculpts, textured concept modeling, and dynamic 3D motion presentation renders.<br><br>
+              [ CATEGORY: 3D CHARACTER / MOTION ]<br>
+              [ CONTENT TYPE: 3D SCULPT & MOTION VIDEO ]
+            </p>
           </div>
         </div>
       </div>
-      <div class="item" data-title="Włodek — 3D Motion Render" data-desc="Motion presentation video of the animated 3D character model 'Włodek'." data-tools="BLENDER / AFTER EFFECTS / VN">
-        <div class="item-media">
-          <video src="./assets/WLODEK - model video.MP4" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
-          <div class="item-label">20 // MOTION / VIDEO</div>
-        </div>
-        <div class="item-info-drawer">
-          <button class="close-expand">[ X ] CLOSE</button>
-          <div class="drawer-content">
-            <h3 class="drawer-title">Włodek — 3D Motion Render</h3>
-            <div class="drawer-tools">[ TOOLS USED: BLENDER / AFTER EFFECTS / VN ]</div>
-            <p class="drawer-desc">Motion presentation video of the animated 3D character model 'Włodek'.</p>
-          </div>
-        </div>
-      </div>
-      
+
       <!-- YERBADOR MICRO GALLERY V2 -->
-      <div class="item yerbador-gallery" data-title="Yerbador — Full Campaign" data-desc="Complete advertising campaign archive." data-tools="NANO BANANA / MIDJOURNEY / VN / PHOTOSHOP">
+      <div class="item micro-gallery yerbador-gallery" data-title="Yerbador — Full Campaign" data-desc="Complete advertising campaign archive." data-tools="NANO BANANA / MIDJOURNEY / VN / PHOTOSHOP">
         <div class="item-media">
           <div class="carousel-slides">
             <img src="./assets/YERBADOR - foto 01.JPG" alt="Yerbador Shot 1" class="slide active" loading="lazy">
@@ -1276,51 +1275,55 @@ header, .hero, body {
 
 
 <script>
-  // YERBADOR MICRO GALLERY LOGIC V2
+  // UNIFIED MICRO GALLERY LOGIC (SUPPORTING ALL GALLERIES)
   document.addEventListener('DOMContentLoaded', () => {
-    const gallery = document.querySelector('.yerbador-gallery');
-    if(!gallery) return;
+    const galleries = document.querySelectorAll('.micro-gallery');
+    
+    galleries.forEach(gallery => {
+      const slides = gallery.querySelectorAll('.slide');
+      const counter = gallery.querySelector('.carousel-counter');
+      if (slides.length === 0) return;
 
-    const slides = gallery.querySelectorAll('.slide');
-    const counter = gallery.querySelector('.carousel-counter');
-    let currentIndex = 0;
-    let rotationInterval;
+      // Losowy start okładki dla każdej galerii
+      let currentIndex = Math.floor(Math.random() * slides.length);
 
-    function updateUI() {
-      slides.forEach(s => s.classList.remove('active'));
-      slides[currentIndex].classList.add('active');
-      if(counter) {
-        counter.textContent = '[ ' + (currentIndex + 1) + ' / ' + slides.length + ' ]';
+      function updateUI() {
+        slides.forEach(s => s.classList.remove('active'));
+        slides[currentIndex].classList.add('active');
+        if(counter) {
+          counter.textContent = '[ ' + (currentIndex + 1) + ' / ' + slides.length + ' ]';
+        }
       }
-    }
 
-    function startRotation() {
-      rotationInterval = setInterval(() => {
+      updateUI();
+
+      // Rotacja okładki
+      setInterval(() => {
         if(!gallery.classList.contains('is-expanded')) {
           currentIndex = (currentIndex + 1) % slides.length;
           updateUI();
         }
       }, 2500);
-    }
-    startRotation();
 
-    document.addEventListener('click', (e) => {
-      const prevBtn = e.target.closest('.carousel-btn.prev');
-      const nextBtn = e.target.closest('.carousel-btn.next');
-      
-      if (prevBtn || nextBtn) {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
+      // Przechwytywanie kliknięć w strzałki
+      gallery.addEventListener('click', (e) => {
+        const prevBtn = e.target.closest('.carousel-btn.prev');
+        const nextBtn = e.target.closest('.carousel-btn.next');
 
-        if (prevBtn) {
-          currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-        } else {
-          currentIndex = (currentIndex + 1) % slides.length;
+        if (prevBtn || nextBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+
+          if (prevBtn) {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+          } else {
+            currentIndex = (currentIndex + 1) % slides.length;
+          }
+          updateUI();
         }
-        updateUI();
-      }
-    }, true);
+      }, true);
+    });
   });
 </script>
 </body>
