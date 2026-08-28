@@ -391,6 +391,13 @@
     display: block !important;
   }
 
+
+  /* HUSTLE_OBJECT_POSITION_V1 */
+  a.card[href*="hustle.crediva.dev"] .slideshow .slide {
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
@@ -479,7 +486,7 @@
 
       <div class="card-glass-frame">
         <div class="slideshow">
-          <img src="projects/ai-agent/assets/hustle-teaser.jpg" class="slide active" alt="hustle.">
+          <img src="projects/ai-agent/assets/hustle-teaser.jpg" class="slide active" alt="hustle." style="object-fit:cover; object-position:center center; width:100%; height:100%;">
         </div>
         <div class="glass-tint"></div>
       </div>
