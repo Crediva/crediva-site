@@ -371,14 +371,20 @@
     </a>
 
     <!-- CARD 03: AGENT FACTORY -->
-    <a class="card" href="https://hustle.crediva.dev" target="_blank" rel="noopener noreferrer" data-status="soon" style="--accent:#a7f3d0; --delay:.4s;">
+    <a class="card" href="https://hustle.crediva.dev" target="_blank" rel="noopener noreferrer" data-status="live" style="--accent:#a7f3d0; --delay:.4s;">
       <div class="card-glow" aria-hidden="true"></div>
       <div class="card-header-meta">
         <span class="card-index">03</span>
         <span class="card-status">Live</span>
       </div>
 
-      <div class="card-body">
+      
+      <div class="card-visual">
+        <div class="card-slider">
+          <img src="projects/ai-agent/assets/hustle-teaser.jpg" class="slide active" alt="Hustle Agent Factory">
+        </div>
+      </div>
+<div class="card-body">
         <span class="card-label">AI Automation</span>
         <h2 class="card-title-snasm">Agent Factory</h2>
         <div class="card-reveal">
@@ -478,6 +484,23 @@
 
       // Card Click
       card.addEventListener('click', (e) => {
+
+        // External / live dashboards — always allow navigation
+        const href = card.getAttribute('href') || '';
+        if (href.startsWith('http') || card.dataset.status === 'live') {
+          // let browser follow link (target=_blank works)
+          return;
+        }
+        if (card.dataset.status === 'soon') {
+          e.preventDefault();
+          if (typeof showToast === 'function') showToast();
+          else {
+            const t = document.getElementById('toast');
+            if (t) { t.textContent = 'Project in progress'; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
+          }
+          return;
+        }
+
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
 
         if (card.dataset.status === 'soon') {
