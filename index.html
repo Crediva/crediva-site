@@ -454,16 +454,22 @@
   }
 
 
+  /* rozmiar jak inne tytuły kart — bez delcom display */
+    font-size: inherit;
+  }
+
+
   /* HUSTLE_TITLE_FONT_V1 */
   a.card[href*="hustle.crediva.dev"] .card-title-hustle {
     font-family: "Space Grotesk", system-ui, sans-serif !important;
     font-weight: 700 !important;
     font-style: italic !important;
     text-transform: none !important;
-    letter-spacing: -0.04em !important;
-    line-height: 1.05 !important;
-    /* rozmiar jak inne tytuły kart — bez delcom display */
-    font-size: inherit;
+    letter-spacing: -0.05em !important;
+    line-height: 0.95 !important;
+    font-size: clamp(1.85rem, 2.8vw, 2.35rem) !important;
+    display: block;
+    margin: 0.1rem 0 0 0;
   }
 
 </style>
