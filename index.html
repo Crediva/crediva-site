@@ -294,7 +294,7 @@
   .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
   footer { font-family: var(--font-cond); font-size: 12px; color: var(--ink-soft); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 20px; }
 
-  /* HUSTLE_TEASER_FIT_V2 */
+  
   a.card {
     display: flex !important;
     flex-direction: column !important;
@@ -327,69 +327,16 @@
   }
 
 
-  /* HUSTLE_CARD_BRAND_V3 — Agent Factory / hustle. own brand on card 03 only */
-  a.card.card-hustle {
-    display: flex !important;
-    flex-direction: column !important;
-    overflow: hidden !important;
-  }
-  a.card.card-hustle .card-visual {
-    position: relative !important;
-    flex: 1 1 auto !important;
-    width: 100% !important;
-    min-height: 200px !important;
-    overflow: hidden !important;
-  }
-  a.card.card-hustle .card-slider {
-    position: absolute !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-  }
-  a.card.card-hustle .card-slider img,
-  a.card.card-hustle .slide {
-    position: absolute !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center center !important;
-    display: block !important;
-  }
-  a.card.card-hustle .card-title-hustle {
-    font-family: "Space Grotesk", Inter, system-ui, sans-serif !important;
-    font-weight: 700 !important;
-    font-style: italic !important;
-    font-size: clamp(1.35rem, 2.2vw, 1.75rem) !important;
-    letter-spacing: -0.03em !important;
-    text-transform: none !important;
-    color: #0f172a !important;
-    margin: 0.15rem 0 0 0 !important;
-    line-height: 1.1 !important;
-  }
-  a.card.card-hustle .card-sub-hustle {
-    font-family: "JetBrains Mono", ui-monospace, monospace !important;
-    font-size: 0.72rem !important;
-    font-weight: 500 !important;
-    letter-spacing: 0.08em !important;
-    text-transform: uppercase !important;
-    color: #64748b !important;
-    margin: 0.25rem 0 0 0 !important;
-  }
-  a.card.card-hustle .card-label {
-    font-family: "JetBrains Mono", ui-monospace, monospace !important;
-    font-size: 0.65rem !important;
-    letter-spacing: 0.12em !important;
-    text-transform: uppercase !important;
-  }
-  a.card.card-hustle .card-hover p,
-  a.card.card-hustle .card-cta {
-    font-family: Inter, system-ui, sans-serif !important;
-  }
-  a.card.card-hustle .marquee,
-  a.card.card-hustle .card-ticker {
-    display: none !important;
-  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -470,28 +417,34 @@
     </a>
 
     <!-- CARD 03: AGENT FACTORY -->
-    <a class="card card-hustle" href="https://hustle.crediva.dev" target="_blank" rel="noopener noreferrer" data-status="live" data-transition="circle" style="--accent:#a7f3d0; --delay:.4s;">
-      <div class="card-top">
-        <span class="card-num">03</span>
+    <a class="card" href="https://hustle.crediva.dev" target="_blank" rel="noopener noreferrer" data-status="live" data-transition="circle" style="--accent:#a7f3d0; --delay:.4s;">
+      <div class="card-glow" aria-hidden="true"></div>
+      <div class="card-header-meta">
+        <span class="card-index">01</span>
         <span class="card-status">Live</span>
       </div>
 
-      <div class="card-visual">
-        <div class="card-slider">
-          <img src="projects/ai-agent/assets/hustle-teaser.jpg" class="slide active" alt="hustle. — Agent Factory">
+      <div class="card-glass-frame">
+        <div class="slideshow">
+          <img src="projects/nisuz-prints/assets/foto/FOTO-green.PNG" class="slide active" alt="Nisuz 1">
+          <img src="projects/nisuz-prints/assets/foto/E-shop-die-cut.JPG" class="slide" alt="Nisuz 2">
+          <img src="projects/nisuz-prints/assets/foto/FOTO-red.JPG" class="slide" alt="Nisuz 3">
+          <img src="projects/nisuz-prints/assets/foto/MODEL-marinez.PNG" class="slide" alt="Nisuz 4">
+          <img src="projects/nisuz-prints/assets/foto/FOTO-necron.JPG" class="slide" alt="Nisuz 5">
+          <img src="projects/nisuz-prints/assets/foto/FOTO-box-1.PNG" class="slide" alt="Nisuz 6">
         </div>
+        <div class="glass-tint"></div>
       </div>
 
       <div class="card-body">
-        <div class="card-meta">
-          <span class="card-label">AI AUTOMATION</span>
-          <h2 class="card-title-hustle">hustle.</h2>
-          <p class="card-sub-hustle">Agent Factory</p>
-        </div>
-        <div class="card-hover">
+        <span class="card-label">3D Printing</span>
+        <h2 class="card-title-delcom">hustle.</h2>
+        <div class="card-reveal">
+        <div class="card-reveal-inner">
           <p>A Python pipeline that finds real problems in local businesses and builds specialized AI agents to solve them.</p>
-          <span class="card-cta">View dashboard <span class="arrow">&rarr;</span></span>
+          <span class="card-cta">View project <span class="arrow">→</span></span>
         </div>
+      </div>
       </div>
     </a>
 
