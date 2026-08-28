@@ -398,6 +398,39 @@
     object-position: center center !important;
   }
 
+
+  /* HUSTLE_ZOOM_ANIM_V1 */
+  /* Karta 03: bez slideshow — spokojny zoom w stronę napisu hustle. */
+  a.card[href*="hustle.crediva.dev"] .slideshow {
+    overflow: hidden;
+  }
+  a.card[href*="hustle.crediva.dev"] .slideshow .slide {
+    object-fit: cover !important;
+    object-position: center center !important;
+    width: 100% !important;
+    height: 100% !important;
+    transform: scale(1);
+    transform-origin: center center;
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  /* hover / focus karty → zoom w napis */
+  a.card[href*="hustle.crediva.dev"]:hover .slideshow .slide,
+  a.card[href*="hustle.crediva.dev"]:focus-visible .slideshow .slide {
+    transform: scale(1.12);
+    transform-origin: center center;
+  }
+  /* gdy karta ma stan aktywny z JS (jeśli dodaje .is-hovered / :hover na frame) */
+  a.card[href*="hustle.crediva.dev"] .card-glass-frame:hover .slide {
+    transform: scale(1.12);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    a.card[href*="hustle.crediva.dev"] .slideshow .slide {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
