@@ -293,6 +293,39 @@
   .toast { position: fixed; bottom: 32px; left: 50%; transform: translate(-50%, 20px); background: #21213a; color: #fff; padding: 10px 20px; border-radius: 30px; font-family: var(--font-cond); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0; transition: all 0.3s ease; pointer-events: none; z-index: 100000; }
   .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
   footer { font-family: var(--font-cond); font-size: 12px; color: var(--ink-soft); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 20px; }
+
+  /* HUSTLE_TEASER_FIT_V2 */
+  a.card {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden;
+  }
+  a.card .card-visual {
+    position: relative !important;
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    min-height: 220px !important;
+    overflow: hidden !important;
+  }
+  a.card .card-slider {
+    position: absolute !important;
+    top: 0; right: 0; bottom: 0; left: 0;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  a.card .card-slider .slide,
+  a.card .slide,
+  a.card .card-slider img {
+    position: absolute !important;
+    top: 0; right: 0; bottom: 0; left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    display: block !important;
+    border: 0 !important;
+  }
+
 </style>
 </head>
 <body>
@@ -371,22 +404,28 @@
     </a>
 
     <!-- CARD 03: AGENT FACTORY -->
-    <a class="card" href="https://hustle.crediva.dev" target="_blank" rel="noopener noreferrer" data-status="live" style="--accent:#a7f3d0; --delay:.4s;">
+    <a class="card" href="https://hustle.crediva.dev" target="_blank" rel="noopener noreferrer" data-status="live" data-transition="circle" style="--accent:#a7f3d0; --delay:.4s;">
       <div class="card-glow" aria-hidden="true"></div>
       <div class="card-header-meta">
         <span class="card-index">03</span>
         <span class="card-status">Live</span>
       </div>
 
-      
-      <div class="card-visual">
-        <div class="card-slider">
-          <img src="projects/ai-agent/assets/hustle-teaser.jpg" class="slide active" alt="Hustle Agent Factory">
+      <div class="card-glass-frame">
+        <div class="slideshow">
+          <img src="projects/nisuz-prints/assets/foto/FOTO-green.PNG" class="slide active" alt="Nisuz 1">
+          <img src="projects/nisuz-prints/assets/foto/E-shop-die-cut.JPG" class="slide" alt="Nisuz 2">
+          <img src="projects/nisuz-prints/assets/foto/FOTO-red.JPG" class="slide" alt="Nisuz 3">
+          <img src="projects/nisuz-prints/assets/foto/MODEL-marinez.PNG" class="slide" alt="Nisuz 4">
+          <img src="projects/nisuz-prints/assets/foto/FOTO-necron.JPG" class="slide" alt="Nisuz 5">
+          <img src="projects/nisuz-prints/assets/foto/FOTO-box-1.PNG" class="slide" alt="Nisuz 6">
         </div>
+        <div class="glass-tint"></div>
       </div>
-<div class="card-body">
-        <span class="card-label">AI Automation</span>
-        <h2 class="card-title-snasm">Agent Factory</h2>
+
+      <div class="card-body">
+        <span class="card-label">AI AUTOMATION</span>
+        <h2 class="card-title-delcom">Agent Factory</h2>
         <div class="card-reveal">
         <div class="card-reveal-inner">
           <p>A Python pipeline that finds real problems in local businesses and builds specialized AI agents to solve them.</p>
