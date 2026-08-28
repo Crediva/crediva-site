@@ -339,7 +339,6 @@
   
 
 
-  /* HUSTLE_IMG_CENTER_V1 */
   /* Wyśrodkuj i wypełnij okno podglądu tylko na karcie hustle */
   a.card[href*="hustle.crediva.dev"] .card-visual,
   a.card[href*="hustle.crediva.dev"] .card-media,
@@ -365,6 +364,57 @@
     object-fit: cover !important;
     object-position: center center !important;
     display: block !important;
+  }
+
+
+  /* HUSTLE_IMG_CENTER_V2 */
+  a.card[href*="hustle.crediva.dev"] .card-visual,
+  a.card[href*="hustle.crediva.dev"] .card-media {
+    position: relative !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 160px !important;
+    flex: 1 1 auto !important;
+  }
+  a.card[href*="hustle.crediva.dev"] .card-slider {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+  a.card[href*="hustle.crediva.dev"] .card-slider .slide,
+  a.card[href*="hustle.crediva.dev"] .card-slider img.slide,
+  a.card[href*="hustle.crediva.dev"] .card-slider img {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: inherit !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    z-index: 1 !important;
+  }
+  /* wyłącz animacje slidera na tej karcie (jeden kadr) */
+  a.card[href*="hustle.crediva.dev"] .card-slider .slide:not(.active) {
+    display: none !important;
   }
 
 </style>
