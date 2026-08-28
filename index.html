@@ -431,6 +431,28 @@
     }
   }
 
+
+  /* HUSTLE_NO_SLIDE_ONLY_ZOOM_V1 */
+  a.card[href*="hustle.crediva.dev"] .slideshow,
+  a.card[href*="hustle.crediva.dev"] .slideshow[data-static="true"] {
+    overflow: hidden !important;
+  }
+  /* wyłącz typowe animacje slajdów (opacity/translate) na karcie 03 */
+  a.card[href*="hustle.crediva.dev"] .slideshow .slide {
+    opacity: 1 !important;
+    visibility: visible !important;
+    animation: none !important;
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) !important;
+    transform: scale(1) !important;
+    transform-origin: center center !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+  a.card[href*="hustle.crediva.dev"]:hover .slideshow .slide,
+  a.card[href*="hustle.crediva.dev"]:focus-visible .slideshow .slide {
+    transform: scale(1.12) !important;
+  }
+
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
@@ -518,7 +540,7 @@
       </div>
 
       <div class="card-glass-frame">
-        <div class="slideshow">
+        <div class="slideshow" data-static="true">
           <img src="projects/ai-agent/assets/hustle-teaser.jpg" class="slide active" alt="hustle." style="object-fit:cover; object-position:center center; width:100%; height:100%;">
         </div>
         <div class="glass-tint"></div>
@@ -551,6 +573,7 @@
 
     // 1. Slideshows
     document.querySelectorAll('.slideshow').forEach(slideshow => {
+      if (slideshow.dataset.static === 'true') return; // hustle: zoom only, no slide rotate
       const slides = slideshow.querySelectorAll('.slide');
       if (slides.length <= 1) return;
       let activeIdx = 0;
