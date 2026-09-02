@@ -479,13 +479,18 @@
 
 
 
-/* === TEASER FIT v3 (slideshow safe, no frame) === */
-/* Jasne tło letterbox (oryginalne) — NIE czarne */
+
+
+
+
+/* === TEASER FIT v4 (contain + gentle ken burns) === */
+/* Jasne tło letterbox — bez czarnej ramki */
 .card-glass-frame .slideshow {
   background: #e8eef8 !important;
+  overflow: hidden !important;
 }
 
-/* Cały kadr w ramce; bez panu w dół; bez paddingu/ramki */
+/* Cały kadr w ramce */
 .card-glass-frame .slide {
   top: 0 !important;
   left: 0 !important;
@@ -497,30 +502,41 @@
   margin: 0 !important;
   border: none !important;
   box-sizing: border-box !important;
-  /* wyłącz TYLKO ken-burns/pan — zostaw opacity dla JS slideshow */
-  animation-name: none !important;
-  transform: none !important;
-  will-change: opacity !important;
+  transform-origin: center center !important;
+  will-change: opacity, transform !important;
   transition: opacity 0.85s ease-in-out !important;
 }
 
-/* Crossfade slajdów — logika JS (.active) bez zmian */
+/* Nieaktywne: ukryte, bez animacji */
 .card-glass-frame .slide:not(.active) {
   opacity: 0 !important;
   z-index: 1 !important;
   pointer-events: none;
+  animation: none !important;
+  transform: scale(1) !important;
 }
+
+/* Aktywny: crossfade + delikatny zoom (zamiast panu -32% który ucinał) */
 .card-glass-frame .slide.active {
   opacity: 1 !important;
   z-index: 2 !important;
+  animation: teaserKenBurns 5.5s ease-out forwards !important;
 }
 
-/* Karta 03 hustle: cover jak było (logo/teaser) */
+@keyframes teaserKenBurns {
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.06); }
+}
+
+/* Karta 03 hustle: cover + ten sam delikatny zoom */
 a.card[href*="hustle.crediva.dev"] .card-glass-frame .slide {
   object-fit: cover !important;
   object-position: center center !important;
 }
-/* === END TEASER FIT v3 (slideshow safe, no frame) === */
+a.card[href*="hustle.crediva.dev"] .card-glass-frame .slide.active {
+  animation: teaserKenBurns 5.5s ease-out forwards !important;
+}
+/* === END TEASER FIT v4 (contain + gentle ken burns) === */
 
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,500;0,700;1,700&display=swap" rel="stylesheet">
