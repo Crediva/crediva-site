@@ -483,60 +483,72 @@
 
 
 
-/* === TEASER FIT v4 (contain + gentle ken burns) === */
-/* Jasne tło letterbox — bez czarnej ramki */
+
+
+
+
+/* === TEASER FIT v5 (pan top→bottom + slideshow) === */
+/* Jasne tło, bez czarnej ramki */
 .card-glass-frame .slideshow {
   background: #e8eef8 !important;
   overflow: hidden !important;
 }
 
-/* Cały kadr w ramce */
+/* Bazowy slajd: wyższy kadr pod pan góra→dół */
 .card-glass-frame .slide {
   top: 0 !important;
   left: 0 !important;
   width: 100% !important;
-  height: 100% !important;
-  object-fit: contain !important;
-  object-position: center center !important;
+  height: 140% !important;          /* miejsce na ruch w dół (było 150%) */
+  object-fit: cover !important;
+  object-position: center top !important;
   padding: 0 !important;
   margin: 0 !important;
   border: none !important;
   box-sizing: border-box !important;
-  transform-origin: center center !important;
+  transform: translate3d(0, 0, 0) !important;
+  transform-origin: center top !important;
   will-change: opacity, transform !important;
   transition: opacity 0.85s ease-in-out !important;
+  animation: none !important;
 }
 
-/* Nieaktywne: ukryte, bez animacji */
+/* Crossfade — JS .active bez zmian */
 .card-glass-frame .slide:not(.active) {
   opacity: 0 !important;
   z-index: 1 !important;
   pointer-events: none;
   animation: none !important;
-  transform: scale(1) !important;
+  transform: translate3d(0, 0, 0) !important;
 }
 
-/* Aktywny: crossfade + delikatny zoom (zamiast panu -32% który ucinał) */
+/* Aktywny: fade-in + pan od góry w dół zdjęcia */
 .card-glass-frame .slide.active {
   opacity: 1 !important;
   z-index: 2 !important;
-  animation: teaserKenBurns 5.5s ease-out forwards !important;
+  animation: teaserPanTopToBottom 5.5s linear forwards !important;
 }
 
-@keyframes teaserKenBurns {
-  0%   { transform: scale(1); }
-  100% { transform: scale(1.06); }
+/* Ruch tylko w zakresie „nadmiaru” wysokości (140% → max ~28% translate) */
+@keyframes teaserPanTopToBottom {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, -28%, 0); }
 }
 
-/* Karta 03 hustle: cover + ten sam delikatny zoom */
+/* Hustle (03): cover + ten sam pan albo spokojniejszy zoom — pan OK na teaserze */
 a.card[href*="hustle.crediva.dev"] .card-glass-frame .slide {
   object-fit: cover !important;
   object-position: center center !important;
+  height: 100% !important; /* static teaser: bez panu wysokości */
 }
 a.card[href*="hustle.crediva.dev"] .card-glass-frame .slide.active {
-  animation: teaserKenBurns 5.5s ease-out forwards !important;
+  animation: teaserKenSoft 5.5s ease-out forwards !important;
 }
-/* === END TEASER FIT v4 (contain + gentle ken burns) === */
+@keyframes teaserKenSoft {
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+/* === END TEASER FIT v5 (pan top→bottom + slideshow) === */
 
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,500;0,700;1,700&display=swap" rel="stylesheet">
