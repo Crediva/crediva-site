@@ -487,68 +487,65 @@
 
 
 
-/* === TEASER FIT v5 (pan top→bottom + slideshow) === */
-/* Jasne tło, bez czarnej ramki */
-.card-glass-frame .slideshow {
+
+
+
+
+/* === TEASER HIGH-SPECIFICITY PAN TOP-TO-BOTTOM v6 === */
+/* Jasne tło pojemnika slideshow */
+a.card .card-glass-frame .slideshow {
   background: #e8eef8 !important;
   overflow: hidden !important;
+  position: absolute !important;
+  inset: 0 !important;
 }
 
-/* Bazowy slajd: wyższy kadr pod pan góra→dół */
-.card-glass-frame .slide {
+/* Wysoki kadr (140%) umożliwiający płynny przejazd góra -> dół bez pustych miejsc */
+a.card:not([href*="hustle.crediva.dev"]) .card-glass-frame .slideshow img.slide {
+  position: absolute !important;
   top: 0 !important;
   left: 0 !important;
   width: 100% !important;
-  height: 140% !important;          /* miejsce na ruch w dół (było 150%) */
+  height: 140% !important; /* Pozwala na zjazd o 28.5% wysokości */
   object-fit: cover !important;
   object-position: center top !important;
   padding: 0 !important;
   margin: 0 !important;
   border: none !important;
   box-sizing: border-box !important;
-  transform: translate3d(0, 0, 0) !important;
-  transform-origin: center top !important;
   will-change: opacity, transform !important;
   transition: opacity 0.85s ease-in-out !important;
-  animation: none !important;
 }
 
-/* Crossfade — JS .active bez zmian */
-.card-glass-frame .slide:not(.active) {
+/* Nieaktywne slajdy: ukryte w tle */
+a.card:not([href*="hustle.crediva.dev"]) .card-glass-frame .slideshow img.slide:not(.active) {
   opacity: 0 !important;
   z-index: 1 !important;
-  pointer-events: none;
   animation: none !important;
   transform: translate3d(0, 0, 0) !important;
 }
 
-/* Aktywny: fade-in + pan od góry w dół zdjęcia */
-.card-glass-frame .slide.active {
+/* Aktywny slajd: widoczny + płynny przejazd od samej góry zdjęcia do dołu */
+a.card:not([href*="hustle.crediva.dev"]) .card-glass-frame .slideshow img.slide.active {
   opacity: 1 !important;
   z-index: 2 !important;
-  animation: teaserPanTopToBottom 5.5s linear forwards !important;
+  animation: panTopToBottom 5.5s linear forwards !important;
 }
 
-/* Ruch tylko w zakresie „nadmiaru” wysokości (140% → max ~28% translate) */
-@keyframes teaserPanTopToBottom {
+@keyframes panTopToBottom {
   0%   { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(0, -28%, 0); }
+  100% { transform: translate3d(0, -28.5%, 0); }
 }
 
-/* Hustle (03): cover + ten sam pan albo spokojniejszy zoom — pan OK na teaserze */
-a.card[href*="hustle.crediva.dev"] .card-glass-frame .slide {
+/* Karta 03 Hustle: stabilny cover z delikatnym zoomem przy najechaniu */
+a.card[href*="hustle.crediva.dev"] .card-glass-frame .slideshow img.slide {
+  height: 100% !important;
   object-fit: cover !important;
   object-position: center center !important;
-  height: 100% !important; /* static teaser: bez panu wysokości */
+  transform: translate3d(0, 0, 0) !important;
+  animation: none !important;
 }
-a.card[href*="hustle.crediva.dev"] .card-glass-frame .slide.active {
-  animation: teaserKenSoft 5.5s ease-out forwards !important;
-}
-@keyframes teaserKenSoft {
-  0%   { transform: scale(1); }
-  100% { transform: scale(1.08); }
-}
-/* === END TEASER FIT v5 (pan top→bottom + slideshow) === */
+/* === END TEASER HIGH-SPECIFICITY PAN TOP-TO-BOTTOM v6 === */
 
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,500;0,700;1,700&display=swap" rel="stylesheet">
